@@ -64,11 +64,21 @@ body{
     transform: scaleX(-1); /* Flip horizontally */
     animation: slideIn 2s forwards; /* Animation for sliding in */
 }
+.mainImageDisplay3 {
+    position: fixed;
+    top: 30%;
+    left: -10%;  /* Initial left position */
+    transition: left .8s ease-in-out;  /* Transition property with duration and timing function */
+    animation: slideIn 2s forwards; /* Animation for sliding in */
+}
 
 .mainImageDisplay.show {
     left: 5%;  /* Final left position */
 }
 .mainImageDisplay2.show {
+    left: 5%;  /* Final left position */
+}
+.mainImageDisplay3.show {
     left: 5%;  /* Final left position */
 }
 

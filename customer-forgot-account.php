@@ -21,34 +21,10 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <style>
-		body {
-			font-family: 'Poppins', sans-serif;
-			font-size: 15px;
-			margin: 0; /* Remove default margin */
-			position: relative;
-		}
-
-		body::before {
-			content: '';
-			position: fixed;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			left: 0;
-			background: url('img/model/MinivanModel.jpg') center/cover no-repeat; /* Adjust the path and properties as needed */
-			filter: blur(20px); /* Set the desired blur amount */
-			z-index: -1; /* Place the background behind other content */
-		}
-
-		.overlay {
-			position: absolute;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			left: 0;
-			background-color: rgba(255, 255, 255, 0.832); /* Adjust the alpha channel for the overlay color and opacity */
-			z-index: 0; /* Place the overlay behind other content */
-		}
+        body{
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+        }
         
         .enterAnimation {
         color: #212121;
@@ -106,7 +82,7 @@
                         style="width:250px;height:250px">
                     </lord-icon>
                     <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
-                        <h4 class="messageText">Success! Your password has been reset.</h4>
+                        <h4 class="messageText">Password Reset Successful!</h4>
                     </div>
                     <div class="row">
                         <div class="center">
@@ -142,10 +118,11 @@
 
 
     <div class="content-wrapper">
+        <img class="wave" src="img/wave.png">
         <h1>Get Help to <span>Litz</span><span style="color: red;"> Autoshop</span></h1>
-			<div class="img"><!-- style="transform: scaleX(-1);" -->
-				<img class="mainImageDisplay" style=" width:50%" src="img/forgotpage.svg">
-			</div>
+            <div class="img">
+                <img class="mainImageDisplay3" src="img/forgotpage.svg">
+            </div>
             <div class="loginForm">
                 <form>
                     <img src="img/avatar.svg">
@@ -197,6 +174,7 @@
 
     
         $(document).ready(function(){
+            $('.mainImageDisplay3').addClass('show');  // Add the 'show' class to trigger the transition
 
             $('#submit').click(function (){
                 var valid = true;
@@ -234,7 +212,7 @@
                                 setTimeout(function () {
                                     // $('#successModal').modal('hide');
                                     window.location.reload();
-                                }, 1500);
+                                }, 2000);
 
                             }else{
                                 
