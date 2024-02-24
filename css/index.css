@@ -1,0 +1,389 @@
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+    font-size: 13px;
+	/* border: 1px solid red; */
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    /* overflow: hidden; */
+	overflow-x: hidden;
+}
+
+.content-wrapper h1{
+    position: fixed;
+    top: 15%;
+    left: 20%;
+    font-size: 30px;
+}
+
+.content-wrapper h1 span{
+    font-size: 50px;
+    color: blue;
+}
+
+#logo{
+	position: fixed;
+	top: -10px;
+	left: 10px;
+	width: 10%;
+}
+
+
+.wave{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: 100%;
+	z-index: -1;
+	filter: hue-rotate(-630deg);
+}
+
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+.mainImageDisplay {
+	width: 1000px;
+    position: fixed;
+    top: 30%;
+    left: -10%;  /* Initial left position */
+    transition: left .8s ease-in-out;  /* Transition property with duration and timing function */
+    transform: scaleX(-1); /* Flip horizontally */
+    animation: slideIn 2s forwards; /* Animation for sliding in */
+}
+.mainImageDisplay2 {
+    position: fixed;
+    top: 30%;
+    left: -10%;  /* Initial left position */
+    transition: left .8s ease-in-out;  /* Transition property with duration and timing function */
+    transform: scaleX(-1); /* Flip horizontally */
+    animation: slideIn 2s forwards; /* Animation for sliding in */
+}
+
+.mainImageDisplay.show {
+    left: 5%;  /* Final left position */
+}
+.mainImageDisplay2.show {
+    left: 5%;  /* Final left position */
+}
+
+.loginForm{
+	background-color: white;
+	position: absolute;
+	top: 40px;
+	right: 80px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	text-align: center;
+	border-radius: 17px;
+	padding: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a simple box shadow */
+}
+
+.signupForm{
+	background-color: white;
+	position: absolute;
+	top: 40px;
+	right: 80px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	text-align: center;
+	border-radius: 17px;
+	padding: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a simple box shadow */
+}
+
+form{
+	width: 360px;
+}
+
+.loginForm img{
+    height: 100px;
+}
+
+.loginForm h2{
+	margin: 15px 0;
+	color: #333;
+	text-transform: uppercase;
+	font-size: 2.9rem;
+}
+
+.loginForm .input-div{
+	position: relative;
+    display: grid;
+    grid-template-columns: 7% 93%;
+    margin: 25px 0;
+    padding: 5px 0;
+    border-bottom: 2px solid #d9d9d9;
+}
+
+.loginForm .input-div.one{
+	margin-top: 0;
+}
+
+.signupForm img{
+    height: 100px;
+}
+
+.signupForm h2{
+	margin: 15px 0;
+	color: #333;
+	text-transform: uppercase;
+	font-size: 2.9rem;
+}
+
+.signupForm .input-div{
+	position: relative;
+    display: grid;
+    grid-template-columns: 7% 93%;
+    margin: 25px 0;
+    padding: 5px 0;
+    border-bottom: 2px solid #d9d9d9;
+}
+
+.signupForm .input-div.one{
+	margin-top: 0;
+}
+
+
+.i{
+	color: #d9d9d9;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.i i{
+	transition: .3s;
+}
+
+.input-div > div{
+    position: relative;
+	height: 45px;
+}
+
+.input-div > div > h5{
+	position: absolute;
+	left: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #999;
+	font-size: 18px;
+	transition: .3s;
+}
+
+.input-div:before, .input-div:after{
+	content: '';
+	position: absolute;
+	bottom: -2px;
+	width: 0%;
+	height: 2px;
+	background-color: #594f8d;
+	transition: .4s;
+}
+
+.input-div:before{
+	right: 50%;
+}
+
+.input-div:after{
+	left: 50%;
+}
+
+.input-div.focus:before, .input-div.focus:after{
+	width: 50%;
+}
+
+.input-div.focus > div > h5{
+	top: -5px;
+	font-size: 15px;
+}
+
+.input-div.focus > .i > i{
+	color: #594f8d;
+}
+
+.input-div > div > input{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	border: none;
+	outline: none;
+	background: none;
+	padding: 0.5rem 0.7rem;
+	font-size: 1.2rem;
+	color: #555;
+	font-family: 'poppins', sans-serif;
+}
+
+.input-div.pass{
+	margin-top: 0;
+}
+
+.accountLink{
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	color: #999;
+	transition: .3s;
+	height: 40px;
+	width: 100%;
+}
+
+.accountLink:hover{
+	cursor: pointer;
+	color: #594f8d;
+}
+
+.newBtn {
+	cursor: pointer;
+	  width: 100%;
+	position: relative;
+	padding: 10px 24px;
+	font-size: 18px;
+	color: #fff;
+	border: 2px #9cb1ff;
+	border-radius: 34px;
+	background-color: #9cb1ff;
+	font-weight: 600;
+	transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+	overflow: hidden;
+  }
+  
+  .newBtn::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	margin: auto;
+	width: 50px;
+	height: 50px;
+	border-radius: inherit;
+	scale: 0;
+	z-index: -1;
+	background-color: #4650ff;
+	transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .newBtn:hover::before {
+	scale: 10;
+  }
+  
+  .newBtn:hover {
+	color: #212121;
+	scale: 1.1;
+	box-shadow: 0 0px 20px rgba(193, 163, 98,0.4);
+  }
+  
+  .newBtn:active {
+	scale: 1;
+  }
+
+
+@media screen and (max-width: 1050px){
+	.container{
+		grid-gap: 5rem;
+	}
+	
+	.loginForm{
+		border-radius: 17px;
+		padding: 10px;
+		justify-content: center;
+	}
+	
+	.signupForm{
+		border-radius: 17px;
+		padding: 10px;
+		justify-content: center;
+	}
+
+	#myCheckbox{
+		position: relative;
+	}
+    
+}
+
+@media screen and (max-width: 1000px){
+	form{
+		width: 290px;
+	}
+
+	.loginForm{
+		border-radius: 17px;
+		padding: 10px;
+		justify-content: center;
+	}
+	
+	.signupForm{
+		border-radius: 17px;
+		padding: 10px;
+		justify-content: center;
+	}
+
+	.login-content h2{
+        font-size: 2.4rem;
+        margin: 8px 0;
+	}
+
+	.img img{
+		width: 400px;
+	}
+
+	.content-wrapper h1{
+		font-size: 20px;
+	}
+}
+
+@media screen and (max-width: 800px){
+	.container{
+		grid-template-columns: 1fr;
+	}
+
+	.img{
+		display: none;
+	}
+
+	.content-wrapper{
+		display: grid;
+		place-items: center;
+	}
+
+	.loginForm{
+		position: inherit;
+		border-radius: 17px;
+		padding: 10px;
+		justify-content: center;
+	}
+
+	.signupForm{
+		position: inherit;
+		border-radius: 17px;
+		padding: 10px;
+		justify-content: center;
+	}
+    .content-wrapper h1{
+        display: none;
+    }
+	#logo{
+		display: none;
+	}
+	.accountLink{
+		display: block;
+		text-align: center;
+		text-decoration: none;
+		color: #999;
+		transition: .3s;
+		height: 40px;
+		width: 100%;
+		position: relative;
+		bottom: -0px;
+	}
+}

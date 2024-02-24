@@ -1,0 +1,122 @@
+
+:root{
+  --main-color: #d90429;
+  --text-color: #020102 ;
+  --bg-color: #fff;
+}
+.box.card {
+  padding: 20px;
+  border-radius: 0.5rem;
+  margin: 10px;
+  box-sizing: border-box; /* Include padding and border in the total width */
+  width: 316px; /* Fixed width for each card */
+}
+.box img{
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  object-position: center;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  /* mix-blend-mode: color-burn; */
+  /* filter: hue-rotate(120deg); */
+}
+
+.showdetailsign {
+  transition: 0.1s ease; /* Add a transition effect to the 'transform' property */
+}
+
+.showdetailsign:hover{
+  animation: tilt 0.5s;
+  cursor: pointer;
+}
+
+@keyframes tilt {
+  0% {
+      transform: rotate(-10deg); /* Rotate 10 degrees to the left */
+  }
+  100% {
+      transform: rotate(10deg); /* Rotate 10 degrees to the right */
+  }
+}
+
+.box h2{
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.box span{
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--main-color);
+}
+
+.box .btn{
+  width: 230px;
+}
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(316px, 1fr)); /* Cards have a minimum width of 316px */
+  justify-content: space-between; /* Distribute space between columns */
+  gap: 16px; /* Adjust the gap between cards as needed */
+}
+
+.card-container::after {
+  content: ""; /* Create an empty pseudo-element to fill the last row */
+  grid-column: span 1; /* Adjust the span based on the number of columns in the grid */
+}
+
+.formImg {
+  width: 100%;
+  overflow: hidden;
+  height: 300px;
+}
+
+.formImg img {
+  width: 100%;
+  overflow: auto;
+  object-fit: contain;
+  object-position: center;
+}
+
+.mainDetails{
+  /* color: red; */
+  font-size: 18px;
+}
+
+/* About Carousel */
+
+#DG64V, #DA64W, #DA64V{
+  display: none;
+}
+
+#DG64V.show, #DA64W.show, #DA64V.show{
+  display: block;
+}
+
+.carousel-item{
+  place-items: center;
+}
+
+.carousel-item img{
+  width: 200px;
+  height: 300px;
+  overflow: hidden;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon{
+  padding: 40px;
+}
+
+.buyBtn{
+  /* width: 80px; */
+  padding: 0 20px 0 20px;
+}
+
+
+@media screen and (max-width: 767px) {
+
+  .showdetailsign{
+    display: none;
+  }
+
+}

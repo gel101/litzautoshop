@@ -1,0 +1,63 @@
+:root {
+--main-bg-color: whitesmoke;
+--main-text-color: #ffff;
+--second-text-color: #bbbec5;
+--second-bg-color: #c1efde;
+--dark-color: #000000;
+}
+/* 
+.primary-text {
+color: var(--main-text-color);
+}
+
+.second-text {
+color: var(--second-text-color);
+}
+
+.primary-bg {
+background-color: var(--main-bg-color);
+}
+
+.secondary-bg {
+background-color: var(--second-bg-color);
+}
+
+.dark-text{
+color: var(--dark-color);
+}
+
+.rounded-full {
+border-radius: 100%;
+} */
+
+/* Manage Product */
+.productNames h4{
+  width: 100%;
+  position: relative;
+  left: 10px;
+}
+
+h4 .buttonSpan{
+  position: absolute;
+  right: 30px;
+}
+
+.card{
+  position: relative;
+}
+
+/* .card h4{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+} */
+
+.gcashInfo, .spgcashInfo{
+  display: none;
+}
+
+.card .search{
+  position: absolute;
+  right:10px;
+  top: 10px;
+}
