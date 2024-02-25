@@ -138,8 +138,9 @@ session_start();
 										<div class="col-md-6">
 											<!-- Content for the second column -->
 										</div>
+										<br>
 										<div class="col-md-2">
-											<span class="buttonSpan"><button type="button" onclick="addPaint()" class="btn btn-primary">Add New Paint</button></span>
+											<span class="buttonSpan float-end"><button type="button" onclick="addPaint()" class="btn btn-primary">Add New Paint</button></span>
 										</div>
 									</div>
 									<br>

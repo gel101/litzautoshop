@@ -158,39 +158,7 @@ session_start();
 
 
 <!-- SIDEBAR -->
-<?php include 'staff-sidebar.php' ?>
-<!-- CLOSING HEADER -->
-
-<!-- removeNotificationModal -->
-<div id="removeNotificationModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="NotificationModalbtn-close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mt-2 text-center">
-                    <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
-                    <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
-                        <h4>Are you sure ?</h4>
-                        <p class="text-muted mx-4 mb-0">Are you sure you want to remove this Notification ?</p>
-                    </div>
-                </div>
-                <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
-                    <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn w-sm btn-danger" id="delete-notification">Yes, Delete It!</button>
-                </div>
-            </div>
-
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-
-
-
-<!-- SIDEBAR -->
-        <?php include 'admin-sidebar.php' ?>
+        <?php include 'staff-sidebar.php' ?>
 
 <!-- SIDEBAR CLOSING -->
 
@@ -212,9 +180,8 @@ session_start();
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="javascript: void(o);">Admin</a></li>
-                                        <li class="breadcrumb-item">Transaction</li>
-                                        <li class="breadcrumb-item active">Order</li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(o);">Staff</a></li>
+                                        <li class="breadcrumb-item active">Current Order</li>
                                     </ol>
                                 </div>
 
@@ -511,7 +478,7 @@ session_start();
                 <input type="hidden" id="tranType" value="">
 			</div>
 			<div class="modal-body">
-                <div class="card table-responsive">
+                <div class="card  table-responsive">
                     <table class="table table-hover text-center">
                         <thead style="color: #1873d3">
                             <tr>
@@ -582,7 +549,7 @@ session_start();
 		<div class="modal-content">
 			<div class="modal-header">
 				<h3 id="title">Add Detail on Completed Car</h3>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close dismissBtn" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
                 <label for="" class="form-label">Insert Car's Plate Number</label><span id="plate_err" class="text-danger"></span>
@@ -1025,7 +992,7 @@ session_start();
                         },
                         success: function(response){
                             if(response['valid'] == false){
-                            alert(response['msg']);
+                                alert(response['msg']);
                             }else{
                                 // $('.messageText').text('Transaction Order Preparing!'); // Change the text
                                 $('#successModal').modal('show');
@@ -1104,13 +1071,13 @@ session_start();
                                 //     $('#loadingModal').modal('hide'); // Hide the modal on error
                                 // },
                                 complete: function () {
-                                        $('#successModal').modal('show');
+                                    $('#successModal').modal('show');
 
-                                        // Close successModal after 2 seconds and trigger redirection
-                                        setTimeout(function () {
-                                            $('#successModal').modal('hide');
-                                            location.reload();
-                                        },1000);
+                                    // Close successModal after 2 seconds and trigger redirection
+                                    setTimeout(function () {
+                                        $('#successModal').modal('hide');
+								        location.reload();
+                                    },1000);
                                 }
                             });
                         },
@@ -1961,13 +1928,13 @@ session_start();
                             //     $('#loadingModal').modal('hide'); // Hide the modal on error
                             // },
                             complete: function () {
-                                        $('#successModal').modal('show');
+                                    $('#successModal').modal('show');
 
-                                        // Close successModal after 2 seconds and trigger redirection
-                                        setTimeout(function () {
-                                            $('#successModal').modal('hide');
-                                            location.reload();
-                                        },1000);
+                                    // Close successModal after 2 seconds and trigger redirection
+                                    setTimeout(function () {
+                                        $('#successModal').modal('hide');
+								        location.reload();
+                                    },1000);
                             }
                         });
                     },

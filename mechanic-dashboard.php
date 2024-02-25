@@ -193,18 +193,25 @@ include 'db/connection.php';
                    
                     <div class="row">
                         <div class="col-xl-12">
-                            <div class="card">
+                            <div class="card table-responsive">
                                 <div class="card-header border-0 align-items-center d-flex">
                                     <div class="col-md-6">
                                         <h4 class="card-title mb-0 flex-grow-1">Services</h4>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label for="start_month1">Start Month:</label>
-                                        <input type="month" class="form-control" id="start_month1" name="start_month1">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+
                                     </div>
-                                    <div class="col-md-3">
-                                        <label for="end_month1">End Month:</label>
-                                        <input type="month" class="form-control" id="end_month1" name="end_month1">
+                                    <div class="col-md-6 float-end d-flex">
+                                        <div class="col-md-6">
+                                            <label for="start_month1">Start Month:</label>
+                                            <input type="month" class="form-control" id="start_month1" name="start_month1">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="end_month1">End Month:</label>
+                                            <input type="month" class="form-control" id="end_month1" name="end_month1">
+                                        </div>
                                     </div>
                                 </div>
                                 <canvas id="servicesLineChart"></canvas>

@@ -126,8 +126,9 @@ session_start();
 										<div class="col-md-6">
 											<!-- Content for the second column -->
 										</div>
+										<br>
 										<div class="col-md-2">
-											<button onclick="addDate()" type="button" class="btn btn-primary">Add Account</button>
+											<button onclick="addDate()" type="button" class="btn btn-primary float-end">Add Account</button>
 										</div>
 									</div>
 									<br>

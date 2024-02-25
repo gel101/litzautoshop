@@ -157,8 +157,8 @@ session_start();
                                             <!-- <option value="Rent">Rent</option> -->
                                             <option value="Stock">Stock</option>
                                         </select>
+                                        <br>
                                     </div>
-                                    <br>
                                     <div class="col-md-9">
                                         <form class="form-inline productForm" method="post" action="pdf/generate_product.php" target="_blank">
                                             <div class="form-group">
@@ -169,21 +169,20 @@ session_start();
                                                             <option value="month">Range of Month</option>
                                                             <option value="year">Whole Year</option>
                                                         </select>
+                                                        <br>
                                                     </div>
                                                     <div class="col-md-6 rangeMonth">
                                                         <div class="form-group" id="monthSelect">
                                                             <label for="month">Select Range of Month:</label>
-                                                            <div class="row">
-                                                                <div class="col-md-5">
+                                                            <div class="row align-items-center">
+                                                                <div class="col">
                                                                     <input class="form-control" type="date" id="fmonth" name="selectedMonths[]">
                                                                 </div>
-                                                                <div class="col-md-1">
-                                                                    <h4><center>=</center></h4>
-                                                                </div>
-                                                                <div class="col-md-5">
+                                                                <div class="col">
                                                                     <input class="form-control" type="date" id="lmonth" name="selectedMonths[]">
                                                                 </div>
                                                             </div>
+                                                            <br>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-2">
@@ -217,18 +216,16 @@ session_start();
                                                             <option value="month">Range of Month</option>
                                                             <option value="year">Whole Year</option>
                                                         </select>
+                                                        <br>
                                                     </div>
                                                     <div class="col-md-6 rangeMonth2">
                                                         <div class="form-group" id="monthSelect">
                                                             <label for="month">Select Range of Month:</label>
-                                                            <div class="row">
-                                                                <div class="col-md-5">
+                                                            <div class="row align-items-center">
+                                                                <div class="col">
                                                                     <input class="form-control" type="date" id="fmonth" name="selectedMonths1[]">
                                                                 </div>
-                                                                <div class="col-md-1">
-                                                                    <h4><center>=</center></h4>
-                                                                </div>
-                                                                <div class="col-md-5">
+                                                                <div class="col">
                                                                     <input class="form-control" type="date" id="lmonth" name="selectedMonths1[]">
                                                                 </div>
                                                             </div>

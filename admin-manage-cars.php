@@ -137,8 +137,9 @@ session_start();
 									<div class="col-md-6">
 										<!-- Content for the second column -->
 									</div>
+									<br>
 									<div class="col-md-2">
-										<span class="buttonSpan"><button type="button" onclick="addCar()" class="btn btn-primary">Add New Car</button></span>
+										<span class="buttonSpan float-end"><button type="button" onclick="addCar()" class="btn btn-primary">Add New Car</button></span>
 									</div>
 								</div>
 								<br>

@@ -190,18 +190,25 @@ include 'db/connection.php';
                    
                     <div class="row">
                         <div class="col-xl-12">
-                            <div class="card">
-                                <div class="card-header border-0 align-items-center d-flex">
+                            <div class="card table-responsive">
+                                <div class="card-header border-0 align-items-center">
                                     <div class="col-md-6">
                                         <h4 class="card-title mb-0 flex-grow-1">Orders</h4>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label for="start_month">Start Month:</label>
-                                        <input type="month" class="form-control" id="start_month" name="start_month">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+
                                     </div>
-                                    <div class="col-md-3">
-                                        <label for="end_month">End Month:</label>
-                                        <input type="month" class="form-control" id="end_month" name="end_month">
+                                    <div class="col-md-6 float-end d-flex">
+                                        <div class="col-auto">
+                                            <label for="start_month">Start Month:</label>
+                                            <input type="month" class="form-control" id="start_month" name="start_month">
+                                        </div>
+                                        <div class="col-auto">
+                                            <label for="end_month">End Month:</label>
+                                            <input type="month" class="form-control" id="end_month" name="end_month">
+                                        </div>
                                     </div>
                                 </div>
                                 <canvas id="productLineChart"></canvas>

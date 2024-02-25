@@ -130,16 +130,16 @@ session_start();
                             <div class="card p-4">
                                 <h3 class="text-center">Available Services</h3>
                                 <div class="container">
-                                    <div class="row">
+                                    <div class="row align-items-center">
                                         <label class="form-label text-center fw-bold" for="Vehicle Type">Vehicle Type </label>
                                         <form action="db/utilitiesvehicle.php" method="post" class="utilityvehicleForm">
+                                            <label class="form-label" for="">Add Data:</label>
                                             <div class="row">
-                                                <label class="form-label" for="">Add Data:</label>
-                                                <div class="col-md-10">
+                                                <div class="col">
                                                     <input class="form-control" type="text" name="addvehicleService" id="addvehicleService" placeholder="Enter vehicle type">
                                                 </div>
-                                                <div class="col-md-2 modal-footer">
-                                                    <input type="submit" value="Add" class="btn btn-primary commonBtn" name="add">
+                                                <div class="col-auto">
+                                                    <input type="submit" value="Add" class="btn btn-primary commonBtn float-end" name="add">
                                                 </div>
                                             </div>
                                             <br>
@@ -147,7 +147,7 @@ session_start();
                                         <form action="db/utilitiesvehicle.php" method="post" class="utilityvehicleForm">
                                             <div class="row">
                                                 <label class="form-label" for="">Archive</label>
-                                                <div class="col-md-10">
+                                                <div class="col">
                                                     <select class="form-select text-center" style="font-weight:900;font-size:15px" name="deletevehicleService" id="deletevehicleService">
 
                                                         <?php
@@ -162,8 +162,8 @@ session_start();
                                                         ?>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-2 modal-footer">
-                                                    <input type="submit" value="Archive" class="btn btn-danger commonBtn" name="delete">
+                                                <div class="col-auto">
+                                                    <input type="submit" value="Archive" class="btn btn-danger commonBtn float-end" name="delete">
                                                 </div>
                                             </div>
                                         </form>
@@ -175,8 +175,8 @@ session_start();
                                     <div class="row">
                                         <label class="form-label text-center fw-bold" for="Vehicle Type">Service </label>
                                         <div class="row m-0 p-0">
-                                            <div class="col-md-6">
                                                 <label for="" class="form-label">Reference :</label>
+                                            <div class="col">
                                                 <select class="form-select" name="vehicleType" id="vehicleType">
                                                     
                                                     <?php
@@ -194,17 +194,17 @@ session_start();
                                         </div>
                                         <form action="db/utilitiesvehicle.php" method="post" class="utilityvehicleForm">
                                             <br>
+                                            <input type="hidden" name="carType" id="carType">
                                             <div class="row">
                                                 <label class="form-label" for="">Add Data:</label>
-                                                <div class="col-md-6">
+                                                <div class="col">
                                                     <input class="form-control" type="text" name="addService" id="addService" placeholder="Enter Service type">
-                                                    <input type="hidden" name="carType" id="carType">
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col">
                                                     <input class="form-control" type="text" name="addServicePrice" id="addServicePrice" placeholder="Enter Price">
                                                 </div>
-                                                <div class="col-md-2 modal-footer">
-                                                    <input type="submit" value="Add" class="btn btn-primary commonBtn" name="add">
+                                                <div class="col-auto">
+                                                    <input type="submit" value="Add" class="btn btn-primary commonBtn me-1 mt-1 float-end" name="add">
                                                 </div>
                                             </div>
                                             <br>
@@ -212,42 +212,34 @@ session_start();
                                         <form action="db/utilitiesvehicle.php" method="post" class="utilityvehicleForm">
                                             <div class="row">
                                                 <label class="form-label" for="">Data</label>
-                                                <div class="col-md-9">
-                                                    <div class="row">
-                                                        <div class="col-md-7">
-                                                            <select class="form-select text-center" style="font-weight:900;font-size:15px" name="deleteService" id="deleteService">
-                                                                <!-- value -->
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-5">
-                                                            <input type="text" class="form-control" id="servicePrice" name="servicePrice" placeholder="Price" disabled>
-                                                        </div>
-                                                    </div>
+                                                <div class="col-auto">
+                                                    <select class="form-select text-center" style="font-weight:900;font-size:15px" name="deleteService" id="deleteService">
+                                                        <!-- value -->
+                                                    </select>
                                                 </div>
-                                                <div class="col-md-3 modal-footer">
-                                                    <input type="button" onclick="editService()" value="Edit" class="btn btn-warning commonBtn" name="edit">
-                                                    <input type="submit" value="Archive" class="btn btn-danger commonBtn" name="delete">
+                                                <div class="col">
+                                                    <input type="text" class="form-control" id="servicePrice" name="servicePrice" placeholder="Price" disabled>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="button" onclick="editService()" value="Edit" class="btn btn-warning commonBtn m-1 float-end" name="edit">
+                                                    <input type="submit" value="Archive" class="btn btn-danger commonBtn float-end m-1" name="delete">
                                                 </div>
                                             </div>
                                             <br>
                                         </form>
                                         <form action="db/utilitiesvehicle.php" method="post" class="utilityvehicleForm">
+                                            <input type="hidden" id="eserviceID" name="eserviceID" class="form-control" placeholder="Service ID">
                                             <div class="row" id="editServiceContainer">
                                                 <label class="form-label" for="">Edit Data</label>
-                                                <div class="col-md-9">
-                                                    <div class="row">
-                                                        <div class="col-md-7">
-                                                            <input type="hidden" id="eserviceID" name="eserviceID" class="form-control" placeholder="Service ID">
-                                                            <input type="text" id="eservice" name="eservice" class="form-control" placeholder="Service">
-                                                        </div>
-                                                        <div class="col-md-5">
-                                                            <input type="number" id="eprice" name="eprice" class="form-control" placeholder="Price">
-                                                        </div>
-                                                    </div>
+                                                <div class="col">
+                                                    <input type="text" id="eservice" name="eservice" class="form-control" placeholder="Service">
                                                 </div>
-                                                <div class="col-md-3 modal-footer">
-                                                    <button onclick="cancelEdit()" type="button" class="btn btn-danger commonBtn">Cancel</button>
-                                                    <button value="editServiceData" class="btn btn-primary commonBtn">Update</button>
+                                                <div class="col">
+                                                    <input type="number" id="eprice" name="eprice" class="form-control" placeholder="Price">
+                                                </div>
+                                                <div class="col">
+                                                    <button onclick="cancelEdit()" type="button" class="btn btn-danger m-1 commonBtn float-end">Cancel</button>
+                                                    <button value="editServiceData" class="btn btn-primary commonBtn m-1 float-end">Update</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -267,11 +259,11 @@ session_start();
                                         <form action="db/utilitiesvehicle.php" method="post" class="utilityvehicleForm">
                                             <div class="row">
                                                 <label class="form-label" for="">Add Data:</label>
-                                                <div class="col-md-10">
+                                                <div class="col">
                                                     <input class="form-control" type="text" name="addvehicleSell" id="addvehicleSell" placeholder="Enter vehicle type">
                                                 </div>
-                                                <div class="col-md-2 modal-footer">
-                                                    <input type="submit" value="Add" class="btn btn-primary commonBtn" name="add">
+                                                <div class="col-auto">
+                                                    <input type="submit" value="Add" class="btn btn-primary commonBtn float-end" name="add">
                                                 </div>
                                             </div>
                                             <br>
@@ -279,13 +271,13 @@ session_start();
                                         <form action="db/utilitiesvehicle.php" method="post" class="utilityvehicleForm">
                                             <div class="row">
                                                 <label class="form-label" for="">Archive</label>
-                                                <div class="col-md-10">
+                                                <div class="col">
                                                     <select class="form-select text-center" style="font-weight:900;font-size:15px" name="deletevehicleSell" id="deletevehicleSell">
                                                         <!--  -->
                                                     </select>
                                                 </div>
-                                                <div class="col-md-2 modal-footer">
-                                                    <input type="submit" value="Archive" class="btn btn-danger commonBtn" name="delete">
+                                                <div class="col-auto">
+                                                    <input type="submit" value="Archive" class="btn btn-danger commonBtn float-end" name="delete">
                                                 </div>
                                             </div>
                                         </form>
@@ -302,11 +294,11 @@ session_start();
                                         <form action="db/utilitiesvehicle.php" method="post" class="utilityvehicleForm">
                                             <div class="row">
                                                 <label class="form-label" for="">Add Data:</label>
-                                                <div class="col-md-10">
+                                                <div class="col">
                                                     <input class="form-control" type="text" name="addCarModel" id="addCarModel" placeholder="Enter model">
                                                 </div>
-                                                <div class="col-md-2 modal-footer">
-                                                    <input type="submit" value="Add" class="btn btn-primary commonBtn" name="add">
+                                                <div class="col-auto">
+                                                    <input type="submit" value="Add" class="btn btn-primary commonBtn float-end" name="add">
                                                 </div>
                                             </div>
                                             <br>
@@ -314,13 +306,13 @@ session_start();
                                         <form action="db/utilitiesvehicle.php" method="post" class="utilityvehicleForm">
                                             <div class="row">
                                                 <label class="form-label" for="">Archive</label>
-                                                <div class="col-md-10">
+                                                <div class="col">
                                                     <select class="form-select text-center" style="font-weight:900;font-size:15px" name="deleteModel" id="deleteModel">
                                                         <!--  -->
                                                     </select>
                                                 </div>
-                                                <div class="col-md-2 modal-footer">
-                                                    <input type="submit" value="Archive" class="btn btn-danger commonBtn" name="delete">
+                                                <div class="col-auto">
+                                                    <input type="submit" value="Archive" class="btn btn-danger commonBtn float-end" name="delete">
                                                 </div>
                                             </div>
                                         </form>
@@ -337,11 +329,11 @@ session_start();
                                         <form action="db/utilitiesvehicle.php" method="post" class="utilityvehicleForm">
                                             <div class="row">
                                                 <label class="form-label" for="">Add Data:</label>
-                                                <div class="col-md-10">
+                                                <div class="col">
                                                     <input class="form-control" type="text" name="addEngine" id="addEngine" placeholder="Enter engine">
                                                 </div>
-                                                <div class="col-md-2 modal-footer">
-                                                    <input type="submit" value="Add" class="btn btn-primary commonBtn" name="add">
+                                                <div class="col-auto">
+                                                    <input type="submit" value="Add" class="btn btn-primary commonBtn float-end" name="add">
                                                 </div>
                                             </div>
                                             <br>
@@ -349,13 +341,13 @@ session_start();
                                         <form action="db/utilitiesvehicle.php" method="post" class="utilityvehicleForm">
                                             <div class="row">
                                                 <label class="form-label" for="">Archive</label>
-                                                <div class="col-md-10">
+                                                <div class="col">
                                                     <select class="form-select text-center" style="font-weight:900;font-size:15px" name="deleteEngine" id="deleteEngine">
                                                         <!--  -->
                                                     </select>
                                                 </div>
-                                                <div class="col-md-2 modal-footer">
-                                                    <input type="submit" value="Archive" class="btn btn-danger commonBtn" name="delete">
+                                                <div class="col-auto">
+                                                    <input type="submit" value="Archive" class="btn btn-danger commonBtn float-end" name="delete">
                                                 </div>
                                             </div>
                                         </form>

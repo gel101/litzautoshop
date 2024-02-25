@@ -223,9 +223,10 @@ include 'db/connection.php';
                                             <label for="showDetails" class="form-label">Comments/Suggestions/Requests/Descriptions</label>
                                             <textarea class="form-control" style="resize:none; overflow:auto" id="showDetails" cols="30" rows="5" disabled></textarea>
                                         </div>
-
+                                        
                                         <div class="col-md-6">
                                             <!-- Date Requested -->
+                                            <br>
                                             <label for="dateSelected" class="form-label">Date Requested</label>
                                             <input type="text" class="form-control" id="dateSelected" disabled>
                                             <br>
@@ -264,16 +265,16 @@ include 'db/connection.php';
                 <button type="button" class="btn-close dismissBtn" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-                    <label for="minfo" class="form-label">List of Used Services & the Price</label>
-                    <textarea class="form-control" style="resize:none;overflow:auto;" id="minfo" name="minfo" rows="10" required></textarea>
+                    <label for="minfo" class="form-label">List of Used Services & the Price</label><span class="text-danger" id="validServices"></span>
+                    <textarea class="form-control" style="resize:none;overflow:auto;" id="minfo" name="minfo" rows="10" placeholder="Enter Used Services Here..." required></textarea>
                     <br>
-                    <label class="form-label">Total Cost of the Service:</label><span class="validId_name_err text-danger"></span>
+                    <label class="form-label">Total Cost of the Service:</label><span class="text-danger" id="validprice_err"></span>
                     <div class="row">
-                        <div class="col-md-1">
+                        <div class="col-auto">
                             <h4 class="float-start">₱</h4>
                         </div>
-                        <div class="col-md-10">
-                            <input type="number" id="totalPrice" class="form-control" required>
+                        <div class="col-auto">
+                            <input type="number" id="totalPrice" class="form-control" placeholder="Enter Total Cost Here" required>
                         </div>
                     </div>
 			</div>
@@ -407,84 +408,91 @@ include 'db/connection.php';
             var priceReason = $('#minfo').val();
 
             if (price === "" || letterPattern.test(price)) {
-                alert("Price Invalid");
+                $('#validprice_err').html(" *Price Invalid");
                 valid = false;
+            }else{
+                $('#validprice_err').html(" ");
             }
 
             if (priceReason === "") {
-                alert("Please specify the reason(s) for the price!");
+                $('#validServices').html(" *Please specify the reason(s) for the price!");
                 valid = false;
+            }else{
+                $('#validServices').html(" ");
             }
 
             if (valid) {
-                var form_data = {
-                    cust_id : cust_id,
-                    reqID : reqID,
-                    price : price,
-                    priceReason : priceReason,
-                    reqEmail : reqEmail
-                }
-                
-                $.ajax({
-                    url : "db/requestComplete.php", // original "db/requestProcessing.php",
-                    type : "POST",
-                    data : form_data,
-                    dataType: "json",
-                    beforeSend: function () {
-                        $('#loadingModal').modal('show');
-                        $('.dismissBtn').click();
-                    },
-                    success: function(response){
-
-                        var sms_data = {
-                                number : response['number'],
-                                message : response['message'],
-                                provider : "semaphore"
-                            }
-
-                            $.ajax({
-                                url : "sms/sendSms.php",
-                                type : "POST",
-                                data : sms_data,
-                                dataType: "json",
-                                success: function(response){
-                                    if (response['valid'] == false) {
-                                        alert(response['msg']);
-                                        $('#loadingModal').modal('hide');
-                                    } else {
-                                        $('.messageText').text('Request Completed!'); // Change the text
-                                        $('#successModal').modal('show');
-
-                                        // Close successModal after 2 seconds and trigger redirection
-                                        setTimeout(function () {
-                                            $('#successModal').modal('hide');
-                                            location.reload();
-                                        },1000);
-                                    }
-                                    $('#loadingModal').modal('hide');
-                                },
-                                // error: function (jqXHR, textStatus, errorThrown) {
-                                //     alert("Error: " + errorThrown);
-                                //     $('#loadingModal').modal('hide'); // Hide the modal on error
-                                // },
-                                complete: function () {
-                                        $('.messageText').text('Request Completed!'); // Change the text
-                                        $('#successModal').modal('show');
-
-                                        // Close successModal after 2 seconds and trigger redirection
-                                        setTimeout(function () {
-                                            $('#successModal').modal('hide');
-                                            location.reload();
-                                        },1000);
-                                }
-                            });
-
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        $('#loadingModal').modal('hide'); // Hide the modal on error
-                        alert("Error: " + errorThrown);
+                if (confirm("Are you sure about all the details you've provided?")) {
+                    var form_data = {
+                        cust_id : cust_id,
+                        reqID : reqID,
+                        price : price,
+                        priceReason : priceReason,
+                        reqEmail : reqEmail
                     }
-                });
+                    
+                    $.ajax({
+                        url : "db/requestComplete.php", // original "db/requestProcessing.php",
+                        type : "POST",
+                        data : form_data,
+                        dataType: "json",
+                        beforeSend: function () {
+                            $('#loadingModal').modal('show');
+                            $('.dismissBtn').click();
+                        },
+                        success: function(response){
+
+                            var sms_data = {
+                                    number : response['number'],
+                                    message : response['message'],
+                                    provider : "semaphore"
+                                }
+
+                                $.ajax({
+                                    url : "sms/sendSms.php",
+                                    type : "POST",
+                                    data : sms_data,
+                                    dataType: "json",
+                                    success: function(response){
+                                        if (response['valid'] == false) {
+                                            alert(response['msg']);
+                                            $('#loadingModal').modal('hide');
+                                        } else {
+                                            $('.messageText').text('Request Completed!'); // Change the text
+                                            $('#successModal').modal('show');
+
+                                            // Close successModal after 2 seconds and trigger redirection
+                                            setTimeout(function () {
+                                                $('#successModal').modal('hide');
+                                                location.reload();
+                                            },1000);
+                                        }
+                                        $('#loadingModal').modal('hide');
+                                    },
+                                    // error: function (jqXHR, textStatus, errorThrown) {
+                                    //     alert("Error: " + errorThrown);
+                                    //     $('#loadingModal').modal('hide'); // Hide the modal on error
+                                    // },
+                                    complete: function () {
+                                            $('.messageText').text('Request Completed!'); // Change the text
+                                            $('#successModal').modal('show');
+
+                                            // Close successModal after 2 seconds and trigger redirection
+                                            setTimeout(function () {
+                                                $('#successModal').modal('hide');
+                                                location.reload();
+                                            },1000);
+                                    }
+                                });
+
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $('#loadingModal').modal('hide'); // Hide the modal on error
+                            alert("Error: " + errorThrown);
+                        }
+                    });
+
+                }
             }else{
 
             }

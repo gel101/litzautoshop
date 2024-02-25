@@ -181,8 +181,8 @@ session_start();
 
                                                     
                                                     ?>"><?php echo $data['status']; ?></span></h5></td>
-                                                    <td>
-                                                        <button type="submit" onclick="showReq('<?php echo $data['docu_id']; ?>', '<?php echo $data['tran_id']; ?>')" data-bs-toggle="modal" data-bs-target="#vanDetail" class="btn btn-info"><i class="fas fa-folder"></i></button>
+                                                    <td class="d-flex align-items-center justify-content-center">
+                                                        <button type="submit" onclick="showReq('<?php echo $data['docu_id']; ?>', '<?php echo $data['tran_id']; ?>')" data-bs-toggle="modal" data-bs-target="#vanDetail" class="btn btn-info me-1"><i class="fas fa-folder"></i></button>
                                                         <button type="button" class="btn btn-primary" onclick="showClientInfo('<?php echo $data['cust_id']; ?>')" data-bs-toggle="modal" data-bs-target="#clientDetail"><i class="fas fa-user"></i></button>
                                                     </td>
                                                 </tr>
