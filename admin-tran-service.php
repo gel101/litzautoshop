@@ -363,8 +363,8 @@ session_start();
                     </div>
                     <br>
                     <div class="col-md-3 float-end assignMecBtn">
-                        <button class="btn btn-primary float-end mrb-2" onclick="assignMec(document.getElementById('custID').value, document.getElementById('chooseMechanic').value, document.getElementById('requestID').value, document.getElementById('dateSelected').value, document.getElementById('requestEmail').value, document.getElementById('requestNumber').value)" >ASSIGN</button>
-                        <button data-bs-dismiss="modal" class="btn btn-danger float-end">CLOSE</button>
+                        <button class="btn btn-primary float-end mr-2" onclick="assignMec(document.getElementById('custID').value, document.getElementById('chooseMechanic').value, document.getElementById('requestID').value, document.getElementById('dateSelected').value, document.getElementById('requestEmail').value, document.getElementById('requestNumber').value)" >ASSIGN</button>
+                        <button data-bs-dismiss="modal" class="btn btn-danger float-end ml-2">CLOSE</button>
                     </div>
                 </div>
                 <!-- <div class="modal-footer">
