@@ -264,11 +264,11 @@ include 'db/connection.php';
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-secondary" onclick="placeOrder('car', '<?php if(isset($_SESSION['cust_id'])){echo $_SESSION['cust_id'];} ?>', document.getElementById('totalPrice').innerText.replace(/,/g, ''))" <?php if(isset($_SESSION['userStatus'])){ if ($_SESSION['userStatus'] === 'Pending') { echo 'disabled'; }} ?>>Place order</button>
-                                    </div>
 
                                     </div><!-- end card-body -->
+                                    <div class="modal-footer m-2 p-2">
+                                        <button class="btn btn-secondary" onclick="placeOrder('car', '<?php if(isset($_SESSION['cust_id'])){echo $_SESSION['cust_id'];} ?>', document.getElementById('totalPrice').innerText.replace(/,/g, ''))" <?php if(isset($_SESSION['userStatus'])){ if ($_SESSION['userStatus'] === 'Pending') { echo 'disabled'; }} ?>>Place order</button>
+                                    </div>
                             </div> <!-- end card-->
                         </div><!-- end col -->
                     </div><!-- end row -->
@@ -377,12 +377,12 @@ include 'db/connection.php';
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-secondary" onclick="placeOrder('sparepart', '<?php if(isset($_SESSION['cust_id'])){echo $_SESSION['cust_id'];} ?>', document.getElementById('totalPrice1').innerText.replace(/,/g, ''))" <?php if(isset($_SESSION['userStatus'])){ if ($_SESSION['userStatus'] === 'Pending') { echo 'disabled'; }} ?>>Place order</button>
-                                    </div>
                                     
                                         
                                 </div><!-- end card-body -->
+                                <div class="modal-footer m-2 p-2">
+                                    <button class="btn btn-secondary" onclick="placeOrder('sparepart', '<?php if(isset($_SESSION['cust_id'])){echo $_SESSION['cust_id'];} ?>', document.getElementById('totalPrice1').innerText.replace(/,/g, ''))" <?php if(isset($_SESSION['userStatus'])){ if ($_SESSION['userStatus'] === 'Pending') { echo 'disabled'; }} ?>>Place order</button>
+                                </div>
                             </div> <!-- end card-->
                         </div><!-- end col -->
                     </div><!-- end row -->
@@ -462,13 +462,13 @@ include 'db/connection.php';
                                 <!-- Wrapper for slides -->
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                    <img src="" class="d-block w-100" alt="Image 1asdf">
+                                    <img src="" class="d-block w-100" alt="Image 1">
                                     </div>
                                     <div class="carousel-item">
-                                    <img src="" class="d-block w-100" alt="Image 2asdf">
+                                    <img src="" class="d-block w-100" alt="Image 2">
                                     </div>
                                     <div class="carousel-item">
-                                    <img src="" class="d-block w-100" alt="Image 3asdf">
+                                    <img src="" class="d-block w-100" alt="Image 3">
                                     </div>
                                 </div>
 

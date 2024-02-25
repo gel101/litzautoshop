@@ -282,13 +282,13 @@ include 'db/connection.php';
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                            <img src="" class="d-block w-100" alt="Image 1asdf">
+                            <img src="" class="d-block w-100" alt="Image 1">
                             </div>
                             <div class="carousel-item">
-                            <img src="" class="d-block w-100" alt="Image 2asdf">
+                            <img src="" class="d-block w-100" alt="Image 2">
                             </div>
                             <div class="carousel-item">
-                            <img src="" class="d-block w-100" alt="Image 3asdf">
+                            <img src="" class="d-block w-100" alt="Image 3">
                             </div>
                         </div>
 
@@ -306,6 +306,7 @@ include 'db/connection.php';
 
 
                 </div>
+                <br>
                 <div class="formInput col-md-6">
                     <div class="row">
                         <div class="col-md-12">
@@ -319,6 +320,7 @@ include 'db/connection.php';
                             <label for="name" class="mainLabel form-label">Car Type</label>
                             <h4 class="mainDetails" id="carType"></h4>
                         </div>
+                        <br>
                         <div class="col-md-6">
                             <label for="name" class="mainLabel form-label">Model</label>
                             <h4 class="mainDetails" id="carModel"></h4>
@@ -330,6 +332,7 @@ include 'db/connection.php';
                             <label for="name" class="mainLabel form-label">Car Engine</label>
                             <h4 class="mainDetails" id="carEngine"></h4>
                         </div>
+                        <br>
                         <div class="col-md-6">
                             <label for="name" class="mainLabel form-label">Price</label>
                             <h4 class="mainDetails">&#8369; <span id="carPrice"></span></h4>
@@ -338,9 +341,9 @@ include 'db/connection.php';
                     <br>
                     <div class="row">
                         <div class="col-md-6">
-                            <br>
                             <button class="btn btn-info" id="prodDetails" data-bs-target="#showpartDetails2" data-bs-toggle="modal">Show Description</button>
                         </div>
+                        <br>
                         <div class="col-md-6">
                             <label for="name" class="mainLabel form-label">Select Paint Color</label><span class="err_color text-danger"></span>
                             <select class="form-select" name="color" id="carColor">

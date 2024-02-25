@@ -149,7 +149,14 @@ include 'db/connection.php';
                             while($data = mysqli_fetch_assoc($stmt)){
                         ?>
                 <div class="box card">
-                    <img src="db/<?php echo $data['img']; ?>" alt="">
+                    <img src="db/<?php echo $data['img']; ?>" alt="" data-value-1="<?php echo $data['details']; ?>" onclick="preview(
+                        '<?php echo $data['sparepart_id']; ?>',
+                        '<?php echo $data['img']; ?>',
+                        '<?php echo $data['product']; ?>',
+                        '<?php echo $data['quantity']; ?>',
+                        '<?php echo number_format($data['price'], 2); ?>',
+                        this.getAttribute('data-value-1')
+                        )">
                     <h2 class="text-dark textSearch"><?php echo $data['product']; ?></h2>
                     <span class="textSearch">₱ <?php echo number_format($data['price'], 2); ?> <span style="color:#6c757d; font-size: 12px;"> <?php echo $data['quantity']; ?> available</span></span>
                     <p class="textSearch">Little Panay, Panabo City</p>
@@ -235,6 +242,7 @@ include 'db/connection.php';
                     <img src="" id="prodImgprev" alt="Product Image">
                 </div>
                 <div class="formInput col-md-6">
+                    <br>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="name" class="mainLabel form-label">Product Name</label>
@@ -251,20 +259,18 @@ include 'db/connection.php';
                             <button  id="prodDetails" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#showpartDetails2">Show Description</button>
                         </div>
                         <div class="col-md-6">
-                            
+                            <br>
                             <label for="name" class="mainLabel form-label">Quantity</label>
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="d-flex" style="place-items:center;">
                                     <button class="quantity-button btn btn-light font-weight-bold" id="minusButton">-</button>
-                                </div>
-                                <div class="col-md-6">
-                                    <input class="quantity-input form-control" type="number" id="prodQuantity" value="1">
-                                </div>
-                                <div class="col-md-3">
+                                    <input class="quantity-input form-control" style="width:50px" type="number" id="prodQuantity" value="1">
                                     <button class="quantity-button btn btn-light font-weight-bold" id="plusButton">+</button>
                                 </div>
+
+
                             </div>
-                                <label for="name" class="mainLabel form-label float-end" id="leftQuantity"></label>
+                                <label for="name" class="mainLabel form-label float-start" id="leftQuantity"></label>
                         </div>
                     </div>
                 </div>
