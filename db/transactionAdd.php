@@ -96,7 +96,8 @@
                     $totalpricecar = $data['price'] * $data['quantity'];
                     
                     $tran_id_car = generateUniqueID();  // Use a different variable for car orders
-                    
+                    $tran_id = $tran_id_car;
+
                     mysqli_query($conn, "INSERT INTO orders(cust_id, customerName, tran_id, totalprice, date, transaction_type, status) VALUES('$cust_idcar', '$name', '$tran_id_car', '$totalpricecar', '$currentDateTime', '$order', '$status') ");
                     $sql2 = mysqli_query($conn, "INSERT INTO client_documents(cust_id, tran_id, status) VALUES('$cust_idcar','$tran_id_car','$status')");
 
@@ -104,6 +105,7 @@
                 }
             }else if ($order == "sparepart") {
                 $tran_id_sparepart = generateUniqueID();  // Use a different variable for sparepart orders
+                $tran_id = $tran_id_sparepart;
                 
                 mysqli_query($conn, "INSERT INTO orders(cust_id, customerName, tran_id, totalprice, date, transaction_type, status) VALUES('$cust_id', '$name', '$tran_id_sparepart', '$totalprice', '$currentDateTime', '$order', '$status') ");
             
@@ -131,6 +133,45 @@
                         return $message;
                     }
 
+                    
+                    $ProductDetails = "<table style='width: 100%; border-collapse: collapse;' class='table text-center'>";
+                    $ProductDetails .= "<thead style='background-color: #f2f2f2;' class='text-secondary'>";
+                    $ProductDetails .= "<tr>";
+                    $ProductDetails .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>ID</th>";
+                    $ProductDetails .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Product</th>";
+                    $ProductDetails .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Color</th>";
+                    $ProductDetails .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Engine</th>";
+                    $ProductDetails .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Model</th>";
+                    $ProductDetails .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Quantity</th>";
+                    $ProductDetails .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Price</th>";
+                    $ProductDetails .= "</tr>";
+                    $ProductDetails .= "</thead>";
+
+                    $stmtcarts = mysqli_query($conn, "SELECT * FROM carts WHERE tran_id = '$tran_id' ");
+
+                    while ($rowcarts = mysqli_fetch_assoc($stmtcarts)) {
+                        $cart_id = $rowcarts['cart_id'];
+                        $product = $rowcarts['product'];
+                        $color = $rowcarts['color'];
+                        $engine = $rowcarts['engine'];
+                        $model = $rowcarts['model'];
+                        $quantity = $rowcarts['quantity'];
+                        $price = number_format($rowcarts['price'], 2);
+
+                        $ProductDetails .= "<tr>";
+                        $ProductDetails .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$cart_id</td>";
+                        $ProductDetails .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$product</td>";
+                        $ProductDetails .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$color</td>";
+                        $ProductDetails .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$engine</td>";
+                        $ProductDetails .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$model</td>";
+                        $ProductDetails .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$quantity</td>";
+                        $ProductDetails .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>&#8369;$price</td>";
+                        $ProductDetails .= "</tr>";
+                    }
+
+                    $ProductDetails .= "</table>";
+
+
                     // Staff email sending logic
                     $staffEmailQuery = mysqli_query($conn, "SELECT email, fname, lname FROM staff WHERE status=''");
                     while ($row12321 = mysqli_fetch_assoc($staffEmailQuery)) {
@@ -139,7 +180,8 @@
                         }
                         $staffName = $row12321['fname'] . " " . $row12321['lname'];
 
-                        $messageContent = "<p>A Customer named $name made a new order. Please log in to the staff dashboard to review and process the order promptly.</p>";
+                        $messageContent = "<p>A Customer named $name made a new order. Please log in to the staff dashboard to review and process the order promptly.</p>
+                                            <p>Order Details:</p><br>$ProductDetails";
                         
                         $message = generateEmailBody($messageContent);
 
@@ -175,7 +217,8 @@
                         }
                         $adminName = $row12321['fname'] . " " . $row12321['lname'];
 
-                        $messageContent = "<p>A Customer named $name made a new order. Please log in to the admin dashboard to review and process the order promptly.</p>";
+                        $messageContent = "<p>A Customer named $name made a new order. Please log in to the admin dashboard to review and process the order promptly.</p>
+                                            <p>Order Details:</p><br>$ProductDetails";
                         
                         $message = generateEmailBody($messageContent);
 

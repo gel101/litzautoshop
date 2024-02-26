@@ -90,7 +90,7 @@
 				$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Vehicle Type</th>";
 				$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Request</th>";
 				$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Vehicle Type</th>";
-				$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Selected Date</th>";
+				$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Requested Date</th>";
 				$message .= "</tr>";
 				$message .= "</thead>";
 

@@ -94,7 +94,7 @@ try {
         $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Vehicle Type</th>";
         $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Request</th>";
         $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Vehicle Type</th>";
-        $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Selected Date</th>";
+        $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Requested Date</th>";
         $message .= "</tr>";
         $message .= "</thead>";
 
@@ -188,8 +188,10 @@ $serviceQuery = mysqli_query($conn, "SELECT * FROM request_services WHERE reques
 $serviceRow = mysqli_fetch_assoc($serviceQuery);
 $vehicleType = $serviceRow['vehicleType'];
 $requests = $serviceRow['request'];
+$date = new DateTime($serviceRow['dateSelected']); 
+$formattedDate = $date->format('M-d-Y');
 
-$textMessage = "Hi Mr/Mrs. $custLname!, this is Litz Autoshop. We are pleased to inform you that your service request has been accepted.
+$textMessage = "Hi Mr/Mrs. $custLname!, this is Litz Autoshop. We are pleased to inform you that your service request has been accepted. Please visit our shop on the date you requested: $formattedDate.
 Your Mechanic: $mechanicName
 Request ID: $reqID
 
@@ -206,16 +208,25 @@ Requested Services: $requests.";
     
     if ($reqEmail != "") {
         $customerEmail = $reqEmail;
-        $customerName = $cust_name;
+
+        $noaccRequest = mysqli_query($conn, "SELECT * FROM request_services WHERE request_id ='$reqID' ");
+        $requestData = mysqli_fetch_assoc($noaccRequest);
+        $customerName = $requestData['cust_name'];
+        $vehicleType = $requestData['vehicleType'];
+        $request = $requestData['request'];
+        $date = new DateTime($requestData['dateSelected']); 
+        $formattedDate = $date->format('M-d-Y');
 
         sendEmail($customerEmail, $customerName, "Request Service Approved", "<p>Dear Mr/Mrs. $customerName,</p><p>We hope this message finds you well. We want to inform you that your recent service request has been approved. Visit our shop at your requested date.</p>", "<p>Thank you for choosing Litz Autoshop for your service needs. We look forward to serving you!</p>");
 
-$textMessage = "Hi $customerName!, this is Litz Autoshop. We are pleased to inform you that your service request has been accepted.
+            
+
+$textMessage = "Hi $customerName!, this is Litz Autoshop. We are pleased to inform you that your service request has been accepted. Please visit our shop on the date you requested: $formattedDate.
 Your Mechanic: $mechanicName
 Request ID: $reqID
 
 Vehicle Type: $vehicleType
-Requested Services: $requests.";
+Requested Services: $request.";
             
         $number = $reqNumber;
         $prefixedNumber = "+63" . substr($number, 1);

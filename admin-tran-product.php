@@ -1019,7 +1019,7 @@ session_start();
             var day = currentDate.getDate().toString().padStart(2, '0');
             var formattedDate = year + '-' + month + '-' + day;
 
-            if (confirm("Is the Order ready for Pick Up??")) {
+            if (confirm("Is the Order ready for Pick Up?")) {
 					var form_data = {
                         cust_id : cust_id,
                         order_id : order_id,

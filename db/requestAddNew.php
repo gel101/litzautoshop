@@ -93,7 +93,7 @@
                         $signature .= "Email: marjlit1@gmail.com</p>";
 	
 						$message = "<html><body>";
-						$message .= "<p>Dear Mr/Mrs. $customerName,</p>";
+						$message .= "<p>Dear $customerName,</p>";
 						$message .= "<p>I hope this message finds you well. We want to inform you that your service request has been successfully created and is now in our system for further processing.</p>";
 						$message .= "<br>";
 						$message .= "<h4>Service Request Details: </h4>";
@@ -105,7 +105,7 @@
 						$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Vehicle Type</th>";
 						$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Request</th>";
 						$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Vehicle Type</th>";
-						$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Selected Date</th>";
+						$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Requested Date</th>";
 						$message .= "</tr>";
 						$message .= "</thead>";
 				

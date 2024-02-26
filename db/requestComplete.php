@@ -76,15 +76,27 @@ $msg = $error = $cust_id =  $reqID = $reqEmail =  $totalprice =  $priceReason = 
             while ($row5 = mysqli_fetch_assoc($custEmailQuery)) {
                 $customerEmail = $row5['email'];
                 $customerName = $row5['fname'] . " " . $row5['lname'] ;
-                $custLname = $row5['lname'];
+                $custLname = "Mr/Mrs. " . $row5['lname'];
             }
-            # code...
+            
+        $stmtclientNum = mysqli_query($conn, "SELECT phoneNum FROM clientacc WHERE cust_id = '$cust_id' ");
+        $dataPhone = mysqli_fetch_assoc($stmtclientNum);
+
+        $number = $dataPhone['phoneNum'];
+            
         }
 
         if ($reqEmail != "") {
             //Email query
             $customerEmail = $reqEmail;
-            $custLname = "Customer";
+            
+            $noaccRequest = mysqli_query($conn, "SELECT * FROM request_services WHERE request_id ='$reqID' ");
+            $noaccRequestData = mysqli_fetch_assoc($noaccRequest);
+            $custLname = $noaccRequestData['cust_name'];
+            $customerName = $noaccRequestData['cust_name'];
+            $number = $noaccRequestData['cust_num'];
+
+
         }
 		
 		
@@ -96,7 +108,7 @@ $msg = $error = $cust_id =  $reqID = $reqEmail =  $totalprice =  $priceReason = 
         $signature .= "Phone: 09169834159<br>";
         $signature .= "Email: marjlit1@gmail.com</p>";
         $message = "<html><body>";
-        $message .= "<p>Dear Mr/Mrs. $custLname,</p>";
+        $message .= "<p>Dear $custLname,</p>";
         $message .= "<p>I hope this message finds you well, We want to inform you that your recent service request has been successfully completed.</p>";
         $message .= "<br>";
         $message .= "<h4>Service Details</h4>";
@@ -113,7 +125,7 @@ $msg = $error = $cust_id =  $reqID = $reqEmail =  $totalprice =  $priceReason = 
         $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Vehicle Type</th>";
         $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Price</th>";
         $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Price Reason</th>";
-        $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Selected Date</th>";
+        $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Requested Date</th>";
         $message .= "</tr>";
         $message .= "</thead>";
 
@@ -180,19 +192,16 @@ $vehicleType = $serviceRow['vehicleType'];
 $requests = $serviceRow['request'];
 
 
-$totalprice = number_format($totalprice, 2);  
-$textMessage = "Hi Mr/Mrs. $custLname!, this is Litz Autoshop. We are pleased to inform you that your service request has been accepted.
+$totalprice = number_format($totalprice, 2);
+$textMessage = "Hi $custLname!, this is Litz Autoshop. We are pleased to inform you that your service request has been completed.
 Your Mechanic: $mechanicName
+Service Total Cost: $totalprice
 Request ID: $reqID
 
 Vehicle Type: $vehicleType
 Requested Services: $requests.";
             
             
-        $stmtclientNum = mysqli_query($conn, "SELECT phoneNum FROM clientacc WHERE cust_id = '$cust_id' ");
-        $dataPhone = mysqli_fetch_assoc($stmtclientNum);
-
-        $number = $dataPhone['phoneNum'];
         $prefixedNumber = "+63" . substr($number, 1);
 
 

@@ -128,7 +128,7 @@ session_start();
                                 <div class="card-body table-responsive">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewRequest">New Service</button> -->
+                                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewRequest">New Service</button>
                                         </div>
                                         <div class="col-md-5">
                                         </div>
@@ -680,7 +680,7 @@ session_start();
                 }
             }).fail(function () {
                 // Callback function in case of failure
-                $("#showClientInfo").html("<h2>No System Account</h2>");
+                $("#showClientInfo").html("<h2>Walk in Service</h2>");
             });
 
         }
