@@ -93,7 +93,7 @@
 
 		if($valid){
 			// Check if model already exists in the database
-			$query = "SELECT * FROM carts WHERE car_id ='$carId' and product='$car_type' and model='$model' and engine='$engine' and status='$status'";
+			$query = "SELECT * FROM carts WHERE car_id ='$carId' and cust_id ='$cust_id' and status='$status'";
 			$result = mysqli_query($conn, $query);
 			if (mysqli_num_rows($result) > 0) {
 
