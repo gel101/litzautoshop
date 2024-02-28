@@ -122,8 +122,8 @@ $_SESSION['admin_last_activity'] = time();
 </div><!-- /.modal -->
 
 
-
-<div id="decisionModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true" data-keyboard="false">
+<!-- DECISION MODAL -->
+<div id="errorModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -137,7 +137,7 @@ $_SESSION['admin_last_activity'] = time();
                         style="width:250px;height:250px">
                     </lord-icon>
                     <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
-                        <h4 class="messageText"></h4>
+                        <h4 id="errorMessage"></h4>
                     </div>
                     <div class="row">
                         <div class="center">

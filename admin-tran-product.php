@@ -1011,7 +1011,7 @@ session_start();
 				}
         }
 
-        function processedTran(cust_id,order_id,tran_id){
+        function processedTran(cust_id, order_id, tran_id){
             // alert(order_id);
             var currentDate = new Date();
             var year = currentDate.getFullYear();
@@ -1040,23 +1040,45 @@ session_start();
                             $('.dismissBtn').click();
                         },
                         success: function(response){
-                
-                            var sms_data = {
-                                number : response['number'],
-                                message : response['message'],
-                                provider : "semaphore"
-                            }
+                            if (response['valid'] == false) {
+                                $('#loadingModal').modal('hide');
+                                alert(response['msg']);
+                                setTimeout(function () {
+                                    location.reload();
+                                },1000);
+                            } else {
+                    
+                                var sms_data = {
+                                    number : response['number'],
+                                    message : response['message'],
+                                    provider : "semaphore"
+                                }
 
-                            $.ajax({
-                                url : "sms/sendSms.php",
-                                type : "POST",
-                                data : sms_data,
-                                dataType: "json",
-                                success: function(response){
-                                    if (response['valid'] == false) {
-                                        alert(response['msg']);
+                                $.ajax({
+                                    url : "sms/sendSms.php",
+                                    type : "POST",
+                                    data : sms_data,
+                                    dataType: "json",
+                                    success: function(response){
+                                        if (response['valid'] == false) {
+                                            alert(response['msg']);
+                                            $('#loadingModal').modal('hide');
+                                        } else {
+                                            $('#successModal').modal('show');
+
+                                            // Close successModal after 2 seconds and trigger redirection
+                                            setTimeout(function () {
+                                                $('#successModal').modal('hide');
+                                                location.reload();
+                                            },1000);
+                                        }
                                         $('#loadingModal').modal('hide');
-                                    } else {
+                                    },
+                                    // error: function (jqXHR, textStatus, errorThrown) {
+                                    //     alert("Error: " + errorThrown);
+                                    //     $('#loadingModal').modal('hide'); // Hide the modal on error
+                                    // },
+                                    complete: function () {
                                         $('#successModal').modal('show');
 
                                         // Close successModal after 2 seconds and trigger redirection
@@ -1065,22 +1087,8 @@ session_start();
                                             location.reload();
                                         },1000);
                                     }
-                                    $('#loadingModal').modal('hide');
-                                },
-                                // error: function (jqXHR, textStatus, errorThrown) {
-                                //     alert("Error: " + errorThrown);
-                                //     $('#loadingModal').modal('hide'); // Hide the modal on error
-                                // },
-                                complete: function () {
-                                    $('#successModal').modal('show');
-
-                                    // Close successModal after 2 seconds and trigger redirection
-                                    setTimeout(function () {
-                                        $('#successModal').modal('hide');
-								        location.reload();
-                                    },1000);
-                                }
-                            });
+                                });
+                            }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             $('#loadingModal').modal('hide'); // Hide the modal on error
@@ -1897,47 +1905,56 @@ session_start();
                         $('.dismissBtn').click();
                     },
                     success: function (response) {
-                
-                        var sms_data = {
-                            number : response['number'],
-                            message : response['message'],
-                            provider : "semaphore"
-                        }
+                        if (response['valid'] == false) {
+                            $('#loadingModal').modal('hide');
+                            alert(response['msg']);
+                            setTimeout(function () {
+                                location.reload();
+                            },1000);
+                        } else {
 
-                        $.ajax({
-                            url : "sms/sendSms.php",
-                            type : "POST",
-                            data : sms_data,
-                            dataType: "json",
-                            success: function(response){
-                                if (response['valid'] == false) {
-                                    alert(response['msg']);
-                                    $('#loadingModal').modal('hide');
-                                } else {
-                                    $('#successModal').modal('show');
-
-                                    // Close successModal after 2 seconds and trigger redirection
-                                    setTimeout(function () {
-                                        $('#successModal').modal('hide');
-								        location.reload();
-                                    },1000);
-                                }
-                                $('#loadingModal').modal('hide');
-                            },
-                            // error: function (jqXHR, textStatus, errorThrown) {
-                            //     alert("Error: " + errorThrown);
-                            //     $('#loadingModal').modal('hide'); // Hide the modal on error
-                            // },
-                            complete: function () {
-                                    $('#successModal').modal('show');
-
-                                    // Close successModal after 2 seconds and trigger redirection
-                                    setTimeout(function () {
-                                        $('#successModal').modal('hide');
-								        location.reload();
-                                    },1000);
+                            var sms_data = {
+                                number : response['number'],
+                                message : response['message'],
+                                provider : "semaphore"
                             }
-                        });
+
+                            $.ajax({
+                                url : "sms/sendSms.php",
+                                type : "POST",
+                                data : sms_data,
+                                dataType: "json",
+                                success: function(response){
+                                    if (response['valid'] == false) {
+                                        alert(response['msg']);
+                                        $('#loadingModal').modal('hide');
+                                    } else {
+                                        $('#successModal').modal('show');
+
+                                        // Close successModal after 2 seconds and trigger redirection
+                                        setTimeout(function () {
+                                            $('#successModal').modal('hide');
+                                            location.reload();
+                                        },1000);
+                                    }
+                                    $('#loadingModal').modal('hide');
+                                },
+                                // error: function (jqXHR, textStatus, errorThrown) {
+                                //     alert("Error: " + errorThrown);
+                                //     $('#loadingModal').modal('hide'); // Hide the modal on error
+                                // },
+                                complete: function () {
+                                        $('#successModal').modal('show');
+
+                                        // Close successModal after 2 seconds and trigger redirection
+                                        setTimeout(function () {
+                                            $('#successModal').modal('hide');
+                                            location.reload();
+                                        },1000);
+                                }
+                            });
+
+                        }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert("Error: " + errorThrown);

@@ -209,6 +209,7 @@ include 'db/connection.php';
                     '<?php echo $cardata['model']; ?>',
                     '<?php echo $cardata['engine']; ?>',
                     '<?php echo $cardata['quantity']; ?>',
+                    '<?php echo $data['color']; ?>',
                     '<?php echo number_format($cardata['price'], 2); ?>',
                     this.value
                     )"><i class="fas fa-eye"></i></button>
@@ -893,9 +894,62 @@ include 'db/connection.php';
             }
         }
 
+        
+
+
+        function setCarouselImages(car_imgorig, img1, img2, img3, img4) {
+            var defaultImage = "img/system/noimage.jpg";
+            
+            // Set image sources for the carousel items
+            $("#myCarousel .carousel-item:nth-child(1) img").attr("src", car_imgorig ? "db/" + car_imgorig : defaultImage);
+            $("#myCarousel .carousel-item:nth-child(2) img").attr("src", img1 ? "db/" + img1 : defaultImage);
+            $("#myCarousel .carousel-item:nth-child(3) img").attr("src", img2 ? "db/" + img2 : defaultImage);
+            $("#myCarousel .carousel-item:nth-child(4) img").attr("src", img3 ? "db/" + img3 : defaultImage);
+            $("#myCarousel .carousel-item:nth-child(5) img").attr("src", img4 ? "db/" + img4 : defaultImage);
+        }
+        
+        function setCarouselPaint(img, img2, img3) {
+            var defaultImage = "img/system/noimage.jpg";
+            
+            // Set image sources for the carousel items
+            $("#myCarousel2 .carousel-item:nth-child(1) img").attr("src", img && img !== "db/" ? img : defaultImage);
+            $("#myCarousel2 .carousel-item:nth-child(2) img").attr("src", img2 && img2 !== "db/" ? img2 : defaultImage);
+            $("#myCarousel2 .carousel-item:nth-child(3) img").attr("src", img3 && img3 !== "db/" ? img3 : defaultImage);
+        }
+
+        function carouselTrigger(color){
+                var img = $('#carImagePrev');
+                
+                $('#myCarousel').css("display", "none");
+                // $('#carImagePrev').css("display", "block");
+                $('#myCarousel2').css("display", "block");
+
+                var selectedColor = color;
+
+                $.ajax({
+                    url: 'db/changeCarColor.php',
+                    method: 'GET',
+                    data: { color: selectedColor },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.color === selectedColor) {
+                            img.attr('src', response.imgSrc);
+                            setCarouselPaint(response.imgSrc, response.imgSrc2, response.imgSrc3);
+                            // console.log(response.imgSrc + response.imgSrc2 + response.imgSrc3);
+                        } else {
+                        img.attr('alt', 'No Available Example Color');
+                        }
+                    },
+                    error: function() {
+                        // Handle error here
+                    }
+                });
+
+        }
+
 
         
-        function prevCar(cart_id, car_img, img1, img2, img3, img4, car_type, name, model, engine, quantity, price, details){
+        function prevCar(cart_id, car_img, img1, img2, img3, img4, car_type, name, model, engine, quantity, color, price, details){
             var car_imgorig = car_img;
             var car_img = "db/" + car_img;
             var car_type = car_type;
@@ -924,6 +978,24 @@ include 'db/connection.php';
             setCarouselImages(car_imgorig, img1, img2, img3, img4);
 
             $("#prevModal").modal("show");
+
+            
+            if (color == "Default") {
+                $('#carColor').val(color);
+                setCarouselImages(car_imgorig, img1, img2, img3, img4);
+                $('#carImagePrev').css("display", "none");
+                $('#myCarousel').css("display", "block");
+                $('#myCarousel2').css("display", "none");
+                // $('#carColor').css("display", "none");
+                // $(".preHide").css("display", "none");
+                // $("#carQuantity").css("display", "block");
+                // $("#plusButton").css("display", "block");
+                // $("#minusButton").css("display", "block");
+
+            } else {
+                $('#carColor').val(color);
+                carouselTrigger(color);
+            }
         }
 
         
@@ -988,27 +1060,6 @@ include 'db/connection.php';
             setCarouselImages(car_imgorig, img1, img2, img3, img4);
 
             $("#prevModal").modal("show");
-        }
-
-
-        function setCarouselImages(car_imgorig, img1, img2, img3, img4) {
-            var defaultImage = "img/system/noimage.jpg";
-            
-            // Set image sources for the carousel items
-            $("#myCarousel .carousel-item:nth-child(1) img").attr("src", car_imgorig ? "db/" + car_imgorig : defaultImage);
-            $("#myCarousel .carousel-item:nth-child(2) img").attr("src", img1 ? "db/" + img1 : defaultImage);
-            $("#myCarousel .carousel-item:nth-child(3) img").attr("src", img2 ? "db/" + img2 : defaultImage);
-            $("#myCarousel .carousel-item:nth-child(4) img").attr("src", img3 ? "db/" + img3 : defaultImage);
-            $("#myCarousel .carousel-item:nth-child(5) img").attr("src", img4 ? "db/" + img4 : defaultImage);
-        }
-        
-        function setCarouselPaint(img, img2, img3) {
-            var defaultImage = "img/system/noimage.jpg";
-            
-            // Set image sources for the carousel items
-            $("#myCarousel2 .carousel-item:nth-child(1) img").attr("src", img && img !== "db/" ? img : defaultImage);
-            $("#myCarousel2 .carousel-item:nth-child(2) img").attr("src", img2 && img2 !== "db/" ? img2 : defaultImage);
-            $("#myCarousel2 .carousel-item:nth-child(3) img").attr("src", img3 && img3 !== "db/" ? img3 : defaultImage);
         }
 
         
