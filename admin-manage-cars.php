@@ -663,6 +663,7 @@ session_start();
 						if(responseData.valid == false){
 							alert(responseData.msg);
                         	$('#loadingModal').modal('hide');
+							location.reload();
 						} else {
 							$('.dismissBtn').click();
                         	$('#loadingModal').modal('hide');
@@ -798,6 +799,7 @@ session_start();
                     beforeSend: function () {
                         $('#loadingModal').modal('show');
                         $('.dismissBtn').click();
+						location.reload();
                     },
 					success: function(response){
 						var responseData = JSON.parse(response);
@@ -883,6 +885,7 @@ session_start();
 	            if(response['valid']==false){
 	              	alert(response['msg']);
 					$('#loadingModal').modal('hide');
+					location.reload();
 	            }else{
 					$('.dismissBtn').click();
 					$('#loadingModal').modal('hide');
