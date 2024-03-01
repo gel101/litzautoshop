@@ -147,7 +147,7 @@ session_start();
 									<table class="table text-center" id="table11">
 										<thead style="color: #1873d3">
 											<tr>
-												<th scope="col">Paint IDasdfsadfsd</th>
+												<th scope="col">Paint ID</th>
 												<th scope="col">Main Image</th>
 												<th scope="col">Additional Image 1</th>
 												<th scope="col">Additional Image 2</th>
