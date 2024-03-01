@@ -375,10 +375,15 @@ session_start();
 					data: form_data,
 					contentType: false,
 					processData: false,
+                    beforeSend: function () {
+                        $('#loadingModal').modal('show');
+                        $('.dismissBtn').click();
+                    },
 					success: function(response){
 						var responseData = JSON.parse(response);
 						if(responseData.valid == false){
 							alert(responseData.msg);
+							location.reload();
 						} else {
 							$('.dismissBtn').click();
 							$('#successModal').modal('show');
@@ -445,10 +450,15 @@ session_start();
 					data: form_data,
 					contentType: false,
 					processData: false,
+                    beforeSend: function () {
+                        $('#loadingModal').modal('show');
+                        $('.dismissBtn').click();
+                    },
 					success: function(response){
 						var responseData = JSON.parse(response);
 						if(responseData.valid == false){
 							alert(responseData.msg);
+							location.reload();
 						} else {
 							$('.dismissBtn').click();
 							$('#successModal').modal('show');
@@ -501,20 +511,25 @@ session_start();
 	        	type : "POST",
 	        	data : form_data,
 	        	dataType: "json",
-	          success: function(response){
-	            if(response['valid']==false){
-	              alert(response['msg']);
-	            }else{
+				beforeSend: function () {
+					$('#loadingModal').modal('show');
 					$('.dismissBtn').click();
-					$('#successModal').modal('show');
-
-					// Close successModal after 2 seconds and trigger redirection
-					setTimeout(function () {
-						$('#successModal').modal('hide');
+				},
+				success: function(response){
+					if(response['valid']==false){
+						alert(response['msg']);
 						location.reload();
-					},1000);
-	            }        
-	          }
+					}else{
+						$('.dismissBtn').click();
+						$('#successModal').modal('show');
+
+						// Close successModal after 2 seconds and trigger redirection
+						setTimeout(function () {
+							$('#successModal').modal('hide');
+							location.reload();
+						},1000);
+					}        
+				}
 	        });
 		}else {
 			
