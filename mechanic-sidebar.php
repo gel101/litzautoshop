@@ -43,15 +43,15 @@
                         
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="mechanic-tran-approved.php">
-                                <i class="ri-tools-fill"></i> <span data-key="t-widgets"> Current Request</span>
+                                <i class="ri-tools-fill"></i> <span data-key="t-widgets"> All Assigned Service</span>
                             </a>
                         </li>
                         
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link menu-link" href="mechanic-tran-completed.php">
                                 <i class="ri-check-line"></i> <span data-key="t-widgets">Completed Service</span>
                             </a>
-                        </li>
+                        </li> -->
                         
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="mechanic-tran-product.php">

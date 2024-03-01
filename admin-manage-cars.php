@@ -595,10 +595,10 @@ session_start();
 			}
 			
 
-			if(tempPlate == ""){
-				valid = false;
-				$(".a_tempPlate_err").html(" *Please enter a Temporary Plate Number");
-			}
+			// if(tempPlate == ""){
+			// 	valid = false;
+			// 	$(".a_tempPlate_err").html(" *Please enter a Temporary Plate Number");
+			// }
 			
 
 			if(chassis == ""){
@@ -606,7 +606,7 @@ session_start();
 				$(".a_chassis_err").html(" *Please enter a chassis number");
 			}
 
-			if (tempPlate == "") {
+			if (tempPlate !== "") {
 				// Define the regular expression pattern for the desired format
 				var tempPlatePattern = /^\d{4}-\d{11}$/;
 
@@ -737,7 +737,7 @@ session_start();
 				$(".e_price_err").html(" *Please enter a Price");
 			}
 			
-			if (tempPlate == "") {
+			if (tempPlate !== "") {
 				// Define the regular expression pattern for the desired format
 				var tempPlatePattern = /^\d{4}-\d{11}$/;
 

@@ -148,7 +148,7 @@ include 'db/connection.php';
                                                 include 'db/connection.php';
 
                                                 $mechanic_id = $_SESSION['mechanic_id'];
-                                                $stmt = mysqli_query($conn, "SELECT * FROM request_services where mechanic_id='$mechanic_id' AND status != 'declined' AND status != 'request completed' ORDER BY request_id DESC");
+                                                $stmt = mysqli_query($conn, "SELECT * FROM request_services where mechanic_id='$mechanic_id' AND status != 'declined' ORDER BY request_id DESC");
                                                 while($data = mysqli_fetch_assoc($stmt)){
                                             ?>
 
@@ -174,7 +174,7 @@ include 'db/connection.php';
                                                 
                                                 ?></h5></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-warning" data-value-1="<?php echo $data['details']; ?>" data-value-2="<?php echo $data['price_reason']; ?>" onclick="showClientInfo('<?php echo $data['cust_id']; ?>', '<?php echo $data['request_id']; ?>', '<?php echo $data['dateSelected']; ?>', '<?php echo $data['vehicleType']; ?>', this.getAttribute('data-value-1'), '<?php echo $data['status']; ?>', this.getAttribute('data-value-2'))" data-bs-toggle="modal" data-bs-target="#clientDetail">Show Details</button>
+                                                    <button type="button" class="btn btn-warning" data-value-1="<?php echo $data['details']; ?>" data-value-2="<?php echo $data['price_reason']; ?>" onclick="showClientInfo('<?php echo $data['cust_id']; ?>', '<?php echo $data['request_id']; ?>', '<?php echo $data['dateSelected']; ?>', '<?php echo $data['vehicleType']; ?>', this.getAttribute('data-value-1'), '<?php echo $data['status']; ?>', this.getAttribute('data-value-2'))" data-bs-toggle="modal" data-bs-target="#clientDetail"><i class="fas fa-eye"></i></button>
                                                     <button type="button" class="btn btn-success <?php if($data['status'] != "Approved"){echo "d-none";} ?>" onclick="processReq('<?php echo $data['cust_id']; ?>','<?php echo $data['request_id']; ?>','<?php echo $data['cust_email']; ?>')"><i class="fas fa-check-circle"></i></button>
                                                     <!-- <button type="button" class="btn btn-success <?php if($data['status'] != "Processing"){echo "d-none";} ?>" onclick="processedReq('<?php echo $data['cust_id']; ?>','<?php echo $data['request_id']; ?>')"> Processed</button>
                                                     <button type="button" class="btn btn-success <?php if($data['status'] != "Processed"){echo "d-none";} ?>" onclick="completedBtn('<?php echo $data['request_id']; ?>','<?php echo $data['cust_id']; ?>')"><i class="fas fa-check-circle"></i></button> -->
