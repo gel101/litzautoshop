@@ -382,10 +382,15 @@ session_start();
 					data: form_data,
 					contentType: false,
 					processData: false,
+                    beforeSend: function () {
+                        $('#loadingModal').modal('show');
+                        $('.dismissBtn').click();
+                    },
 					success: function(response){
 						var responseData = JSON.parse(response);
 						if(responseData.valid == false){
 							alert(responseData.msg);
+							location.reload();
 						} else {
 							$('.dismissBtn').click();
 							$('#successModal').modal('show');
@@ -453,10 +458,15 @@ session_start();
 					data: form_data,
 					contentType: false,
 					processData: false,
+                    beforeSend: function () {
+                        $('#loadingModal').modal('show');
+                        $('.dismissBtn').click();
+                    },
 					success: function(response){
 						var responseData = JSON.parse(response);
 						if(responseData.valid == false){
 							alert(responseData.msg);
+							location.reload();
 						} else {
 							$('.dismissBtn').click();
 							$('#successModal').modal('show');
@@ -516,9 +526,14 @@ session_start();
 	        	type : "POST",
 	        	data : form_data,
 	        	dataType: "json",
+				beforeSend: function () {
+					$('#loadingModal').modal('show');
+					$('.dismissBtn').click();
+				},
 	          success: function(response){
 	            if(response['valid']==false){
 	              alert(response['msg']);
+				  location.reload();
 	            }else{
 					$('.dismissBtn').click();
 					$('#successModal').modal('show');
