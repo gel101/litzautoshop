@@ -272,8 +272,8 @@ session_start();
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						<label class="form-label">Quantity</label><span class="a_quantity_err text-danger"></span>
-						<input class="form-control" id="carQuantity" name="carQuantity" type="number" placeholder="Enter Quantity" value="1" disabled>
+						<label class="form-label d-none">Quantity</label><span class="a_quantity_err text-danger"></span>
+						<input class="form-control d-none" id="carQuantity" name="carQuantity" type="number" placeholder="Enter Quantity" value="1" disabled>
 						<br>
 					</div>
 					<div class="col-md-6">
@@ -293,7 +293,7 @@ session_start();
 					</div>
 				</div>
 				<label class="form-label">Details</label><span class="a_details_err text-danger"></span>
-				<textarea class="form-control" name="carDetails" id="carDetails" cols="30" rows="10"></textarea>
+				<textarea class="form-control" name="carDetails" id="carDetails" cols="30" rows="10" placeholder="Insert additional details..."></textarea>
 			</div>
 			<div class="modal-footer">
 				<button data-bs-dismiss="modal" class="btn btn-danger">Cancel</button>
@@ -323,22 +323,24 @@ session_start();
 				<input class="form-control" type="file" name="eimg3" id="eimg3">
 				<input class="form-control" type="file" name="eimg4" id="eimg4">
 				<br>
-				<label class="form-label">Car Type</label><span class="e_type_err text-danger"></span>
-				<select class="form-select" name="ecarType" id="ecarType" required>
-							<?php
-								$stmtpaintdelete = mysqli_query($conn, "SELECT * FROM vehicletype_sell ORDER BY id DESC");
-								while($data = mysqli_fetch_assoc($stmtpaintdelete)){
-							?>
-							<option value="<?php echo $data['vehicleType']; ?>"><?php echo $data['vehicleType']; ?></option>
-							<?php
-								}
-							?>
-				</select>
-				<br>
-				<label class="form-label">Name</label><span class="e_name_err text-danger"></span>
+				<label class="form-label">Car Name</label><span class="e_name_err text-danger"></span>
 				<input class="form-control" id="ecarName" name="ecarName" type="text" placeholder="Enter Car Name" required>
 				<br>
 				<div class="row">
+					<div class="col-md-6">
+						<label class="form-label">Car Type</label><span class="e_type_err text-danger"></span>
+						<select class="form-select" name="ecarType" id="ecarType" required>
+									<?php
+										$stmtpaintdelete = mysqli_query($conn, "SELECT * FROM vehicletype_sell ORDER BY id DESC");
+										while($data = mysqli_fetch_assoc($stmtpaintdelete)){
+									?>
+									<option value="<?php echo $data['vehicleType']; ?>"><?php echo $data['vehicleType']; ?></option>
+									<?php
+										}
+									?>
+						</select>
+						<br>
+					</div>
 					<div class="col-md-6">
 						<label class="form-label">Car Model</label><span class="e_model_err text-danger"></span>
 						<select class="form-select" name="ecarModel" id="ecarModel" required>
@@ -346,6 +348,8 @@ session_start();
 						</select>
 						<br>
 					</div>
+				</div>
+				<div class="row">
 					<div class="col-md-6">
 						<label class="form-label">Car Engine Transmission</label><span class="e_engine_err text-danger"></span>
 						<select class="form-select" name="ecarEngine" id="ecarEngine" required>
@@ -353,17 +357,20 @@ session_start();
 						</select>
 						<br>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6">
-						<label class="form-label">Quantity</label><span class="e_quantity_err text-danger"></span>
-						<input class="form-control" id="ecarQuantity" name="ecarQuantity" type="number" placeholder="Enter Quantity" value="1" disabled>
-						<br>
-					</div>
 					<div class="col-md-6">
 						<label class="form-label">Price</label><span class="e_price_err text-danger"></span>
 						<input class="form-control" id="ecarPrice" name="ecarPrice" type="number" placeholder="Enter Price" required>
 						<br>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<label class="form-label d-none">Quantity</label><span class="e_quantity_err text-danger"></span>
+						<input class="form-control d-none" id="ecarQuantity" name="ecarQuantity" type="number" placeholder="Enter Quantity" value="1" disabled>
+						<br>
+					</div>
+					<div class="col-md-6">
+
 					</div>
 				</div>
 				<div class="row">
@@ -379,7 +386,7 @@ session_start();
 					</div>
 				</div>
 				<label class="form-label">Details</label><span class="e_details_err text-danger"></span>
-				<textarea class="form-control" name="ecarDetails" id="ecarDetails" cols="30" rows="10"></textarea>
+				<textarea class="form-control" name="ecarDetails" id="ecarDetails" cols="30" rows="10" placeholder="Insert additional details..."></textarea>
 			</div>
 			<div class="modal-footer">
 				<button data-bs-dismiss="modal" class="btn btn-danger">Cancel</button>
@@ -601,10 +608,10 @@ session_start();
 			// }
 			
 
-			if(chassis == ""){
-				valid = false;
-				$(".a_chassis_err").html(" *Please enter a chassis number");
-			}
+			// if(chassis == ""){
+			// 	valid = false;
+			// 	$(".a_chassis_err").html(" *Please enter a chassis number");
+			// }
 
 			if (tempPlate !== "") {
 				// Define the regular expression pattern for the desired format
@@ -617,7 +624,7 @@ session_start();
 				}
 			}
 
-			if(chassis == "") {
+			if(chassis !== "") {
 				// Define the regular expression pattern for the desired format
 				var chassisPattern = /^([A-Z0-9]{2}\d{2}[A-Z]-\d{6})$/;
 
@@ -749,7 +756,7 @@ session_start();
 				}
 			}
 
-			if(chassis == "") {
+			if(chassis !== "") {
 				// Define the regular expression pattern for the desired format
 				var chassisPattern = /^([A-Z0-9]{2}\d{2}[A-Z]-\d{6})$/;
 

@@ -14,7 +14,8 @@ if (isset($_POST['login'])) {
     $admin = "SELECT * FROM admin WHERE BINARY username ='$username' AND BINARY password ='$password' ";
     $adminresult = $conn->query($admin);
 
-    $staff = "SELECT * FROM staff WHERE BINARY user ='$username' and BINARY pass ='$password' and status!='archived' ";
+    $staff = "SELECT * FROM staff WHERE BINARY user ='$username' AND BINARY pass ='$password' AND (status != 'archived' OR status IS NULL)";
+
     $staffresult = $conn->query($staff);
 
     if ($adminresult->num_rows == 1) {
@@ -30,7 +31,7 @@ if (isset($_POST['login'])) {
         $_SESSION['admin_id'] = $userID;
         // $_SESSION['username'] = "ADMIN";
         header("Location: admin-dashboard.php");
-    }elseif ($staffresult->num_rows == 1) {
+    }else if ($staffresult->num_rows == 1) {
 
         $getAcc = mysqli_query($conn, $staff);
         $data = mysqli_fetch_assoc($getAcc);

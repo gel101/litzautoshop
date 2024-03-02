@@ -351,7 +351,7 @@ include 'db/connection.php';
                                     <option value="Default">Default</option>
                                     <?php
                                         include 'db/connection.php';
-                                        $stmtttt = mysqli_query($conn, "SELECT * FROM paints WHERE quantity > 0 AND status != 'archived' ORDER BY quantity DESC");
+                                        $stmtttt = mysqli_query($conn, "SELECT * FROM paints WHERE quantity > 0 AND (status != 'archived' OR status IS NULL) ORDER BY quantity DESC");
                                         while($data = mysqli_fetch_assoc($stmtttt)){
                                     ?>
                                         <option value="<?php echo $data['paint_color']; ?>"><?php echo $data['paint_color']; ?></option>

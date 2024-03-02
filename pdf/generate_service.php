@@ -169,7 +169,6 @@ if (isset($_POST['dataURL']) && isset($_POST['filename']) && isset($_POST['gener
     } else {
         // Output a message if $stmt is empty
         $pdf->SetFont('Arial', 'I', 12);
-        $pdf->Ln();
         $pdf->Cell(0, 10, 'No records found.', 1, 0, 'C');
     }
     

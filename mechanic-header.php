@@ -602,7 +602,7 @@ $_SESSION['mechanic_last_activity'] = time();
                                     if (isset($_SESSION['mechanic_id']) && !empty($_SESSION['mechanic_id'])) {
                                         $adminID = $_SESSION['mechanic_id'];
                                         
-                                        $sql = mysqli_query($conn, "SELECT fname, lname FROM mechanic WHERE mechanic_id='$adminID'");
+                                        $sql = mysqli_query($conn, "SELECT fname, lname FROM staff WHERE staff_id='$adminID'");
                                         
                                         if (!$sql) {
                                             throw new Exception("Query failed: " . mysqli_error($conn));

@@ -126,25 +126,33 @@ if (isset($_POST['dataURL']) && isset($_POST['filename']) && isset($_POST['submi
                 }
             }
             
-            $this->SetFont('Arial', '', 8);
-            while ($row = mysqli_fetch_assoc($result1)) {
-                $this->Ln();
-                foreach ($display_columns1 as $column) {
-                    if ($column === 'car_type') {
-                        $this->Cell(38, 10, $row[$column], 0);
-                    }elseif ($column === 'name') {
-                        $this->Cell(78, 10, $row[$column], 0);
-                    }elseif ($column === 'model') {
-                        $this->Cell(30, 10, $row[$column], 0);
-                    }elseif ($column === 'engine') {
-                        $this->Cell(30, 10, $row[$column], 0);
-                    }elseif ($column === 'price') {
-                        $TotalPrice = number_format($row[$column], 2);
-                        $this->Cell(20, 10, $TotalPrice, 0, 0, 'C');
-                    } else {
-                        $this->Cell(30, 10, $row[$column], 0);
+            // Check if $stmt has rows
+            if (mysqli_num_rows($result1) > 0) {
+                $this->SetFont('Arial', '', 8);
+                while ($row = mysqli_fetch_assoc($result1)) {
+                    $this->Ln();
+                    foreach ($display_columns1 as $column) {
+                        if ($column === 'car_type') {
+                            $this->Cell(38, 10, $row[$column], 0);
+                        }elseif ($column === 'name') {
+                            $this->Cell(78, 10, $row[$column], 0);
+                        }elseif ($column === 'model') {
+                            $this->Cell(30, 10, $row[$column], 0);
+                        }elseif ($column === 'engine') {
+                            $this->Cell(30, 10, $row[$column], 0);
+                        }elseif ($column === 'price') {
+                            $TotalPrice = number_format($row[$column], 2);
+                            $this->Cell(20, 10, $TotalPrice, 0, 0, 'C');
+                        } else {
+                            $this->Cell(30, 10, $row[$column], 0);
+                        }
                     }
                 }
+            } else {
+                // Output a message if $stmt is empty
+                $this->SetFont('Arial', 'I', 12);
+                $this->Ln();
+                $this->Cell(0, 10, 'No records found.', 1, 0, 'C');
             }
             // Add the row for the total quantity
             $this->Ln();
@@ -203,9 +211,9 @@ if (isset($_POST['dataURL']) && isset($_POST['filename']) && isset($_POST['submi
                 }
             } else {
                 // Output a message if $stmt is empty
-                $pdf->SetFont('Arial', 'I', 12);
-                $pdf->Ln();
-                $pdf->Cell(0, 10, 'No records found.', 1, 0, 'C');
+                $this->SetFont('Arial', 'I', 12);
+                $this->Ln();
+                $this->Cell(0, 10, 'No records found.', 1, 0, 'C');
             }
 
             // Add the row for the total quantity
@@ -240,19 +248,28 @@ if (isset($_POST['dataURL']) && isset($_POST['filename']) && isset($_POST['submi
                     $this->Cell(40, 8, $column_heading2, 1, 0, 'C', true);
                 }
             }
-            $this->SetFont('Arial', '', 10);
-            while ($row = mysqli_fetch_assoc($result2)) {
-                $this->Ln();
-                foreach ($display_columns2 as $column) {
-                    if ($column === 'Paint_color') {
-                        $this->Cell(116, 10, $row[$column], 0);
-                    }elseif ($column === 'sold') {
-                        $this->Cell(40, 10, $row[$column], 0);
-                    } else {
-                        $this->SetFont('Arial', '', 10);
-                        $this->Cell(40, 10, $row[$column], 0, 0, 'C');
+            
+            // Check if $stmt has rows
+            if (mysqli_num_rows($result2) > 0) {
+                $this->SetFont('Arial', '', 10);
+                while ($row = mysqli_fetch_assoc($result2)) {
+                    $this->Ln();
+                    foreach ($display_columns2 as $column) {
+                        if ($column === 'Paint_color') {
+                            $this->Cell(116, 10, $row[$column], 0);
+                        }elseif ($column === 'sold') {
+                            $this->Cell(40, 10, $row[$column], 0);
+                        } else {
+                            $this->SetFont('Arial', '', 10);
+                            $this->Cell(40, 10, $row[$column], 0, 0, 'C');
+                        }
                     }
                 }
+            } else {
+                // Output a message if $stmt is empty
+                $this->SetFont('Arial', 'I', 12);
+                $this->Ln();
+                $this->Cell(0, 10, 'No records found.', 1, 0, 'C');
             }
             // Add the row for the total quantity
             $this->Ln();

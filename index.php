@@ -347,7 +347,7 @@
 
           <p class="section-subtitle :light" id="work-label">FEATURES</p>
 
-          <h2 class="h2 section-title">WE SELL</h2>
+          <h2 class="h2 section-title">WE SUPPLY</h2>
 
           <ul class="has-scrollbar">
 
@@ -442,14 +442,35 @@
               <div class="work-card">
 
                 <figure class="card-banner img-holder" style="--width: 350; --height: 406;">
-                  <img src="landingpage/images/work-3.jpg" width="350" height="406" loading="lazy" alt="Battery Adjust"
+                  <img src="img/part/part2.jpg" width="350" height="406" loading="lazy" alt="Engine Repair"
                     class="img-cover">
                 </figure>
 
                 <div class="card-content">
-                  <p class="card-subtitle">AUTO REPAIR</p>
+                  <p class="card-subtitle">SPARE PARTS</p>
 
-                  <h3 class="h3 card-title">REPAIR / MAINTAINANCE CARS</h3>
+                  <h3 class="h3 card-title">DIFFERENT MINIVAN SPARE PARTS AND ACCESSORIES</h3>
+
+                  <a href="customer-signup.php" class="card-btn">
+                    <span class="material-symbols-rounded">arrow_forward</span>
+                  </a>
+                </div>
+
+              </div>
+            </li>
+
+            <li class="scrollbar-item">
+              <div class="work-card">
+
+                <figure class="card-banner img-holder" style="--width: 350; --height: 406;">
+                  <img src="landingpage/images/work-3.jpg" width="350" height="406" loading="lazy" alt="Engine Repair"
+                    class="img-cover">
+                </figure>
+
+                <div class="card-content">
+                  <p class="card-subtitle">SERVICES</p>
+
+                  <h3 class="h3 card-title">REPAIR AND MAINTENANCE</h3>
 
                   <a href="customer-signup.php" class="card-btn">
                     <span class="material-symbols-rounded">arrow_forward</span>
@@ -518,22 +539,22 @@
           </li>
 
           <li>
-            <p class="p">Monday – Saturday</p>
+            <p class="p">Monday – Sunday</p>
 
-            <span class="span">08:00am - 10:00pm</span>
+            <span class="span">08:00 am - 05:00 pm</span>
           </li>
 
-          <li>
+          <!-- <li>
             <p class="p">Sunday – Thursday</p>
 
-            <span class="span">08:00am - 10:00pm</span>
+            <span class="span">08:00 am - 05:00 pm</span>
           </li>
 
           <li>
             <p class="p">Friday – Saturday</p>
 
-            <span class="span">08:00am - 10:00pm</span>
-          </li>
+            <span class="span">08:00 am - 05:00 pm</span>
+          </li> -->
 
         </ul>
 
@@ -547,6 +568,8 @@
             <a href="tel:+01234567890" class="footer-link">
               <span class="material-symbols-rounded">call</span>
 
+              <span class="span">09169834159</span>
+              <span class="span"> / </span>
               <span class="span">09169834159</span>
             </a>
           </li>
@@ -565,7 +588,7 @@
               <address class="footer-link address">
                 <span class="material-symbols-rounded">location_on</span>
 
-                <span class="span">Prk.5 Little Panay Panabo City, 8105, Philippines</span>
+                <span class="span">Purok 2, Little Panay Panabo City, 8105, Philippines</span>
               </address>
             </li>
           </a>
