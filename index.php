@@ -85,7 +85,7 @@
         <ul class="navbar-list">
 
           <li>
-            <button type="button" onclick="scrollToHome()" class="navbar-link">Home sample</button>
+            <button type="button" onclick="scrollToHome()" class="navbar-link">Home</button>
           </li>
 
           <li>
