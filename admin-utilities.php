@@ -178,7 +178,6 @@ session_start();
                                                 <label for="" class="form-label">Reference :</label>
                                             <div class="col">
                                                 <select class="form-select" name="vehicleType" id="vehicleType">
-                                                    
                                                     <?php
                                                     $stmtpaintdelete = mysqli_query($conn, "SELECT * FROM vehicletype_service ORDER BY id DESC");
                                                     while($data = mysqli_fetch_assoc($stmtpaintdelete)){
@@ -212,13 +211,11 @@ session_start();
                                         <form action="db/utilitiesvehicle.php" method="post" class="utilityvehicleForm">
                                             <div class="row">
                                                 <label class="form-label" for="">Data</label>
+                                                <input type="text" class="d-none form-control" id="servicePrice" name="servicePrice" placeholder="Price" disabled>
                                                 <div class="col-auto">
                                                     <select class="form-select text-center" style="font-weight:900;font-size:15px" name="deleteService" id="deleteService">
                                                         <!-- value -->
                                                     </select>
-                                                </div>
-                                                <div class="col">
-                                                    <input type="text" class="form-control" id="servicePrice" name="servicePrice" placeholder="Price" disabled>
                                                 </div>
                                                 <div class="col">
                                                     <input type="button" onclick="editService()" value="Edit" class="btn btn-warning commonBtn m-1 float-end" name="edit">
@@ -399,14 +396,15 @@ session_start();
         }
         
         function editService(){
-            var hiddenInputValue = $('#servicePrice').val();
+            // var hiddenInputValue = $('#servicePrice').val();
             var selectedOptionText = $('#deleteService :selected').text();
+            var selectedOptionPrice = $('#deleteService :selected').attr('class');
             var selectedOptionValue = $('#deleteService').val();
 
             $('#editServiceContainer').css("visibility", "visible");
 
             $('#eservice').val(selectedOptionText);
-            $('#eprice').val(hiddenInputValue);
+            $('#eprice').val(selectedOptionPrice);
             $('#eserviceID').val(selectedOptionValue);
 
         }
@@ -470,7 +468,7 @@ session_start();
                             deleteData.forEach(deleteService => {
                                 var deleteOption = document.createElement('option');
                                 deleteOption.value = deleteService.id;
-                                deleteOption.textContent = deleteService.service;
+                                deleteOption.textContent = deleteService.service + " (₱" + deleteService.price + ")";
                                 deleteOption.className = deleteService.price;
                                 deleteServiceSelect.appendChild(deleteOption);
                             });
