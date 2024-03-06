@@ -280,11 +280,18 @@ session_start();
                         <input type="date" class="form-control" name="adddate" id="adddate">
                     </div>
                     <div class="col-md-6">
-                        <label for="" class="form-label">Contact Details</label><span class="err_email text-danger" id="infoText"></span>
+                        <!--  -->
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <label for="" class="form-label">Contact Details</label><span class="err_email text-danger" id="infoText"></span>
+                    <div class="col-md-6">
                         <input type="number" class="form-control" id="addnumber" placeholder="Enter Phone Number"  oninput="validateNumber(this)">
+
+                    </div>
+                    <div class="col-md-6">
                         <input type="email" class="form-control" id="addemail" placeholder="Enter email">
-
-
                     </div>
                 </div>
                 <br>
@@ -362,9 +369,10 @@ session_start();
                         </select>
                     </div>
                     <br>
+                    <br>
                     <div class="col-md-3 float-end assignMecBtn">
-                        <button class="btn btn-primary float-end mr-2" onclick="assignMec(document.getElementById('custID').value, document.getElementById('chooseMechanic').value, document.getElementById('requestID').value, document.getElementById('dateSelected').value, document.getElementById('requestEmail').value, document.getElementById('requestNumber').value)" >ASSIGN</button>
-                        <button data-bs-dismiss="modal" class="btn btn-danger float-end ml-2">CLOSE</button>
+                        <button class="btn btn-primary float-end me-2" onclick="assignMec(document.getElementById('custID').value, document.getElementById('chooseMechanic').value, document.getElementById('requestID').value, document.getElementById('dateSelected').value, document.getElementById('requestEmail').value, document.getElementById('requestNumber').value)" >ASSIGN</button>
+                        <button data-bs-dismiss="modal" class="btn btn-danger float-end me-2">CLOSE</button>
                     </div>
                 </div>
                 <!-- <div class="modal-footer">
@@ -448,10 +456,19 @@ session_start();
 
                         var label = document.createElement('label');
                         label.classList.add('form-check-label');
+
+                        // Creating the span element for the price
+                        var priceSpan = document.createElement('span');
+                        priceSpan.classList.add('text-danger');
                         if (service.price == 0) {
                             service.price = "Price vary";
                         }
-                        label.textContent =  " " + service.service + " ₱" + service.price; // Assuming 'service' is the field containing checkbox values
+                        priceSpan.textContent = " ₱" + service.price;
+
+                        // Setting the service name as text content for label
+                        label.textContent = service.service + " ";
+                        // Appending the price span to the label
+                        label.appendChild(priceSpan);
 
                         checkboxDiv.appendChild(checkbox);
                         checkboxDiv.appendChild(label);

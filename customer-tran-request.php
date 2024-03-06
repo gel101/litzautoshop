@@ -170,7 +170,7 @@ include 'db/connection.php';
                                                 <td><?php if($data['price'] != 0){echo "&#8369; " . number_format($data['price'], 2); }elseif($data['status']=="Canceled" || $data['status']=="Declined"){echo '<p><span class="badge bg-danger">' .$data['status'].'</span></p>';}else{echo '<p><span class="badge bg-warning">Pending</span></p>';} ?></td>
                                                 <td><?php if($data['mechanic_id'] != 0){
                                                     $mecID = $data['mechanic_id'];
-                                                    $stmt45 = mysqli_query($conn, "SELECT fname, lname FROM mechanic WHERE mechanic_id='$mecID'");
+                                                    $stmt45 = mysqli_query($conn, "SELECT fname, lname FROM staff WHERE staff_id = '$mecID'");
                                                     while($datamec = mysqli_fetch_assoc($stmt45)){
                                                      echo $datamec['fname'] . " " . $datamec['lname'];
                                                     }

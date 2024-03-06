@@ -101,7 +101,7 @@ try {
         global $conn;
         global $reqID;
         global $mechanic_id;
-        $stmtservice = mysqli_query($conn, "SELECT * FROM request_services WHERE request_id ='$reqID' AND mechanic_id='$mechanic_id' ");
+        $stmtservice = mysqli_query($conn, "SELECT * FROM request_services WHERE request_id ='$reqID' AND mechanic_id = '$mechanic_id' ");
 
         while ($rowservice = mysqli_fetch_assoc($stmtservice)) {
 
@@ -155,7 +155,7 @@ try {
 
         
     // Email query for mechanic
-    $mechanicEmailQuery = mysqli_query($conn, "SELECT email, fname, lname FROM staff WHERE staff_id='$mechanic_id'");
+    $mechanicEmailQuery = mysqli_query($conn, "SELECT email, fname, lname FROM staff WHERE staff_id = '$mechanic_id'");
     $rowMechanic = mysqli_fetch_assoc($mechanicEmailQuery);
 
     if ($rowMechanic) {

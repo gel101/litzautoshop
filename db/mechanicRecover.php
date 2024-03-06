@@ -36,10 +36,10 @@
 		$status="";
 
 		if($valid){
-		$sql = mysqli_query($conn, "UPDATE mechanic SET status='$status' WHERE mechanic_id = '$mechanic_id'");
+		$sql = mysqli_query($conn, "UPDATE staff SET status = '$status' WHERE staff_id = '$mechanic_id'");
 
         //Email query
-        $custEmailQuery = mysqli_query($conn, "SELECT email, fname, lname FROM mechanic WHERE mechanic_id='$mechanic_id'");
+        $custEmailQuery = mysqli_query($conn, "SELECT email, fname, lname FROM staff WHERE staff_id = '$mechanic_id'");
         
         $row5 = mysqli_fetch_assoc($custEmailQuery);
         $staffEmail = $row5['email'];

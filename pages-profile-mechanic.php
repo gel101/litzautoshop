@@ -147,7 +147,7 @@ include 'db/connection.php';
                                     include 'db/connection.php';
 
                                     $staff_id = $_SESSION['mechanic_id'];
-                                    $stmt = mysqli_query($conn, "SELECT * FROM staff WHERE staff_id='$staff_id'");
+                                    $stmt = mysqli_query($conn, "SELECT * FROM staff WHERE staff_id = '$staff_id'");
                                     while($data = mysqli_fetch_assoc($stmt)){
                                     ?>
                                                 <tr>

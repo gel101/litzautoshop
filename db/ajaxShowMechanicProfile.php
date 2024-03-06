@@ -4,7 +4,7 @@ include 'connection.php';
 
     $mechanic_id = $_POST['mechanic_id'];
 
-    $stmt = mysqli_query($conn, "SELECT * FROM mechanic WHERE mechanic_id='$mechanic_id'");
+    $stmt = mysqli_query($conn, "SELECT * FROM staff WHERE staff_id = '$mechanic_id'");
 
     while ($data = mysqli_fetch_assoc($stmt)) {
 ?>

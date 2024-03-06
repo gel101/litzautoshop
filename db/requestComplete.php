@@ -136,7 +136,7 @@ $msg = $error = $cust_id =  $reqID = $reqEmail =  $totalprice =  $priceReason = 
             $request_id = $rowservice['request_id'];
 
             	$mechanic_id = $rowservice['mechanic_id'];
-				$stmtmechanic = mysqli_query($conn, "SELECT fname, lname FROM mechanic WHERE mechanic_id ='$mechanic_id' ");
+				$stmtmechanic = mysqli_query($conn, "SELECT fname, lname FROM staff WHERE staff_id = '$mechanic_id' ");
 				while ($rowsmechanic = mysqli_fetch_assoc($stmtmechanic)) {
 					$mechanicName = $rowsmechanic['fname'] . " " . $rowsmechanic['lname'];
 				}

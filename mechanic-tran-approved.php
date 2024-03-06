@@ -223,10 +223,9 @@ include 'db/connection.php';
                                             <label for="showDetails" class="form-label">Comments/Suggestions/Requests/Descriptions</label>
                                             <textarea class="form-control" style="resize:none; overflow:auto" id="showDetails" cols="30" rows="5" disabled></textarea>
                                         </div>
-                                        
+                                        <br>
                                         <div class="col-md-6">
                                             <!-- Date Requested -->
-                                            <br>
                                             <label for="dateSelected" class="form-label">Date Requested</label>
                                             <input type="text" class="form-control" id="dateSelected" disabled>
                                             <br>

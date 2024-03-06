@@ -23,7 +23,7 @@
 		$status="archived";
 
 		if($valid){
-		$sql = mysqli_query($conn, "UPDATE mechanic SET status='$status' WHERE mechanic_id = '$mechanic_id'");
+		$sql = mysqli_query($conn, "UPDATE staff SET status='$status' WHERE staff_id = '$mechanic_id'");
 		// $sql2 = mysqli_query($conn, "INSERT INTO mechanic_archived(fname, lname, birthdate, pNum, user, pass) VALUES('$fname', '$lname', '$birthdate', '$pNum', '$user', '$pass')");
 
 

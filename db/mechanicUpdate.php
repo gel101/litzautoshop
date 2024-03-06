@@ -80,7 +80,7 @@
 			// 	exit; // Stop execution further if engine type exists
 			// }
 
-			$sql = mysqli_query($conn, "UPDATE mechanic SET fname = '$fname', lname = '$lname', birthdate = '$birthdate', pNum = '$pNum', email = '$email', user = '$user', pass = '$pass' WHERE mechanic_id = '$mechanic_id' ");
+			$sql = mysqli_query($conn, "UPDATE staff SET fname = '$fname', lname = '$lname', birthdate = '$birthdate', pNum = '$pNum', email = '$email', user = '$user', pass = '$pass' WHERE staff_id = '$mechanic_id' ");
 
 			$msg = array("valid"=>true, "msg"=>"Data updated.");
 			echo json_encode($msg);
