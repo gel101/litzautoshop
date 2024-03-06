@@ -43,12 +43,13 @@ if (!isset($_SESSION['cust_id']) || $_SESSION["loggedin"] === false) {
     </script>";
 }
 
-if (isset($_SESSION['userStatus']) && $_SESSION['userStatus'] == "Pending") {
+if (isset($_SESSION['userStatus']) && $_SESSION['userStatus'] == "Pending" && $_SESSION['clientStatusNote'] == false) {
     echo "<script>
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('pendingBtn').click();
     });
     </script>";
+    $_SESSION['clientStatusNote'] = true;
 }
 
 if (isset($_SESSION['userStatus']) && $_SESSION['userStatus'] == "Denied") {
@@ -118,7 +119,7 @@ $_SESSION['customer_last_activity'] = time();
                     <lord-icon src="https://cdn.lordicon.com/kulwmpzs.json" trigger="loop" colors="primary:#2ed9a0" style="width:100px;height:100px"></lord-icon>
                     <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
                         <h4>At the moment your account is at the process of validation</h4>
-                        <p class="text-muted mx-4 mb-0">Please wait until the validation is completed, you can make an order if your account will be verified. Thank you for your understanding.</p>
+                        <p class="text-muted mx-4 mb-0">Please wait until the validation is completed, you can make an transaction if your account will be verified. Thank you for your understanding.</p>
                     </div>
                 </div>
                     <div class="d-flex gap-2 justify-content-center mt-4 mb-2">

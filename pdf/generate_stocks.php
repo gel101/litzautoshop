@@ -142,7 +142,7 @@ if (isset($_POST['dataURL']) && isset($_POST['filename']) && isset($_POST['submi
                             $this->Cell(30, 10, $row[$column], 0);
                         }elseif ($column === 'price') {
                             $TotalPrice = number_format($row[$column], 2);
-                            $this->Cell(20, 10, $TotalPrice, 0, 0, 'C');
+                            $this->Cell(20, 10, "P " . $TotalPrice, 0, 0, 'C');
                         } else {
                             $this->Cell(30, 10, $row[$column], 0);
                         }
@@ -202,7 +202,7 @@ if (isset($_POST['dataURL']) && isset($_POST['filename']) && isset($_POST['submi
                             $this->Cell(76, 10, $row[$column], 0);
                         }elseif ($column === 'Price') {
                             $TotalPrice = number_format($row[$column], 2);
-                            $this->Cell(40, 10, $TotalPrice, 0, 0, 'C');
+                            $this->Cell(40, 10, "P " . $TotalPrice, 0, 0, 'C');
                         } else {
                             $this->SetFont('Arial', '', 10);
                             $this->Cell(40, 10, $row[$column], 0, 0, 'C');

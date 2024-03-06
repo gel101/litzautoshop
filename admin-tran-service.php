@@ -351,7 +351,7 @@ session_start();
                         <select class="assignMecBtn form-select" name="" id="chooseMechanic">
                             <?php
                                 include 'db/connection.php';
-                                $mechaniccc = mysqli_query($conn, "SELECT * FROM staff WHERE position = 'Mechanic' AND status !='archived' ORDER BY staff_id DESC");
+                                $mechaniccc = mysqli_query($conn, "SELECT * FROM staff WHERE position = 'Mechanic' AND (status != 'archived' OR status IS NULL) ORDER BY staff_id DESC");
 
                                 while ($data = mysqli_fetch_assoc($mechaniccc)) {
                             ?>

@@ -160,7 +160,7 @@ if (isset($_POST['dataURL']) && isset($_POST['filename']) && isset($_POST['gener
                     // Check if the 'price' column is numeric before formatting
                     if (is_numeric($row[$column])) {
                         $TotalPrice = number_format($row[$column], 2);
-                        $pdf->Cell(30, 8, $TotalPrice, 0, 0, 'R');
+                        $pdf->Cell(30, 8,"P " . $TotalPrice, 0, 0, 'R');
                     }
                 } else {
                     $pdf->Cell(30, 8, $row[$column], 0, 0);

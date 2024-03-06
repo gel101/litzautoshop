@@ -383,7 +383,7 @@ include 'db/connection.php';
         </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button><!-- Assuming you have a PHP variable $userStatus that contains the user's status -->
-            <button type="button" id="addCartBtn" onclick="saveToCart()" class="btn btn-primary" <?php if ($_SESSION['userStatus'] === 'Pending') { echo 'disabled'; } ?>>Add to Cart</button>
+            <button type="button" id="addCartBtn" onclick="saveToCart()" class="btn btn-primary" <?php // if ($_SESSION['userStatus'] === 'Pending') { echo 'disabled'; } ?>>Add to Cart</button>
       </div>
     </div>
   </div>

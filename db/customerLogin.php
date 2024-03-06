@@ -64,6 +64,7 @@ try{
             $_SESSION['cust_id'] = $userID;
             $_SESSION['fname'] = ucwords(strtolower($fname));
             $_SESSION['lname'] = ucwords(strtolower($lname));
+            $_SESSION['clientStatusNote'] = false;
     
     
             $getstatus = "SELECT * FROM clientacc WHERE cust_id='$userID' AND status='Pending'";

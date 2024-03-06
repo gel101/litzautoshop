@@ -86,7 +86,7 @@
                 $this->SetX(183);
             
                 // Output $totalprice
-                $this->Cell(0, -10, number_format($totalprice, 2), 0);
+                $this->Cell(0, -10, "P " . number_format($totalprice, 2), 0);
             
                 $this->Ln(1);
                 // $this->Line(10, 20, 200, 20);

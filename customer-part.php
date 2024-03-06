@@ -279,7 +279,7 @@ include 'db/connection.php';
         </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="addtoCart()" <?php if ($_SESSION['userStatus'] === 'Pending') { echo 'disabled'; } ?>>Add to Cart</button>
+        <button type="button" class="btn btn-primary" onclick="addtoCart()" <?php // if ($_SESSION['userStatus'] === 'Pending') { echo 'disabled'; } ?>>Add to Cart</button>
       </div>
     </div>
   </div>

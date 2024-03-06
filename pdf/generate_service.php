@@ -70,7 +70,7 @@ if (isset($_POST['dataURL']) && isset($_POST['filename']) && isset($_POST['gener
             $this->SetX(175);
         
             // Output $totalprice
-            $this->Cell(10, -10, number_format($price, 2), 0);
+            $this->Cell(10, -10, "P " . number_format($price, 2), 0);
         
         
             $this->Ln(1);
