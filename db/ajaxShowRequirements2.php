@@ -17,7 +17,7 @@
                             <img class="form-control" src="db/<?php echo $data['driver_license']; ?>" alt="">
                         </a>
                     <?php else: ?>
-                        <img class="form-control" src="./img/system/noimage.jpg" alt="">
+                        <img class="form-control" src="./img/system/notRequiredImage.png" alt="">
                     <?php endif; ?>
                     </div>
                     <div class="col-md-4">
@@ -27,7 +27,7 @@
                             <img class="form-control" src="db/<?php echo $data['government_id']; ?>" alt="">
                         </a>
                     <?php else: ?>
-                        <img class="form-control" src="./img/system/noimage.jpg" alt="">
+                        <img class="form-control" src="./img/system/notRequiredImage.png" alt="">
                     <?php endif; ?>
                     </div>
                     <div class="col-md-4">
@@ -37,7 +37,7 @@
                             <img class="form-control" src="db/<?php echo $data['address_proof']; ?>" alt="">
                         </a>
                     <?php else: ?>
-                        <img class="form-control" src="./img/system/noimage.jpg" alt="">
+                        <img class="form-control" src="./img/system/notRequiredImage.png" alt="">
                     <?php endif; ?>
                     </div>
                 <br>
