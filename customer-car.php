@@ -245,19 +245,19 @@ include 'db/connection.php';
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                            <img src="" class="d-block w-100" alt="Image 1">
+                            <img src="" class="d-block w-100" alt="Car Image 1">
                             </div>
                             <div class="carousel-item">
-                            <img src="" class="d-block w-100" alt="Image 2">
+                            <img src="" class="d-block w-100" alt="Car Image 2">
                             </div>
                             <div class="carousel-item">
-                            <img src="" class="d-block w-100" alt="Image 3">
+                            <img src="" class="d-block w-100" alt="Car Image 3">
                             </div>
                             <div class="carousel-item">
-                            <img src="" class="d-block w-100" alt="Image 4">
+                            <img src="" class="d-block w-100" alt="Car Image 4">
                             </div>
                             <div class="carousel-item">
-                            <img src="" class="d-block w-100" alt="Image 5">
+                            <img src="" class="d-block w-100" alt="Car Image 5">
                             </div>
                         </div>
 
@@ -282,13 +282,13 @@ include 'db/connection.php';
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                            <img src="" class="d-block w-100" alt="Image 1">
+                            <img src="" class="d-block w-100" alt="Color Image 1">
                             </div>
                             <div class="carousel-item">
-                            <img src="" class="d-block w-100" alt="Image 2">
+                            <img src="" class="d-block w-100" alt="Color Image 2">
                             </div>
                             <div class="carousel-item">
-                            <img src="" class="d-block w-100" alt="Image 3">
+                            <img src="" class="d-block w-100" alt="Color Image 3">
                             </div>
                         </div>
 
@@ -590,6 +590,7 @@ include 'db/connection.php';
             $("#carModel").text(model);
             $("#carPrice").text(price);
             $("#carEngine").text(engine);
+            $("#carColor").val("Default");
             details = details.replace(/\n/g, '<br>');
             $('#prodDetails').val(details.replace(/<br>/g, '\n'));
             // $("#prodDetails").text(details);
@@ -604,29 +605,65 @@ include 'db/connection.php';
             $("#prevModal").modal("show");
         }
 
-
         function setCarouselImages(car_imgorig, img1, img2, img3, img4) {
             var defaultImage = "img/system/noimage.jpg";
-            
+
             // Set image sources for the carousel items
-            $("#myCarousel .carousel-item:nth-child(1) img").attr("src", car_imgorig ? "db/" + car_imgorig : defaultImage);
-            $("#myCarousel .carousel-item:nth-child(2) img").attr("src", img1 ? "db/" + img1 : defaultImage);
-            $("#myCarousel .carousel-item:nth-child(3) img").attr("src", img2 ? "db/" + img2 : defaultImage);
-            $("#myCarousel .carousel-item:nth-child(4) img").attr("src", img3 ? "db/" + img3 : defaultImage);
-            $("#myCarousel .carousel-item:nth-child(5) img").attr("src", img4 ? "db/" + img4 : defaultImage);
+            if (car_imgorig) {
+                $("#myCarousel .carousel-item:nth-child(1) img").attr("src", "db/" + car_imgorig);
+            } else {
+                $("#myCarousel .carousel-item:nth-child(1)").remove();
+            }
+
+            if (img1) {
+                $("#myCarousel .carousel-item:nth-child(2) img").attr("src", "db/" + img1);
+            } else {
+                $("#myCarousel .carousel-item:nth-child(2)").remove();
+            }
+
+            if (img2) {
+                $("#myCarousel .carousel-item:nth-child(3) img").attr("src", "db/" + img2);
+            } else {
+                $("#myCarousel .carousel-item:nth-child(3)").remove();
+            }
+
+            if (img3) {
+                $("#myCarousel .carousel-item:nth-child(4) img").attr("src", "db/" + img3);
+            } else {
+                $("#myCarousel .carousel-item:nth-child(4)").remove();
+            }
+
+            if (img4) {
+                $("#myCarousel .carousel-item:nth-child(5) img").attr("src", "db/" + img4);
+            } else {
+                $("#myCarousel .carousel-item:nth-child(5)").remove();
+            }
         }
-        
+
+
         function setCarouselPaint(img, img2, img3) {
             var defaultImage = "img/system/noimage.jpg";
-            
+
             // Set image sources for the carousel items
-            $("#myCarousel2 .carousel-item:nth-child(1) img").attr("src", img && img !== "db/" ? img : defaultImage);
-            $("#myCarousel2 .carousel-item:nth-child(2) img").attr("src", img2 && img2 !== "db/" ? img2 : defaultImage);
-            $("#myCarousel2 .carousel-item:nth-child(3) img").attr("src", img3 && img3 !== "db/" ? img3 : defaultImage);
+            if (img && img !== "db/") {
+                $("#myCarousel2 .carousel-item:nth-child(1) img").attr("src", img);
+            } else {
+                $("#myCarousel2 .carousel-item:nth-child(1)").remove();
+            }
+
+            if (img2 && img2 !== "db/") {
+                $("#myCarousel2 .carousel-item:nth-child(2) img").attr("src", img2);
+            } else {
+                $("#myCarousel2 .carousel-item:nth-child(2)").remove();
+            }
+
+            if (img3 && img3 !== "db/") {
+                $("#myCarousel2 .carousel-item:nth-child(3) img").attr("src", img3);
+            } else {
+                $("#myCarousel2 .carousel-item:nth-child(3)").remove();
+            }
         }
 
-
-        
         function resetForm() {
             document.getElementById("carForm").reset();
             document.getElementById("carImageContainer").innerHTML = "";

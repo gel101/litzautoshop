@@ -409,6 +409,7 @@ include 'db/connection.php';
             $("#prodImgprev").attr("src", img);
             $("#prodId").text(id);
             $("#qProd").val(quantity);
+            $("#prodQuantity").val(1);
             $("#prodName").text(product);
             $("#leftQuantity").text(quantity);
             $("#prodPrice").text(price);
