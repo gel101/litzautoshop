@@ -166,9 +166,9 @@ session_start();
 											while($data = mysqli_fetch_assoc($sql)){
 											?>
 											<tr class="<?php
-												if ($data['quantity'] >= 6 && $data['quantity'] <= 10) {
+												if ($data['quantity'] >= 3 && $data['quantity'] <= 5) {
 													echo 'text-warning';
-												} elseif ($data['quantity'] <= 5) {
+												} elseif ($data['quantity'] <= 2) {
 													echo 'text-danger';
 												}
 												?>"
