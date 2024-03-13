@@ -156,7 +156,7 @@ include 'db/connection.php';
                                                                 
                                                             <option value="">Select Color</option>
                                                             <?php
-                                                                $stmtpaintColor = mysqli_query($conn, "SELECT * FROM paints WHERE status !='archived' ORDER BY paint_id DESC");
+                                                                $stmtpaintColor = mysqli_query($conn, "SELECT * FROM paints WHERE (status != 'archived' OR status IS NULL) ORDER BY paint_id DESC");
                                                                 while($colorData = mysqli_fetch_assoc($stmtpaintColor)){
                                                             ?>
                                                             <option value="<?php echo $colorData['paint_color']; ?>"><?php echo $colorData['paint_color']; ?></option>
@@ -172,7 +172,7 @@ include 'db/connection.php';
                                                                 
                                                             <option value="">Select Color</option>
                                                             <?php
-                                                                $stmtpaintColor = mysqli_query($conn, "SELECT * FROM paints WHERE status !='archived' ORDER BY paint_id DESC");
+                                                                $stmtpaintColor = mysqli_query($conn, "SELECT * FROM paints WHERE (status != 'archived' OR status IS NULL) ORDER BY paint_id DESC");
                                                                 while($colorData = mysqli_fetch_assoc($stmtpaintColor)){
                                                             ?>
                                                             <option value="<?php echo $colorData['paint_color']; ?>"><?php echo $colorData['paint_color']; ?></option>
@@ -368,7 +368,7 @@ include 'db/connection.php';
                                                                 
                                                             <option value="">Select Color</option>
                                                             <?php
-                                                                $stmtpaintColor = mysqli_query($conn, "SELECT * FROM paints WHERE status !='archived' ORDER BY paint_id DESC");
+                                                                $stmtpaintColor = mysqli_query($conn, "SELECT * FROM paints WHERE (status != 'archived' OR status IS NULL) ORDER BY paint_id DESC");
                                                                 while($colorData = mysqli_fetch_assoc($stmtpaintColor)){
                                                             ?>
                                                             <option value="<?php echo $colorData['paint_color']; ?>"><?php echo $colorData['paint_color']; ?></option>
@@ -384,7 +384,7 @@ include 'db/connection.php';
                                                                 
                                                             <option value="">Select Color</option>
                                                             <?php
-                                                                $stmtpaintColor = mysqli_query($conn, "SELECT * FROM paints WHERE status !='archived' ORDER BY paint_id DESC");
+                                                                $stmtpaintColor = mysqli_query($conn, "SELECT * FROM paints WHERE (status != 'archived' OR status IS NULL) ORDER BY paint_id DESC");
                                                                 while($colorData = mysqli_fetch_assoc($stmtpaintColor)){
                                                             ?>
                                                             <option value="<?php echo $colorData['paint_color']; ?>"><?php echo $colorData['paint_color']; ?></option>
