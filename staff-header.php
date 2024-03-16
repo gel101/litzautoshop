@@ -225,7 +225,7 @@ $_SESSION['staff_last_activity'] = time();
                         <span id="notifNum" class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger <?php 
                         
                         include 'db/connection.php';
-                        $sql123 = "SELECT * FROM notifications WHERE messageTo = 'staff' and saw_status= 0; ";
+                        $sql123 = "SELECT * FROM notifications WHERE messageTo = 'staff' and (saw_status = 0 OR saw_status IS NULL); ";
                         $result123 = mysqli_query($conn, $sql123);
                         if (mysqli_num_rows($result123) > 0) {
                             }else {
@@ -233,7 +233,7 @@ $_SESSION['staff_last_activity'] = time();
                             }
                         ?>">
                             <?php 
-                            $sql = "SELECT COUNT(notif_id) FROM notifications WHERE messageTo='staff' AND saw_status = 0;";
+                            $sql = "SELECT COUNT(notif_id) FROM notifications WHERE messageTo='staff' AND (saw_status = 0 OR saw_status IS NULL);";
                             $stmt = mysqli_query($conn, $sql);
                             $data = mysqli_fetch_assoc($stmt);
                             echo $data['COUNT(notif_id)'];
@@ -251,7 +251,7 @@ $_SESSION['staff_last_activity'] = time();
                                     <div class="col-auto dropdown-tabs">
                                         <span class="badge badge-soft-light fs-13"> <?php 
 
-                            $sql = "SELECT COUNT(notif_id) FROM notifications WHERE messageTo='staff' AND saw_status = 0;";
+                            $sql = "SELECT COUNT(notif_id) FROM notifications WHERE messageTo='staff' AND (saw_status = 0 OR saw_status IS NULL);";
                             $stmt = mysqli_query($conn, $sql);
                             $data = mysqli_fetch_assoc($stmt);
                             echo $data['COUNT(notif_id)'];
@@ -302,7 +302,7 @@ $_SESSION['staff_last_activity'] = time();
                                 while($data = mysqli_fetch_assoc($shownotif)){
                                 ?>
 
-                                    <div class="text-reset notification-item d-block dropdown-item position-relative <?php if($data['saw_status'] == 0){echo "bg-soft-info";} ?>">
+                                    <div class="text-reset notification-item d-block dropdown-item position-relative <?php if($data['saw_status'] === null){echo "bg-soft-info";} ?>">
                                         <div class="d-flex">
                                             <div class="avatar-xs me-3">
                                                 <span class="avatar-title bg-soft-<?php 
