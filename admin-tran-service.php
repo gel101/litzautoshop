@@ -128,7 +128,7 @@ session_start();
                                 <div class="card-body table-responsive">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewRequest">New Service</button>
+                                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewRequest">Walk in Service</button>
                                         </div>
                                         <div class="col-md-5">
                                         </div>
@@ -688,7 +688,7 @@ session_start();
                 // Callback function after AJAX is completed
                 if ($.trim(responseText) === "") {
                     // If the loaded data is empty, display "No System Account"
-                    $("#showClientInfo").html("<h3 class='text-warning text-center'>No System Account</h3>");
+                    $("#showClientInfo").html("<h3 class='text-warning text-center'>Walk in Customer</h3>");
                     // If data is present, continue with checkRequestStatus()
                     checkRequestStatus();
                 } else {
@@ -697,7 +697,7 @@ session_start();
                 }
             }).fail(function () {
                 // Callback function in case of failure
-                $("#showClientInfo").html("<h2>Walk in Service</h2>");
+                $("#showClientInfo").html("<h2>No System Account!</h2>");
             });
 
         }

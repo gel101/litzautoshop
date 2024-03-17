@@ -18,8 +18,8 @@ $mail->Host = "smtp.gmail.com";
 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 $mail->Port = 587;
 
-$mail->Username = "malano.angelo@dnsc.edu.ph";
-$mail->Password = "chllzawmbgoskeyk";
+$mail->Username = "litzautoshop@gmail.com";
+$mail->Password = "afwaansxpvhbrtcw";
 
 
 try{
@@ -150,11 +150,11 @@ try{
                 $message .= "</body></html>";
                 
                 $emailName = "Litz Autoshop Website Auto Email";
-                $emailAdd = "malano.angelo@dnsc.edu.ph";
+                $emailAdd = "litzautoshop@gmail.com";
                 $emailSubject = "New User Account Created!";
 
                 $mail->setFrom($emailAdd, $emailName);
-                $mail->addAddress("malano.angelo@dnsc.edu.ph", "Litz Autoshop");
+                $mail->addAddress("litzautoshop@gmail.com", "Litz Autoshop");
             
                 $mail->isHTML(true);
                 $mail->Subject = $emailSubject;

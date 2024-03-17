@@ -89,7 +89,7 @@ try {
                 'apikey' => 'e086e40b39907c02b824c2524b972255', //Your API KEY
                 'number' => $number,
                 'message' => $message,
-                'sendername' => 'SEMAPHORE'
+                'sendername' => 'LitzAuto'
             );
             curl_setopt( $ch, CURLOPT_URL,'https://api.semaphore.co/api/v4/priority' ); // https://semaphore.co/api/v4/messages
             curl_setopt( $ch, CURLOPT_POST, 1 );

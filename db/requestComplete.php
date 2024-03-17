@@ -17,8 +17,8 @@ $mail->Host = "smtp.gmail.com";
 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 $mail->Port = 587;
 
-$mail->Username = "malano.angelo@dnsc.edu.ph";
-$mail->Password = "chllzawmbgoskeyk";
+$mail->Username = "litzautoshop@gmail.com";
+$mail->Password = "afwaansxpvhbrtcw";
 
 
 try{
@@ -167,7 +167,7 @@ $msg = $error = $cust_id =  $reqID = $reqEmail =  $totalprice =  $priceReason = 
         $message .= "</body></html>";
 
 		$emailName = "Litz Autoshop";
-		$emailAdd = "malano.angelo@dnsc.edu.ph";
+		$emailAdd = "litzautoshop@gmail.com";
 		$emailSubject = "Request Service Completed";
 		
         $mail->setFrom($emailAdd, $emailName);

@@ -17,8 +17,8 @@ $mail->Host = "smtp.gmail.com";
 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 $mail->Port = 587;
 
-$mail->Username = "malano.angelo@dnsc.edu.ph";
-$mail->Password = "chllzawmbgoskeyk";
+$mail->Username = "litzautoshop@gmail.com";
+$mail->Password = "afwaansxpvhbrtcw";
 
 
 try {
@@ -37,9 +37,11 @@ try {
     if (isset($_POST['cust_id']) && !empty($_POST['cust_id'])) {
         $cust_id = $_POST['cust_id'];
     } else {
-        $valid = false;
-        $error .= "Customer ID is invalid";
-        $cust_id = "";
+        $noAccStmt = mysqli_query($conn, "SELECT noAccEmail, noAccPhone, customerName FROM orders WHERE tran_id = '$tran_id'");
+        $noAccRow = mysqli_fetch_assoc($noAccStmt);
+        $noAccEmail = $noAccRow['noAccEmail'];
+        $noAccPhone = $noAccRow['noAccPhone'];
+        $noAccName = $noAccRow['customerName'];
     }
     
     if (isset($_POST['transaction_type']) && !empty($_POST['transaction_type'])) {
@@ -240,7 +242,9 @@ try {
         $sqlll = mysqli_query($conn, "UPDATE orders SET status = '$status', date = '$currentDateTime' WHERE tran_id = '$tran_id' ");
         $sqlll = mysqli_query($conn, "UPDATE carts SET status = '$status', date = '$currentDateTime' WHERE tran_id = '$tran_id' ");
         $sqll2 = mysqli_query($conn, "UPDATE client_documents SET status = '$status' WHERE tran_id = '$tran_id' ");
-        $sql22 = mysqli_query($conn, "INSERT INTO notifications(cust_id, message, date, transaction, status) VALUES('$cust_id','$CustomerMessage','$currentDateTime','$tran','$status')");
+        if (!empty($cust_id)) {
+            $sql22 = mysqli_query($conn, "INSERT INTO notifications(cust_id, message, date, transaction, status) VALUES('$cust_id','$CustomerMessage','$currentDateTime','$tran','$status')");
+        }
 
 
         //Transaction Detail query
@@ -250,13 +254,19 @@ try {
         $totalpricetran = $rowtransaction['totalprice'];
         $customernametran = $rowtransaction['customerName'];
 
-        //Email query
-        $custEmailQuery = mysqli_query($conn, "SELECT email, fname, lname FROM clientacc WHERE cust_id='$cust_id'");
-        
-        $row5 = mysqli_fetch_assoc($custEmailQuery);
-        $customerEmail = $row5['email'];
-        $customerName = $row5['fname'] . " " . $row5['lname'] ;
-        $custLname = $row5['lname'];
+        if (!empty($cust_id)) {
+            //Email query
+            $custEmailQuery = mysqli_query($conn, "SELECT email, fname, lname FROM clientacc WHERE cust_id='$cust_id'");
+            
+            $row5 = mysqli_fetch_assoc($custEmailQuery);
+            $customerEmail = $row5['email'];
+            $customerName = $row5['fname'] . " " . $row5['lname'] ;
+            $custLname = $row5['lname'];
+        }else {
+            $customerEmail = $noAccEmail;
+            $customerName = $noAccName;
+            $custLname = $customerName;
+        }
 
         $signature = "<br>";
         $signature .= "<br>";
@@ -337,7 +347,7 @@ try {
         $message .= "</body></html>";
 
         $emailName = "Litz Autoshop";
-        $emailAdd = "malano.angelo@dnsc.edu.ph";
+        $emailAdd = "litzautoshop@gmail.com";
         $emailSubject = "Order Accepted";
 
         $mail->setFrom($emailAdd, $emailName);
@@ -391,11 +401,14 @@ while ($productRow = mysqli_fetch_assoc($productQuery)) {
 // - MARRIAGE CONTRACT(IF MARRIED)
 // - BIRTH CERTIFICATE(IF NOT MARRIED)
         
-        
-        $stmtclientNum = mysqli_query($conn, "SELECT phoneNum FROM clientacc WHERE cust_id = '$cust_id' ");
-        $dataPhone = mysqli_fetch_assoc($stmtclientNum);
-
-        $oldnumber = $dataPhone['phoneNum'];
+        if (!empty($cust_id)) {
+            $stmtclientNum = mysqli_query($conn, "SELECT phoneNum FROM clientacc WHERE cust_id = '$cust_id' ");
+            $dataPhone = mysqli_fetch_assoc($stmtclientNum);
+    
+            $oldnumber = $dataPhone['phoneNum'];
+        }else {
+            $oldnumber = $noAccPhone;
+        }
         // $prefixedNumber = "+63" . substr($number, 1);
 
         $msg = array("valid" => true, "msg" => "Order Accepted!", "number" => $oldnumber, "message" => $textMessage);

@@ -11,7 +11,7 @@ $tranStatus = $_POST['tranStatus'];
 
         ?>
                 <tr>
-                    <td><img src="<?php echo "db/" . $data['img']; ?>" style="width:50px" alt="Product Original Image"></td>
+                    <td><img src="<?php echo "db/" . $data['img']; ?>" style="width:50px" alt="Product Image"></td>
                     <td><?php echo $data['product']; ?></td>
                     <td><?php echo $data['color']; ?></td>
                     <td><?php echo $data['engine']; ?></td>

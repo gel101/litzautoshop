@@ -17,8 +17,8 @@ $mail->Host = "smtp.gmail.com";
 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 $mail->Port = 587;
 
-$mail->Username = "malano.angelo@dnsc.edu.ph";
-$mail->Password = "chllzawmbgoskeyk";
+$mail->Username = "litzautoshop@gmail.com";
+$mail->Password = "afwaansxpvhbrtcw";
 
 
 try{
@@ -153,7 +153,7 @@ $msg = $order_id = $cust_id = $tran_id = $plateNum = "";
 
 	
 		$emailName = "Litz Autoshop";
-		$emailAdd = "malano.angelo@dnsc.edu.ph";
+		$emailAdd = "litzautoshop@gmail.com";
 		$emailSubject = "Order Completed - Thank You for Your Purchase!";
 
         $mail->setFrom($emailAdd, $emailName);

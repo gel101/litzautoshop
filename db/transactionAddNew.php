@@ -17,47 +17,14 @@ $mail->Host = "smtp.gmail.com";
 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 $mail->Port = 587;
 
-$mail->Username = "malano.angelo@dnsc.edu.ph";
-$mail->Password = "chllzawmbgoskeyk";
+$mail->Username = "litzautoshop@gmail.com";
+$mail->Password = "afwaansxpvhbrtcw";
 
 
 try {
-    $msg = $addname = $img =  $addemail = $addid = $addimg = $addproduct = $addprice = $addquantity = $addquantityleft = $adddetails = $addaddscreenshot = $addpaymentTerm = $addpaymentMode = $addreferenceInput = $adddate = "";
+    $msg = $addname =  $addemail = $addphone = $productData = "";
     $error = "";
     $valid = true;
-
-    // Check if a file was uploaded
-    if (isset($_FILES['addscreenshot']) && is_uploaded_file($_FILES['addscreenshot']['tmp_name'])) {
-        $file = $_FILES['addscreenshot'];
-
-        // Retrieve file information
-        $fileName = $file['name'];
-        $fileTmpName = $file['tmp_name'];
-        $fileSize = $file['size'];
-        $fileError = $file['error'];
-
-        // Validate file type
-        $allowedExtensions = ['jpg', 'jpeg', 'png', 'webp'];
-        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-        if (!in_array($fileExtension, $allowedExtensions)) {
-            $error = "Only image files (JPG, JPEG, PNG, webp) are allowed.";
-            $valid = false;
-        }
-
-        // Validate file size
-        $maxFileSize = 10 * 1024 * 1024; // 10MB in bytes
-        if ($fileSize > $maxFileSize) {
-            $error = "File size exceeds the maximum limit of 10MB.";
-            $valid = false;
-        }
-
-        $uniqueName = uniqid('', true);
-        $directory = 'img/addscreenshots/';
-        $destination = $directory . $uniqueName;
-        move_uploaded_file($fileTmpName, $destination);
-        $img = $destination;
-    }
-    global $img;
 
 
     if (isset($_POST['addname']) && !empty($_POST['addname'])) {
@@ -75,298 +42,85 @@ try {
         $error = "Customer Email is invalid";
         $addemail = "";
     }
-
     
-    $addid = $_POST['addid'];
-    $addimg = $_POST['addimg'];
-    $addproduct = $_POST['addproduct'];
-    $addprice = $_POST['addprice'];
-    $addquantity = $_POST['addquantity'];
-    $addquantityleft = $_POST['addquantityleft'];
-    $adddetails = $_POST['adddetails'];
-    $addpaymentTerm = $_POST['addpaymentTerm'];
-    $addpaymentMode = $_POST['addpaymentMode'];
-    $addreferenceInput = $_POST['addreferenceInput'];
-    $adddate = $_POST['adddate'];
-    $totalprice = $addprice * $addquantity;
-
-    $status = "Completed";
-    $tran_id = uniqid(); // GENERATE Transaction ID
-
-    $sql = mysqli_query($conn, "INSERT INTO carts(img, tran_id, sparepart_id, product, price, quantity, leftQuantity, details, status) VALUES('$addimg','$tran_id','$addid','$addproduct','$addprice','$addquantity','$addquantityleft','$adddetails','$status')");
-    $sqll123 = mysqli_query($conn, "INSERT INTO orders(customerName, tran_id, totalprice, payment_term, payment_mode, reference_number, screenshot, date, status) VALUES('$addname','$tran_id','$totalprice','$addpaymentTerm','$addpaymentMode','$addreferenceInput','$img','$adddate', '$status')");
-
+    if (isset($_POST['addphone']) && !empty($_POST['addphone'])) {
+        $addphone = $_POST['addphone'];
+    } else {
+        $valid = false;
+        $error = "Customer Phone is invalid";
+        $addphone = "";
+    }
     
+    if (isset($_POST['productData']) && !empty($_POST['productData'])) {
+        $productData = $_POST['productData'];
+    } else {
+        $valid = false;
+        $error = "Product Data is invalid";
+        $productData = "";
+    }
+
+    $status = "Pending";
+    $currentDateTime = date("Y-m-d H:i:s");
+
+
     if ($valid) {
 
-        $stmt = mysqli_query($conn, "SELECT car_id, sparepart_id, product, color, quantity FROM carts WHERE tran_id='$tran_id'");
+        function generateUniqueID() {
+            global $conn;
+            // Fetch the current TransactionIndexID
+            $stmt = mysqli_query($conn, "SELECT TransactionIndexID FROM datastoring WHERE id = 1 ");
+            $dataTransaction = mysqli_fetch_assoc($stmt);
+            $TransactionIndexID = $dataTransaction['TransactionIndexID'];
         
+            // Increment TransactionIndexID by 1
+            $TransactionIndexID++;
         
-        if ($stmt) {
-
-            $flag = true;
-
-
-            while ($row = mysqli_fetch_assoc($stmt)){
-
-                if (isset($row['car_id'])) {
-                    $prodID = $row['car_id'];
-                }else {
-                    $prodID = $row['sparepart_id'];
-                }
-
-                $prodName = $row['product'];
-                $usingcolor = $row['color'];
-                $totalquantity = $row['quantity'];
-
-                // Query to get the current quantity from the database
-                $getCurrentQuantityQuery = "SELECT quantity FROM cars WHERE car_id = $prodID AND car_type = '$prodName'";
-                $result = mysqli_query($conn, $getCurrentQuantityQuery);
-                
-                if ($result && mysqli_num_rows($result) > 0) {
-                    $row = mysqli_fetch_assoc($result);
-                    $currentQuantity = $row['quantity'];
-
-                    // Check if subtracting the totalquantity will result in a non-negative quantity
-                    if ($currentQuantity - $totalquantity >= 0) {
-
-                    } else {
-                        $flag = false;
-                        $msg = array("valid" => false, "msg" => "Not enough quantity available for product: $prodName");
-                        echo json_encode($msg);
-                        exit; // Exit the script
-                    }
-                } else {
-                    // Query to get the current quantity from the database
-                    $getCurrentQuantityQuery2 = "SELECT quantity FROM spareparts_accessories WHERE sparepart_id = $prodID AND product = '$prodName'";
-                    $result2 = mysqli_query($conn, $getCurrentQuantityQuery2);
-                    if ($result2 && mysqli_num_rows($result2) > 0) {
-                        $row2 = mysqli_fetch_assoc($result2);
-                        $currentQuantity2 = $row2['quantity'];
-
-                        // Check if subtracting the totalquantity will result in a non-negative quantity
-                        if ($currentQuantity2 - $totalquantity >= 0) {
-                            
-                        } else {
-                            $flag = false;
-                            $msg = array("valid" => false, "msg" => "Not enough quantity available for product: $prodName");
-                            echo json_encode($msg);
-                            exit; // Exit the script
-                        }
-                    }
-                    // Handle the case where no matching row is found
-                    $error .= "No data found for Product Name: $prodName";
-                }
-            }
-
-            if ($flag) {
-
-                $stmt = mysqli_query($conn, "SELECT car_id, sparepart_id, product, color, quantity FROM carts WHERE tran_id='$tran_id'");
-                
-                while ($row = mysqli_fetch_assoc($stmt)){
-
-                    if (isset($row['car_id'])) {
-                        $prodID = $row['car_id'];
-                    }else {
-                        $prodID = $row['sparepart_id'];
-                    }
-
-                    $prodName = $row['product'];
-                    $usingcolor = $row['color'];
-                    $totalquantity = $row['quantity'];
-                    // Process or display the retrieved data
-
-                    // Query to get the current quantity from the database
-                    $getCurrentQuantityQuery = "SELECT quantity FROM cars WHERE car_id = $prodID AND car_type = '$prodName'";
-                    $result = mysqli_query($conn, $getCurrentQuantityQuery);
-                    
-                    if ($result && mysqli_num_rows($result) > 0) {
-                        $row = mysqli_fetch_assoc($result);
-                        $currentQuantity = $row['quantity'];
-
-                        // Check if subtracting the totalquantity will result in a non-negative quantity
-                        if ($currentQuantity - $totalquantity >= 0) {
-                            // Update the quantity in the cars table
-                            $updateCarsQuery = "UPDATE cars SET quantity = quantity - $totalquantity, sold = sold + $totalquantity WHERE car_id = $prodID AND car_type = '$prodName'";
-                            if (!mysqli_query($conn, $updateCarsQuery)) {
-                                // Handle the case where the update query for the cars table failed
-                                $error .= "Error updating quantity in cars table: " . mysqli_error($conn);
-                            }
-                        } else {
-                            // Return a JSON response indicating failure
-                            $msg = array("valid" => false, "msg" => "Not enough quantity available for product: $prodName");
-                            echo json_encode($msg);
-                            exit; // Exit the script
-                        }
-                    } else {
-                        // Query to get the current quantity from the database
-                        $getCurrentQuantityQuery2 = "SELECT quantity FROM spareparts_accessories WHERE sparepart_id = $prodID AND product = '$prodName'";
-                        $result2 = mysqli_query($conn, $getCurrentQuantityQuery2);
-                        
-                        if ($result2 && mysqli_num_rows($result2) > 0) {
-                            $row2 = mysqli_fetch_assoc($result2);
-                            $currentQuantity2 = $row2['quantity'];
+            // Pad the numerical part with zeros to ensure it's always six digits
+            $paddedTransactionIndexID = str_pad($TransactionIndexID, 6, '0', STR_PAD_LEFT);
         
-                            // Check if subtracting the totalquantity will result in a non-negative quantity
-                            if ($currentQuantity2 - $totalquantity >= 0) {
-                                // Update the quantity in the cars table
-                                $updateSparepartQuery = "UPDATE spareparts_accessories SET quantity = quantity - $totalquantity, sold = sold + $totalquantity WHERE sparepart_id = $prodID AND product = '$prodName'";
-                                if (!mysqli_query($conn, $updateSparepartQuery)) {
-                                    // Handle the case where the update query for the cars table failed
-                                    $error .= "Error updating quantity in cars table: " . mysqli_error($conn);
-                                }
-                            } else {
-                                // Return a JSON response indicating failure
-                                $msg = array("valid" => false, "msg" => "Not enough quantity available for product: $prodName");
-                                echo json_encode($msg);
-                                exit; // Exit the script
-                            }
-                        }
-
-                        // Handle the case where no matching row is found
-                        $error .= "No data found for Product Name: $prodName";
-                    }
-
-                    // Check if the product uses color
-                    if (!empty($usingcolor)) {
-                        // Query to get the current quantity of the paint color from the database
-                        $getCurrentPaintQuantityQuery = "SELECT quantity FROM paints WHERE paint_color = '$usingcolor'";
-                        $paintResult = mysqli_query($conn, $getCurrentPaintQuantityQuery);
-
-                        if ($paintResult && mysqli_num_rows($paintResult) > 0) {
-                            $paintRow = mysqli_fetch_assoc($paintResult);
-                            $currentPaintQuantity = $paintRow['quantity'];
-
-                            // Check if subtracting the totalquantity will result in a non-negative quantity
-                            if ($currentPaintQuantity - $totalquantity >= 0) {
-                                // Update the quantity in the paints table
-                                $updatePaintsQuery = "UPDATE paints SET quantity = quantity - $totalquantity, sold = sold + $totalquantity WHERE paint_color = '$usingcolor'";
-                                if (!mysqli_query($conn, $updatePaintsQuery)) {
-                                    // Handle the case where the update query for the paints table failed
-                                    $error .= "Error updating quantity in paints table: " . mysqli_error($conn);
-                                }
-                            } else {
-                                // Return a JSON response indicating failure
-                                $msg = array("valid" => false, "msg" => "Not enough quantity available for color: $usingcolor");
-                                echo json_encode($msg);
-                                exit; // Exit the script
-                            }
-                        } else {
-                            // Handle the case where no matching row is found
-                            $error .= "No data found for paint color: $usingcolor";
-                        }
-                    } else {
-                        // Handle the case where the color is empty in the carts table
-                        $error .= "Color is empty in the carts table";
-                    }
-                }
-            }else {
-                // Close the script
-                exit;
-            }
-
-
-
-        // Handle the case where no matching row is found
-        $error .= "No data found for the specified Transaction ID";
-            
-        } else {
-            // Handle the case where the query execution failed
-            $error .= "Error: " . mysqli_error($conn);
+            // Construct the final ID with the current year and padded TransactionIndexID
+            $currentYear = date('Y');
+            $tran_id = $currentYear . '-' . $paddedTransactionIndexID;
+        
+            // Update the datastoring table with the incremented TransactionIndexID
+            $stmt = mysqli_query($conn, "UPDATE datastoring SET TransactionIndexID = '$TransactionIndexID' WHERE id = 1 ");
+        
+            // Return the generated tran_id
+            return $tran_id;
         }
 
+        $tran_id = generateUniqueID();  // Use a different variable for orders
+        $tran_id = $tran_id;
 
-        $customerEmail = $addemail;
-        $customerName = $addname;
+        foreach ($productData as $product) {
+            $addid = $product["addid"];
+            $addproduct = $product["addproduct"];
+            $addimg = $product["addimg"];
+            $addprice = $product["addprice"];
+            $addquantity = $product["addquantity"];
+            $adddetails = $product["adddetails"];
+            $addquantityleft = $product["addquantityleft"];
 
-
-        //Transaction Detail query
-        $transactionDetailQuery = mysqli_query($conn, "SELECT * FROM orders WHERE tran_id='$tran_id'");
+            $sql = mysqli_query($conn, "INSERT INTO carts(img, tran_id, sparepart_id, product, price, quantity, leftQuantity, details, date, status) VALUES('$addimg','$tran_id','$addid','$addproduct','$addprice','$addquantity','$addquantityleft','$adddetails','$currentDateTime','$status')");
         
-        $rowtransaction = mysqli_fetch_assoc($transactionDetailQuery);
-        $totalpricetran = $rowtransaction['totalprice'];
-        $customernametran = $rowtransaction['customerName'];
-        if ($rowtransaction['payment_term'] == "For Finance") {
-            $finalpaymentTerm = $rowtransaction['payment_term'];
-        }else {
-            $finalpaymentTerm = $rowtransaction['payment_term'] . "(" . $rowtransaction['payment_mode'] . " " . $rowtransaction['reference_number'] . ")";
+            // $query = "INSERT INTO orders (addname, addemail, addphone, addid, addproduct, addimg, addprice, addquantity, adddetails, addquantityleft) 
+            //           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            // $stmt = $conn->prepare($query);
+            // $stmt->bind_param("ssiissiisi", $addname, $addemail, $addphone, $addid, $addproduct, $addimg, $addprice, $addquantity, $adddetails, $addquantityleft);
+            // $stmt->execute();
+            // Handle the result as needed
         }
+        
 
+        $totalprice = 0;
+        $totalpriceStmt = mysqli_query($conn, "SELECT price, quantity FROM carts WHERE tran_id = '$tran_id' ");
+        while ($pricedata = mysqli_fetch_assoc($totalpriceStmt)) {
+            $subtotal = $pricedata['price'] * $pricedata['quantity']; // Calculate subtotal for each item
+            $totalprice += $subtotal; // Add subtotal to totalprice
+        }
+        $sqll123 = mysqli_query($conn, "INSERT INTO orders(customerName, tran_id, totalprice, noAccEmail, noAccPhone, date, transaction_type, status) VALUES('$addname','$tran_id','$totalprice','$addemail','$addphone','$currentDateTime', 'sparepart', '$status')");
 
-		$signature = "<br>";
-		$signature .= "<p>Regards,<br>";
-		$signature .= "Litz Autoshop<br>";
-		$signature .= "Email Notification<br>";
-		$signature .= "Litz Auto Surplus Prk. 2 Brgy. Little Panay Panabo Davao Del Norte , Panabo, Philippines<br>";
-		$signature .= "Phone: 09169834159<br>";
-		$signature .= "Email: marjlit1@gmail.com</p>";
-
-        $message = "<html><body>";
-        $message .= "<p>Dear $customerName,</p>";
-        $message .= "<p>We want to inform you that your order with Transaction ID $tran_id has been successfully completed.</p>";
-        $message .= "<br>";
-        $message .= "<h4>Transaction Details</h4>";
-        $message .= "<p>Total Price: &#8369;" . number_format($totalprice, 2) . "<br>Transaction ID: $tran_id <br>Payment Status: $finalpaymentTerm</p>";        
-		$message .= "<h4>Order Details: </h4>";
-		$message .= "<table style='width: 100%; border-collapse: collapse;' class='table text-center'>";
-		$message .= "<thead style='background-color: #f2f2f2;' class='text-secondary'>";
-		$message .= "<tr>";
-		$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>ID</th>";
-		$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Product</th>";
-		$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Color</th>";
-		$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Engine</th>";
-		$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Model</th>";
-		$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Quantity</th>";
-		$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Price</th>";
-		$message .= "</tr>";
-		$message .= "</thead>";
-
-		$stmtcarts = mysqli_query($conn, "SELECT * FROM carts WHERE tran_id = '$tran_id' ");
-
-		while ($rowcarts = mysqli_fetch_assoc($stmtcarts)) {
-			$cart_id = $rowcarts['cart_id'];
-			$product = $rowcarts['product'];
-			$color = $rowcarts['color'];
-			$engine = $rowcarts['engine'];
-			$model = $rowcarts['model'];
-			$quantity = $rowcarts['quantity'];
-			$price = number_format($rowcarts['price'], 2);
-
-			$message .= "<tr>";
-			$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$cart_id</td>";
-			$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$product</td>";
-			$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$color</td>";
-			$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$engine</td>";
-			$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$model</td>";
-			$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$quantity</td>";
-			$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>&#8369;$price</td>";
-			$message .= "</tr>";
-		}
-
-		$message .= "</table>";
-		$message .= "<br>";
-		$message .= "<p>Thank you for choosing Litz Autoshop for your purchase. We appreciate your trust in us and it is a pleasure if you order on us again.</p>";
-		$message .= $signature;
-		$message .= "</body></html>";
-
-	
-		$emailName = "Litz Autoshop";
-		$emailAdd = "malano.angelo@dnsc.edu.ph";
-		$emailSubject = "Order Completed - Thank You for Your Purchase!";
-
-        $mail->setFrom($emailAdd, $emailName);
-        $mail->addAddress($customerEmail, $customerName);
-
-		$mail->isHTML(true);
-        $mail->Subject = $emailSubject;
-        $mail->Body = $message;
-        $mail->send();
-
-        // Close the mail connection after sending all emails
-        $mail->smtpClose();
-
-
-        $msg = array("valid" => true, "msg" => "Transaction Status: Requirements Complete!");
+        $msg = array("valid" => true, "msg" => "Adding Order Success!");
         echo json_encode($msg);
         exit;
 
