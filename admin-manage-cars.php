@@ -806,13 +806,13 @@ session_start();
                     beforeSend: function () {
                         $('#loadingModal').modal('show');
                         $('.dismissBtn').click();
-						location.reload();
                     },
 					success: function(response){
 						var responseData = JSON.parse(response);
 						if(responseData.valid == false){
 							alert(responseData.msg);
                         	$('#loadingModal').modal('hide');
+							location.reload();
 						} else {
 							$('.dismissBtn').click();
                         	$('#loadingModal').modal('hide');

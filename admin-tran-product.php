@@ -322,7 +322,7 @@ session_start();
                         <input type="email" class="form-control" id="addemail" placeholder="Enter email">
                         <br>
                         <label for="" class="form-label">Phone Number</label><span class="err_phone text-danger"></span>
-                        <input type="number" class="form-control" id="addphone" placeholder="Enter phone number">
+                        <input type="number" class="form-control" id="addphone" placeholder="Enter phone number" oninput="validateNumber(this)">
                     </div>
                 </div>
                 <br>
@@ -378,54 +378,47 @@ session_start();
                 </div>
                 <div class="row carContainer">
                     <div class="col-md-6">
-                        <label for="addCars" class="form-label">Car Name</label><span class="err_request text-danger"></span>
+                        <label for="addCars" class="form-label">Select a Car</label><span class="err_request text-danger"></span>
                         <select class="form-select" id="addCars" name="addCars" required>
                                             
-                        <option value="">Select Car</option>
-                                            <?php
-                                                $stmtpaintdelete = mysqli_query($conn, "SELECT * FROM cars WHERE (status = '' OR status IS NULL) AND quantity>0 ORDER BY car_id DESC");
-                                                while($data = mysqli_fetch_assoc($stmtpaintdelete)){
-                                            ?>
-                                            <option data-value-1="<?php echo $data['name']; ?>" 
-                                            data-value-2="<?php echo number_format($data['price'], 2); ?>"
-                                            data-value-3="<?php echo $data['quantity']; ?>" 
-                                            data-value-4="<?php echo $data['details']; ?>" 
-                                            data-value-5="<?php echo $data['car_img']; ?>" 
-                                            data-value-6="<?php echo $data['car_id']; ?>"
-                                            data-value-7="<?php echo $data['car_type']; ?>"
-                                            data-value-8="<?php echo $data['model']; ?>"
-                                            data-value-9="<?php echo $data['engine']; ?>"
-                                            
-                                            ><?php echo $data['name']; ?></option>
+                            <option value="">Select Car</option>
+                                <?php
+                                    $stmtpaintdelete = mysqli_query($conn, "SELECT * FROM cars WHERE (status = '' OR status IS NULL) AND quantity>0 ORDER BY car_id DESC");
+                                    while($data = mysqli_fetch_assoc($stmtpaintdelete)){
+                                ?>
+                            <option data-value-1="<?php echo $data['name']; ?>" 
+                            data-value-2="<?php echo number_format($data['price'], 2); ?>"
+                            data-value-3="<?php echo $data['quantity']; ?>" 
+                            data-value-4="<?php echo $data['details']; ?>" 
+                            data-value-5="<?php echo $data['car_img']; ?>" 
+                            data-value-6="<?php echo $data['car_id']; ?>"
+                            data-value-7="<?php echo $data['car_type']; ?>"
+                            data-value-8="<?php echo $data['model']; ?>"
+                            data-value-9="<?php echo $data['engine']; ?>"><?php echo $data['name']; ?></option>
 
-                                            <?php
-                                            }
-                                            ?>
-                                        </select>
+                                <?php
+                                }
+                                ?>
+                        </select>
+                        <br>
+                        <img src="" class="form-control" id="carImage" alt="Car Image">
                     </div>
+                    <br>
                     <div class="col-md-6">
                         <input type="hidden" name="" id="showcar">
                         <input type="hidden" name="" id="showcarid">
                         <input type="hidden" name="" id="showcarimg">
                         <input type="hidden" name="" id="showcarquantity">
-                        <label class="form-label">Car Price</label>
-                        <h3 class="text-secondary">&#8369; <span class="text-secondary" style="font-size:20px" id="showcarprice"></span> <span class="text-danger" style="font-size:16px" id="addedcarprice"></span></h3>
-                        <label for="" class="form-label" id="showcarquantityLeft"></label><span> quantity available</span>
-                    </div>
-                </div>
-                <br>
-                <div class="row carContainer">
-                    <div class="col-md-6">
-                        <textarea name="showDetails[]" class="form-control showDetails" id="showcarDetails" cols="30" rows="10" disabled></textarea>
-                        <textarea name="" class="d-none" id="showcarDetailsHide" cols="30" rows="10" disabled></textarea>
+
                         <input type="hidden" id="cartype" value="">
                         <input type="hidden" id="carmodel" value="">
                         <input type="hidden" id="carengine" value="">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="" class="form-label">Select Color</label>
+
+                        <h3 class="text-secondary">&#8369; <span class="text-secondary" style="font-size:20px" id="showcarprice"></span> <span class="text-danger" style="font-size:16px" id="addedcarprice"></span></h3>
+                        <label for="" class="form-label d-none" id="showcarquantityLeft"></label>
+                        <label for="" class="form-label">Select a Paint Color</label><span class="err_paint text-danger"></span>
                         <select class="form-select" name="" id="addcolor">
-                                <option value="">Default</option>
+                                <option value="Default">Default</option>
                                 <?php
                                     $stmtpaintdelete = mysqli_query($conn, "SELECT paint_color FROM paints WHERE (status = '' OR status IS NULL) AND quantity > 0 ORDER BY paint_id DESC");
                                     while($data = mysqli_fetch_assoc($stmtpaintdelete)){
@@ -437,6 +430,8 @@ session_start();
                                 ?>
                         </select>
                         <br>
+                        <textarea name="showDetails[]" class="form-control showDetails" id="showcarDetails" cols="30" rows="10" disabled></textarea>
+                        <textarea name="" class="d-none" id="showcarDetailsHide" cols="30" rows="10" disabled></textarea>
                     </div>
                 </div>
             </div>
@@ -603,7 +598,7 @@ session_start();
                         <img src="img/system/gcash.jpg" alt="E-wallet QR Code">
                     </div> -->
                     <br>
-                    <label for="" class="form-label">Reference Number</label>
+                    <label for="" class="form-label">Reference Number</label><span class="err_reference text-danger"></span>
                     <input type="number" class="form-control" id="referenceInput" required>
                     <br>
                     <label for="" class="form-label">Screenshot of E-wallet Payment</label><span id="err_ss" class="text-danger"></span>
@@ -668,7 +663,7 @@ session_start();
                         <img src="img/system/gcash.jpg" alt="E-wallet QR Code">
                     </div> -->
                     <br>
-                    <label for="" class="form-label">Reference Number</label>
+                    <label for="" class="form-label">Reference Number</label><span class="err_reference text-danger"></span>
                     <input type="number" class="form-control" id="referenceInput1" required>
                     <br>
                     <label for="" class="form-label">Screenshot of E-wallet Payment</label><span id="err_ss1" class="text-danger"></span>
@@ -715,7 +710,7 @@ session_start();
             </div> -->
             <div class="ereferenceNo">
                 <br>
-                <label for="" class="form-label">Reference Number</label>
+                <label for="" class="form-label">Reference Number</label><span class="err_reference text-danger"></span>
                 <input type="number" class="form-control" id="editreferenceInput" required>
                 <br>
                 <label for="" class="form-label">Screenshot of E-wallet Payment</label>
@@ -895,6 +890,14 @@ session_start();
     <script src="assets/js/app.js"></script>
 
     <script>
+		
+		function validateNumber(input) {
+			if (input.value.length !== 11) {
+                $('.err_phone').html(' *Should be exactly 11 digits and starts with 09! Ex.(09104445556)')
+			} else {
+                $('.err_phone').html(' ')
+			}
+		}
 
         function addField() {
             // Create a new container div for the service request
@@ -1389,6 +1392,7 @@ session_start();
                 $('#showcarid').val(id);
                 $('#showcar').val(product);
                 $('#showcarimg').val(img);
+                $('#carImage').attr('src', 'db/' + img);
                 $('#showcarprice').text(formattedPrice);
                 details = details.replace(/\n/g, '<br>');
                 $('#showcarDetails').val("Car Type :" + cartype + "\nModel: " + model + "\nEngine: " + engine + "\n\nDetails: " + details.replace(/<br>/g, '\n'));
@@ -1661,6 +1665,7 @@ session_start();
 
             var addname = $('#addname').val();
             var addemail = $('#addemail').val();
+            var addphone = $('#addphone').val();
             var addid = $('#showcarid').val();
             var addproduct = $('#showcar').val();
             var addimg = $('#showcarimg').val();
@@ -1673,31 +1678,40 @@ session_start();
             // alert(addprice);
             var addquantity = 1;
             var addquantityLeft = $('#showcarquantity').val();
-            var adddetails = $('#showcarDetailshide').val();
-            var currentDate = new Date();
-            var year = currentDate.getFullYear();
-            var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-            var day = currentDate.getDate().toString().padStart(2, '0');
-            var addformattedDate = year + '-' + month + '-' + day;
+            var adddetails = $('#showcarDetailsHide').val();
 
             if (addname == "") {
                 var valid = false;
-                alert("Customer Name Invalid");
+                $('.err_name').html(" *Input Invalid!")
+            }else{
+                $('.err_name').html(" ")
             }
             if (addemail == "") {
                 var valid = false;
-                alert("Customer Email Invalid");
+                $('.err_email').html(" *Input Invalid!")
+            }else{
+                $('.err_email').html(" ")
+            }
+            if (addphone == "") {
+                var valid = false;
+                $('.err_phone').html(" *Input Invalid!")
+            }else{
+                $('.err_phone').html(" ")
             }
             if (addproduct == "") {
                 var valid = false;
-                alert("Car Name Invalid");
+                $('.err_request').html(" Please Select a Car First!")
+            }else{
+                $('.err_request').html(" ")
             }
 
+            console.log("this is the log: " + adddetails);
 
             if (valid && confirm("Continue the process?")) {
                 var form_data = new FormData();
                 form_data.append("addname", addname);
                 form_data.append("addemail", addemail);
+                form_data.append("addphone", addphone);
                 form_data.append("addid", addid);
                 form_data.append("addimg", addimg);
                 form_data.append("addproduct", addproduct);
@@ -1709,7 +1723,6 @@ session_start();
                 form_data.append("addquantity", addquantity);
                 form_data.append("addquantityLeft", addquantityLeft);
                 form_data.append("adddetails", adddetails);
-                form_data.append("adddate", addformattedDate);
 
 
                 // Send the image data and other form data to PHP using AJAX
@@ -2044,7 +2057,9 @@ session_start();
         if (paymentMode == "E-wallet") {
             if (referenceInput == "" || referenceInput == "e") {
                 var valid = false;
-                alert("Reference Number Invalid");
+                $(".err_reference").html(" *Reference Number Invalid");
+            }else{
+                $(".err_reference").html(" ");
             }
 
             var referenceInput = "RN: " + referenceInput;
@@ -2132,7 +2147,10 @@ session_start();
         if (paymentMode == "E-wallet") {
             if (referenceInput == "" || referenceInput == "e") {
                 var valid = false;
-                alert("Reference Number Invalid");
+                $(".err_reference").html(" *Reference Number Invalid");
+            }else{
+                
+                $(".err_reference").html(" ");
             }
 
             var referenceInput = "RN: " + referenceInput;

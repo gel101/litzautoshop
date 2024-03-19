@@ -10,7 +10,7 @@
         $tran_id = $_POST['tran_id'];
     }
 
-    $stmt = mysqli_query($conn, "SELECT * FROM client_documents WHERE tran_id='$tran_id'");
+    $stmt = mysqli_query($conn, "SELECT * FROM client_documents WHERE tran_id = '$tran_id'");
 
     while ($data = mysqli_fetch_assoc($stmt)) {
 ?>

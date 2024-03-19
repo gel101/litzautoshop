@@ -33,8 +33,6 @@ $msg = $order_id = $cust_id = $tran_id = $plateNum = "";
 		$order_id = "";
 	}
 
-	$cust_id = $_POST['cust_id'];
-
 	if(isset($_POST['tran_id']) && !empty($_POST['tran_id'])){
 		$tran_id = $_POST['tran_id'];
 	}else{
@@ -42,6 +40,16 @@ $msg = $order_id = $cust_id = $tran_id = $plateNum = "";
 		$error .= "tran_id is invalid";
 		$tran_id = "";
 	}
+
+    if (isset($_POST['cust_id']) && !empty($_POST['cust_id'])) {
+        $cust_id = $_POST['cust_id'];
+    } else {
+        $noAccStmt = mysqli_query($conn, "SELECT noAccEmail, noAccPhone, customerName FROM orders WHERE tran_id = '$tran_id'");
+        $noAccRow = mysqli_fetch_assoc($noAccStmt);
+        $noAccEmail = $noAccRow['noAccEmail'];
+        $noAccPhone = $noAccRow['noAccPhone'];
+        $noAccName = $noAccRow['customerName'];
+    }
 	
 	if(isset($_POST['plateNum']) && !empty($_POST['plateNum'])){
 		$plateNum = $_POST['plateNum'];
@@ -61,7 +69,7 @@ $msg = $order_id = $cust_id = $tran_id = $plateNum = "";
 		$sql = mysqli_query($conn, "UPDATE orders SET status = '$status', date = '$currentDateTime', plate_number='$plateNum' WHERE order_id = '$order_id' ");
 		$sql = mysqli_query($conn, "UPDATE carts SET status = '$status', date = '$currentDateTime' WHERE tran_id = '$tran_id' ");
 		$sqlll = mysqli_query($conn, "UPDATE client_documents SET status = '$status' WHERE tran_id = '$tran_id' ");
-		if ($cust_id != "") {
+		if (!empty($cust_id)) {
 			$sql22 = mysqli_query($conn, "INSERT INTO notifications(cust_id, message, date, transaction, status) VALUES('$cust_id','$messageSystem','$currentDateTime','$tran','$status')");
 		}
 		$sql22 = mysqli_query($conn, "INSERT INTO notifications(messageTo, message, date, transaction, status) VALUES('admin','$messageSystem','$currentDateTime','$tran','$status')");
@@ -79,7 +87,7 @@ $msg = $order_id = $cust_id = $tran_id = $plateNum = "";
             $finalpaymentTerm = $rowtransaction['payment_term'] . "(" . $rowtransaction['payment_mode'] . " " . $rowtransaction['reference_number'] . ")";
         }
 
-        if ($cust_id != "") {
+        if (!empty($cust_id)) {
             // Customer email sending logic
             $custEmailQuery = mysqli_query($conn, "SELECT email, fname, lname FROM clientacc WHERE cust_id='$cust_id'");
             $row5 = mysqli_fetch_assoc($custEmailQuery);
@@ -87,11 +95,9 @@ $msg = $order_id = $cust_id = $tran_id = $plateNum = "";
             $customerName = $row5['fname'] . " " . $row5['lname'];
 			$custLname = $row5['lname'];
         }else {
-            $custEmailQuery2 = mysqli_query($conn, "SELECT noAccEmail, customerName FROM orders WHERE tran_id = '$tran_id' ");
-            $rowemail = mysqli_fetch_assoc($custEmailQuery2);
-            $customerEmail = $rowemail['noAccEmail'];
-            $customerName = $rowemail['customerName'];
-			$custLname = $rowemail['customerName'];
+            $customerEmail = $noAccEmail;
+            $customerName = $noAccName;
+            $custLname = $customerName;
         }
 						
 
@@ -165,7 +171,7 @@ $msg = $order_id = $cust_id = $tran_id = $plateNum = "";
         $mail->send();
 
 
-		$msg = array("valid"=>true, "msg"=>"Data updated.");
+		$msg = array("valid"=>true, "msg"=>"Transaction Complete!");
 		echo json_encode($msg);
 	} else {
 		$msg = array("valid"=>false, "msg"=>$error);

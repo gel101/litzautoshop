@@ -7,13 +7,7 @@ try {
     $valid = true;
 
 
-    if (isset($_POST['id']) && !empty($_POST['id'])) {
-        $cust_id = $_POST['id'];
-    } else {
-        $valid = false;
-        $error = "CUSTOMER ID invalid";
-        $cust_id = "";
-    }
+    $cust_id = $_POST['id'];
 
     if (isset($_POST['tran_id']) && !empty($_POST['tran_id'])) {
         $tran_id = $_POST['tran_id'];
@@ -280,7 +274,7 @@ try {
             $moveimg7 = $destination7;
 
 
-			$sql = mysqli_query($conn, "UPDATE client_documents SET coe='$moveimg1', payslip_3m='$moveimg2', electric_bill='$moveimg3', brgy_clearance='$moveimg4', validID_1='$moveimg5', validID_2='$moveimg6', marriage_contract='$moveimg7' WHERE cust_id='$cust_id' AND tran_id='$tran_id' ");
+			$sql = mysqli_query($conn, "UPDATE client_documents SET coe='$moveimg1', payslip_3m='$moveimg2', electric_bill='$moveimg3', brgy_clearance='$moveimg4', validID_1='$moveimg5', validID_2='$moveimg6', marriage_contract='$moveimg7' WHERE tran_id='$tran_id' ");
 			
             $msg = array("valid" => true, "msg" => "Requirements Added!");
             echo json_encode($msg);
@@ -323,7 +317,7 @@ try {
             $moveimg7 = $destination7;
 
 
-			$sql = mysqli_query($conn, "UPDATE client_documents SET coe='$moveimg1', payslip_3m='$moveimg2', electric_bill='$moveimg3', brgy_clearance='$moveimg4', validID_1='$moveimg5', marriage_contract='$moveimg7' WHERE cust_id='$cust_id' AND tran_id='$tran_id' ");
+			$sql = mysqli_query($conn, "UPDATE client_documents SET coe='$moveimg1', payslip_3m='$moveimg2', electric_bill='$moveimg3', brgy_clearance='$moveimg4', validID_1='$moveimg5', marriage_contract='$moveimg7' WHERE tran_id='$tran_id' ");
 			
             $msg = array("valid" => true, "msg" => "Requirements Added!");
             echo json_encode($msg);

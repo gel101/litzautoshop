@@ -199,7 +199,7 @@ session_start();
                                 <div class="card-body table-responsive">
                                     <div class="row">
                                         <div class="col-md-2 col-sm-12">
-                                            <!-- <button class="btn btn-primary" id="newOrderBtn" data-bs-toggle="modal" data-bs-target="#addNewOrder">New Order</button> -->
+                                            <button class="btn btn-primary" id="newOrderBtn" data-bs-toggle="modal" data-bs-target="#addNewOrder">Walk in Order</button>
                                         </div>
                                         <div class="col-md-6 col-sm-12">
                                             <!-- Content for the second column -->
@@ -304,6 +304,13 @@ session_start();
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <button onclick="sparepartBtn()" id="spartorderBtn" style="width:150px;" class="btn me-2 btn-secondary btn-lg">Spare Part</button>
+                        <button onclick="carBtn()" id="carorderBtn" style="width:150px;" class="btn me-2 btn-secondary btn-lg">Car</button>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
                     <div class="col-md-6">
                         <label for="" class="form-label">Customer Name</label><span class="err_name text-danger"></span>
                         <input type="text" class="form-control" id="addname" placeholder="Enter name">
@@ -312,132 +319,107 @@ session_start();
                     <div class="col-md-6">
                         <label for="" class="form-label">Email</label><span class="err_email text-danger"></span>
                         <input type="email" class="form-control" id="addemail" placeholder="Enter email">
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-md-6 d-grid">
-                        <button onclick="sparepartBtn()" id="spartorderBtn" class="btn btn-primary btn-lg">Spareparts</button>
-                    </div>
-                    <div class="col-md-6 d-grid">
-                        <button onclick="carBtn()" id="carorderBtn" class="btn btn-secondary btn-lg">Car</button>
-                    </div>
-                </div>
-                <br>
-                <div class="row productContainer">
-                    <div class="col-md-6">
-                        <label for="addOrders" class="form-label">Product Name</label><span class="err_request text-danger"></span>
-                        <select class="form-select" id="addOrders" name="addOrders" required>
-                                            
-                        <option value="">Select Product</option>
-                                            <?php
-                                                $stmtpaintdelete = mysqli_query($conn, "SELECT * FROM spareparts_accessories WHERE status='' AND quantity>0 ORDER BY sparepart_id DESC");
-                                                while($data = mysqli_fetch_assoc($stmtpaintdelete)){
-                                            ?>
-                                            <option data-value-1="<?php echo $data['product']; ?>" data-value-2="<?php echo number_format($data['price'], 2); ?>" data-value-3="<?php echo $data['quantity']; ?>" data-value-4="<?php echo $data['details']; ?>" data-value-5="<?php echo $data['img']; ?>" data-value-6="<?php echo $data['sparepart_id']; ?>"><?php echo $data['product']; ?></option>
-
-                                            <?php
-                                            }
-                                            ?>
-                                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="vehicleType" class="form-label">Quantity</label><span class="err_vehicle text-danger"></span>
-                            
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <button class="quantity-button btn btn-light font-weight-bold" id="minusButton">-</button>
-                                </div>
-                                <div class="col-md-6">
-                                    <input class="quantity-input form-control" type="number" id="addquantity" value="0" min="1">
-                                </div>
-                                <div class="col-md-3">
-                                    <button class="quantity-button btn btn-light font-weight-bold" id="plusButton">+</button>
-                                </div>
-                                <label for="" class="form-label float-end" id="showquantity"></label>
-                            </div>
-                    </div>
-                </div>
-                <br>
-                <div class="row productContainer">
-                    <div class="col-md-6">
-                        <input type="hidden" name="" id="showproduct">
-                        <input type="hidden" name="" id="showid">
-                        <input type="hidden" name="" id="showimg">
-                        <label class="form-label">Product Price</label>
-                        <h3 class="text-primary">&#8369; <span id="showprice"></span></h3>
                         <br>
-                        <textarea name="" class="form-control showDetails" id="showDetails" cols="30" rows="10" disabled></textarea>
+                        <label for="" class="form-label">Phone Number</label><span class="err_phone text-danger"></span>
+                        <input type="number" class="form-control" id="addphone" placeholder="Enter phone number" oninput="validateNumber(this)">
                     </div>
-                    <div class="col-md-6">
-                        <div class="addpaymentModee">
-                            <label for="" class="form-label">Payment Mode</label>
-                                <select class="form-select" name="" id="addpaymentMode">
-                                    <option value="E-wallet">E-wallet</option>
-                                    <option value="Cash">Cash</option>
+                </div>
+                <br>
+                <div class="productContainer">
+                    <div id="productContainer">
+                        <div class="row walkinAddContainer">
+                            <div class="col-md-6">
+                                <label for="addOrders" class="form-label">Product Name</label><span class="err_product text-danger"></span>
+                                <select class="form-select" id="addOrders" name="addOrders[]" required>
+                                                    
+                                    <option value="">Select Product</option>
+                                    <?php
+                                        $stmtpaintdelete = mysqli_query($conn, "SELECT * FROM spareparts_accessories WHERE (status = '' OR status IS NULL) AND quantity > 0 ORDER BY sparepart_id DESC");
+                                        while($data = mysqli_fetch_assoc($stmtpaintdelete)){
+                                    ?>
+                                    <option data-value-1="<?php echo $data['product']; ?>" 
+                                            data-value-2="<?php echo number_format($data['price'], 2); ?>" 
+                                            data-value-3="<?php echo $data['quantity']; ?>" 
+                                            data-value-4="<?php echo $data['details']; ?>" 
+                                            data-value-5="<?php echo $data['img']; ?>" 
+                                            data-value-6="<?php echo $data['sparepart_id'];
+                                            ?>"><?php echo $data['product']; ?></option>
+                                    <?php
+                                    }
+                                    ?>
                                 </select>
-                        </div>
-                        <div class="addreferenceNo">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="" class="form-label">Quantity</label><span class="err_quantity text-danger"></span>
+                                <div class="d-flex" style="place-items:center;justify-content:center">
+                                    <button class="quantity-button btn btn-light font-weight-bold" data-action="decrease" id="minusButton">-</button>
+                                    <input class="quantity-input form-control" type="number" id="addquantity" name="addquantity[]" value="1" min="1" max="">
+                                    <button class="quantity-button btn btn-light font-weight-bold" data-action="increase" id="plusButton">+</button>
+                                </div>
+                                <label for="" class="form-label float-end" name="showquantity[]" id="showquantity"></label><span class="err_leftQuantity text-danger"></span>
+                            </div>
                             <br>
-                            <label for="" class="form-label">Reference Number</label>
-                            <input type="number" class="form-control" id="addreferenceInput" required>
+                            <div class="col-md-6">
+                                <input type="hidden" name="showid[]" id="showid">
+                                <input type="hidden" name="showproduct[]" id="showproduct">
+                                <input type="hidden" name="showimg[]" id="showimg">
+                                <img src="" alt="Product Image" class="img-fluid form-control" id="displayImg">
+                            </div>
+                            <div class="col-md-6"><span class="err_price text-danger"></span>
+                                <h3 class="text-primary">&#8369; <span id="showprice" name="showprice[]"></span></h3>
+                                <textarea name="showDetails[]" class="form-control showDetails" id="showDetails" cols="30" rows="8" disabled></textarea>
+                            </div>
                             <br>
-                            <label for="" class="form-label">E-wallet Screenshot</label>
-                            <input type="file" name="gcashScreenshot" class="form-control" id="addgcashScreenshot">
                         </div>
                     </div>
+                    <br>
+                    <button type="submit" class="btn btn-info float-end" onclick="addField()">Add More Product</button>
                 </div>
                 <div class="row carContainer">
                     <div class="col-md-6">
-                        <label for="addCars" class="form-label">Car Name</label><span class="err_request text-danger"></span>
+                        <label for="addCars" class="form-label">Select a Car</label><span class="err_request text-danger"></span>
                         <select class="form-select" id="addCars" name="addCars" required>
                                             
-                        <option value="">Select Car</option>
-                                            <?php
-                                                $stmtpaintdelete = mysqli_query($conn, "SELECT * FROM cars WHERE status='' AND quantity>0 ORDER BY car_id DESC");
-                                                while($data = mysqli_fetch_assoc($stmtpaintdelete)){
-                                            ?>
-                                            <option data-value-1="<?php echo $data['name']; ?>" 
-                                            data-value-2="<?php echo number_format($data['price'], 2); ?>"
-                                            data-value-3="<?php echo $data['quantity']; ?>" 
-                                            data-value-4="<?php echo $data['details']; ?>" 
-                                            data-value-5="<?php echo $data['car_img']; ?>" 
-                                            data-value-6="<?php echo $data['car_id']; ?>"
-                                            data-value-7="<?php echo $data['car_type']; ?>"
-                                            data-value-8="<?php echo $data['model']; ?>"
-                                            data-value-9="<?php echo $data['engine']; ?>"
-                                            
-                                            ><?php echo $data['name']; ?></option>
+                            <option value="">Select Car</option>
+                                <?php
+                                    $stmtpaintdelete = mysqli_query($conn, "SELECT * FROM cars WHERE (status = '' OR status IS NULL) AND quantity>0 ORDER BY car_id DESC");
+                                    while($data = mysqli_fetch_assoc($stmtpaintdelete)){
+                                ?>
+                            <option data-value-1="<?php echo $data['name']; ?>" 
+                            data-value-2="<?php echo number_format($data['price'], 2); ?>"
+                            data-value-3="<?php echo $data['quantity']; ?>" 
+                            data-value-4="<?php echo $data['details']; ?>" 
+                            data-value-5="<?php echo $data['car_img']; ?>" 
+                            data-value-6="<?php echo $data['car_id']; ?>"
+                            data-value-7="<?php echo $data['car_type']; ?>"
+                            data-value-8="<?php echo $data['model']; ?>"
+                            data-value-9="<?php echo $data['engine']; ?>"><?php echo $data['name']; ?></option>
 
-                                            <?php
-                                            }
-                                            ?>
-                                        </select>
+                                <?php
+                                }
+                                ?>
+                        </select>
+                        <br>
+                        <img src="" class="form-control" id="carImage" alt="Car Image">
                     </div>
+                    <br>
                     <div class="col-md-6">
                         <input type="hidden" name="" id="showcar">
                         <input type="hidden" name="" id="showcarid">
                         <input type="hidden" name="" id="showcarimg">
                         <input type="hidden" name="" id="showcarquantity">
-                        <label class="form-label">Car Price</label>
-                        <h3 class="text-secondary">&#8369; <span class="text-secondary" style="font-size:20px" id="showcarprice"></span> <span class="text-danger" style="font-size:16px" id="addedcarprice"></span></h3>
-                        <label for="" class="form-label" id="showcarquantityLeft"></label><Span> quantity available</Span>
-                    </div>
-                </div>
-                <br>
-                <div class="row carContainer">
-                    <div class="col-md-6">
-                        <textarea name="" class="form-control showDetails" id="showcarDetails" cols="30" rows="10" disabled></textarea>
-                        <textarea name="" class="d-none" id="showcarDetailsHide" cols="30" rows="10" disabled></textarea>
+
                         <input type="hidden" id="cartype" value="">
                         <input type="hidden" id="carmodel" value="">
                         <input type="hidden" id="carengine" value="">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="" class="form-label">Select Color</label>
+
+                        <h3 class="text-secondary">&#8369; <span class="text-secondary" style="font-size:20px" id="showcarprice"></span> <span class="text-danger" style="font-size:16px" id="addedcarprice"></span></h3>
+                        <label for="" class="form-label d-none" id="showcarquantityLeft"></label>
+                        <label for="" class="form-label">Select a Paint Color</label><span class="err_paint text-danger"></span>
                         <select class="form-select" name="" id="addcolor">
+                                <option value="Default">Default</option>
                                 <?php
-                                    $stmtpaintdelete = mysqli_query($conn, "SELECT paint_color FROM paints WHERE status='' AND quantity>0 ORDER BY paint_id DESC");
+                                    $stmtpaintdelete = mysqli_query($conn, "SELECT paint_color FROM paints WHERE (status = '' OR status IS NULL) AND quantity > 0 ORDER BY paint_id DESC");
                                     while($data = mysqli_fetch_assoc($stmtpaintdelete)){
                                 ?>
                                 <option value="<?php echo $data['paint_color']; ?>"><?php echo $data['paint_color']; ?></option>
@@ -447,12 +429,14 @@ session_start();
                                 ?>
                         </select>
                         <br>
+                        <textarea name="showDetails[]" class="form-control showDetails" id="showcarDetails" cols="30" rows="10" disabled></textarea>
+                        <textarea name="" class="d-none" id="showcarDetailsHide" cols="30" rows="10" disabled></textarea>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="addOrderBtn" onclick="addOrders()">Confirm</button>
+                <button type="button" class="btn btn-primary" id="addOrderBtn" onclick="addSparepart()">Confirm</button>
                 <button type="button" class="btn btn-primary" id="addcarBtn" onclick="addCars()">Confirm</button>
             </div>
         </div>
@@ -613,7 +597,7 @@ session_start();
                         <img src="img/system/gcash.jpg" alt="E-wallet QR Code">
                     </div> -->
                     <br>
-                    <label for="" class="form-label">Reference Number</label>
+                    <label for="" class="form-label">Reference Number</label><span class="err_reference text-danger"></span>
                     <input type="number" class="form-control" id="referenceInput" required>
                     <br>
                     <label for="" class="form-label">Screenshot of E-wallet Payment</label><span id="err_ss" class="text-danger"></span>
@@ -678,7 +662,7 @@ session_start();
                         <img src="img/system/gcash.jpg" alt="E-wallet QR Code">
                     </div> -->
                     <br>
-                    <label for="" class="form-label">Reference Number</label>
+                    <label for="" class="form-label">Reference Number</label><span class="err_reference text-danger"></span>
                     <input type="number" class="form-control" id="referenceInput1" required>
                     <br>
                     <label for="" class="form-label">Screenshot of E-wallet Payment</label><span id="err_ss1" class="text-danger"></span>
@@ -725,7 +709,7 @@ session_start();
             </div> -->
             <div class="ereferenceNo">
                 <br>
-                <label for="" class="form-label">Reference Number</label>
+                <label for="" class="form-label">Reference Number</label><span class="err_reference text-danger"></span>
                 <input type="number" class="form-control" id="editreferenceInput" required>
                 <br>
                 <label for="" class="form-label">Screenshot of E-wallet Payment</label>
@@ -905,6 +889,88 @@ session_start();
     <script src="assets/js/app.js"></script>
 
     <script>
+		
+		function validateNumber(input) {
+			if (input.value.length !== 11) {
+                $('.err_phone').html(' *Should be exactly 11 digits and starts with 09! Ex.(09104445556)')
+			} else {
+                $('.err_phone').html(' ')
+			}
+		}
+
+        function addField() {
+            // Create a new container div for the service request
+            var newFieldContainer = document.createElement('div');
+            newFieldContainer.classList.add('row', 'walkinAddContainer'); // Add Bootstrap row class and custom class for styling
+
+            // Add input fields for the service request
+            newFieldContainer.innerHTML = `
+                                            <hr>
+                                            <div class="col-md-6">
+                                                <label for="addOrders" class="form-label">Product Name</label><span class="err_product text-danger"></span>
+                                                <select class="form-select" id="addOrders" name="addOrders[]" required>
+                                                                    
+                                                    <option value="">Select Product</option>
+                                                    <?php
+                                                        $stmtpaintdelete = mysqli_query($conn, "SELECT * FROM spareparts_accessories WHERE (status = '' OR status IS NULL) AND quantity > 0 ORDER BY sparepart_id DESC");
+                                                        while($data = mysqli_fetch_assoc($stmtpaintdelete)){
+                                                    ?>
+                                                    <option data-value-1="<?php echo $data['product']; ?>" 
+                                                            data-value-2="<?php echo number_format($data['price'], 2); ?>" 
+                                                            data-value-3="<?php echo $data['quantity']; ?>" 
+                                                            data-value-4="<?php echo $data['details']; ?>" 
+                                                            data-value-5="<?php echo $data['img']; ?>" 
+                                                            data-value-6="<?php echo $data['sparepart_id'];
+                                                            ?>"><?php echo $data['product']; ?></option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="" class="form-label">Quantity</label><span class="err_quantity text-danger"></span>
+                                                <div class="d-flex" style="place-items:center;justify-content:center">
+                                                    <button class="quantity-button btn btn-light font-weight-bold" data-action="decrease" id="minusButton">-</button>
+                                                    <input class="quantity-input form-control" type="number" id="addquantity" name="addquantity[]" value="1" min="1" max="">
+                                                    <button class="quantity-button btn btn-light font-weight-bold" data-action="increase" id="plusButton">+</button>
+                                                </div>
+                                                <label for="" class="form-label float-end" name="showquantity[]" id="showquantity"></label><span class="err_leftQuantity text-danger"></span>
+                                            </div>
+                                            <br>
+                                            <div class="col-md-6">
+                                                <input type="hidden" name="showid[]" id="showid">
+                                                <input type="hidden" name="showproduct[]" id="showproduct">
+                                                <input type="hidden" name="showimg[]" id="showimg">
+                                                <img src="" alt="Product Image" class="img-fluid form-control" id="displayImg">
+                                            </div>
+                                            <div class="col-md-6"><span class="err_price text-danger"></span>
+                                                <h3 class="text-primary">&#8369; <span id="showprice" name="showprice[]"></span></h3>
+                                                <textarea name="showDetails[]" class="form-control showDetails" id="showDetails" cols="30" rows="8" disabled></textarea>
+                                            </div>
+                                            <br>
+                                            <div class="col-2">
+                                                <button type="button" class="btn btn-danger" onclick="removeField(this)">Remove</button>
+                                            <div>
+                                            <br>`;
+
+            // Append the new container to the fieldsContainer
+            document.getElementById('productContainer').appendChild(newFieldContainer);
+
+            // Attach event listener to the form for checkbox changes using event delegation
+            document.getElementById('productContainer').addEventListener('change', function (event) {
+                var target = event.target;
+
+                if (target.type === 'checkbox' && (target.value === 'Repaint' || target.value === 'Tint')) {
+                    handleCheckboxChange(target, target.value === 'Repaint' ? 'repaintColor[]' : 'retintColor[]', target.value === 'Repaint' ? 'paintColor' : 'tintColor');
+                }
+            });
+        }
+
+        
+        // Function to remove a dynamically added service request
+        function removeField(button) {
+            button.closest('.walkinAddContainer').remove();
+        }
 
         
 
@@ -937,33 +1003,29 @@ session_start();
             $('#addOrderBtn').show();
             $('#addcarBtn').hide();
         }
-        
-        const minusButton = document.getElementById('minusButton');
-        const plusButton = document.getElementById('plusButton');
-        const addquantity = document.getElementById('addquantity');
 
-        minusButton.addEventListener('click', () => {
-            decreaseQuantity();
-        });
-
-        plusButton.addEventListener('click', () => {
-            increaseQuantity();
-        });
-
-        function decreaseQuantity() {
+        // Event delegation for dynamically added elements
+        $('#productContainer').on('click', '.quantity-button', function() {
+            const action = $(this).data('action');
+            const addquantity = $(this).closest('.walkinAddContainer').find('.quantity-input')[0];
+            const maxQuantity = parseInt(addquantity.max);
             let quantity = parseInt(addquantity.value);
-            if (quantity > 0) {
-                quantity--;
+            if (action === 'decrease') {
+                if (quantity > 1) {
+                    quantity--;
+                    addquantity.value = quantity;
+                }else{
+                    addquantity.value = 1;
+                }
+            } else if (action === 'increase') {
+                if (quantity < maxQuantity) {
+                    quantity++;
+                    addquantity.value = quantity;
+                }else{
+                    addquantity.value = maxQuantity;
+                }
             }
-            addquantity.value = quantity;
-        }
-
-        function increaseQuantity() {
-            let quantity = parseInt(addquantity.value);
-            quantity++;
-            addquantity.value = quantity;
-        }
-
+        });
         
         function processTran(cust_id,order_id,tran_id){
             // alert(order_id);
@@ -1203,7 +1265,21 @@ session_start();
 
         function showClientInfo(cust_id){
             $("#showClientInfo").load("db/ajaxShowClientProfile.php", {
-                clientInfo : cust_id
+                clientInfo: cust_id
+            }, function (responseText) {
+                // Callback function after AJAX is completed
+                if ($.trim(responseText) === "") {
+                    // If the loaded data is empty, display "No System Account"
+                    $("#showClientInfo").html("<h3 class='text-warning text-center'>Walk in Customer</h3>");
+                    // If data is present, continue with checkRequestStatus()
+                    // checkRequestStatus();
+                } else {
+                    // If data is present, continue with checkRequestStatus()
+                    // checkRequestStatus();
+                }
+            }).fail(function () {
+                // Callback function in case of failure
+                $("#showClientInfo").html("<h2>No System Account!</h2>");
             });
         }
 
@@ -1268,12 +1344,9 @@ session_start();
             });
 
 
-            // Add event listener to the select element
-            $('#addOrders').change(function () {
-                // Get the selected option
+            // Add event listener to the parent container using event delegation
+            $('#productContainer').on('change', '.form-select', function() {
                 var selectedOption = $(this).find('option:selected');
-
-                // Get the values from the data attributes
                 var product = selectedOption.data('value-1');
                 var price = selectedOption.data('value-2');
                 var formattedPrice = price.toLocaleString();
@@ -1282,15 +1355,20 @@ session_start();
                 var img = selectedOption.data('value-5');
                 var id = selectedOption.data('value-6');
 
-                // Display the values in the input fields
-                $('#showid').val(id);
-                $('#showproduct').val(product);
-                $('#showimg').val(img);
-                $('#showprice').text(formattedPrice);
+                // Find related elements within the same parent container
+                var parentContainer = $(this).closest('.walkinAddContainer');
+                parentContainer.find('#showid').val(id);
+                parentContainer.find('#showproduct').val(product);
+                parentContainer.find('#showimg').val(img);
+                parentContainer.find('#displayImg').attr('src', "db/" + img);
+                parentContainer.find('#addquantity').attr('max', quantity); // Set the maximum value
+                parentContainer.find('#showprice').text(formattedPrice);
                 details = details.replace(/\n/g, '<br>');
-                $('#showDetails').val(details.replace(/<br>/g, '\n'));
-                $('#showquantity').text(quantity + " quantity left");
+                parentContainer.find('#showDetails').val(details.replace(/<br>/g, '\n'));
+                parentContainer.find('#showquantity').text(quantity + " quantity left");
             });
+
+
             
             // Add event listener to the select element
             $('#addCars').change(function () {
@@ -1313,6 +1391,7 @@ session_start();
                 $('#showcarid').val(id);
                 $('#showcar').val(product);
                 $('#showcarimg').val(img);
+                $('#carImage').attr('src', 'db/' + img);
                 $('#showcarprice').text(formattedPrice);
                 details = details.replace(/\n/g, '<br>');
                 $('#showcarDetails').val("Car Type :" + cartype + "\nModel: " + model + "\nEngine: " + engine + "\n\nDetails: " + details.replace(/<br>/g, '\n'));
@@ -1457,88 +1536,89 @@ session_start();
         });
 
     
-        function addOrders(){
-            var valid = true;
-            var rawPrice = $('#showprice').text().replace(/[^\d.]/g, '');
-            var rawQuantity = $('#showquantity').text().replace(/[^0-9]/g, '');
+        function addSparepart(){
+                var valid = true;
+                var addname = $('#addname').val();
+                var addemail = $('#addemail').val();
+                var addphone = $('#addphone').val();
 
-            var addname = $('#addname').val();
-            var addemail = $('#addemail').val();
-            var addid = $('#showid').val();
-            var addproduct = $('#showproduct').val();
-            var addimg = $('#showimg').val();
-            // If you want to convert them to numbers
-            var addprice = parseFloat(rawPrice);
-            var addquantity = $('#addquantity').val();
-            var adddetails = $('#showDetails').val();
-            var addquantityleft = parseInt(rawQuantity, 10);
-
-            var addscreenshot = $("#addgcashScreenshot").prop("files")[0]; // Get the file object
-            var addpaymentTerm = "Fully Paid";
-            var addpaymentMode = $('#addpaymentMode').val();
-            var addreferenceInput = $('#addreferenceInput').val();
-            var currentDate = new Date();
-            var year = currentDate.getFullYear();
-            var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-            var day = currentDate.getDate().toString().padStart(2, '0');
-            var addformattedDate = year + '-' + month + '-' + day;
-
-
-            if (addpaymentMode == "E-wallet") {
-                if (addreferenceInput == "" || addreferenceInput == "e") {
-                    var valid = false;
-                    alert("Reference Number Invalid");
+                if (addname == "") {
+                    valid = false;
+                    $(".err_name").html(" *Name Invalid");
+                }else{
+                    $(".err_name").html("");
+                }
+                if (addemail == "") {
+                    valid = false;
+                    $(".err_email").html(" *Email Invalid");
+                }else{
+                    $(".err_email").html("");
+                }
+                if (addphone == "") {
+                    valid = false;
+                    $(".err_phone").html(" *Phone Invalid");
+                }else{
+                    $(".err_phone").html("");
                 }
 
-                var addreferenceInput = "RN: " + addreferenceInput;
-            }
+                // Iterate over all elements with the class 'walkinAddContainer'
+                var productAdd = document.querySelectorAll('.walkinAddContainer');
+                var productData = [];
 
-            if (addscreenshot == "undefined") {
-                var valid = false;
-                alert("E-wallet Screenshot Empty!");
-            }
-        
-            if (addname == "") {
-                var valid = false;
-                alert("Customer Name Invalid");
-            }
-            if (addemail == "") {
-                var valid = false;
-                alert("Customer Email Invalid");
-            }
-            if (addproduct == "") {
-                var valid = false;
-                alert("Product Invalid");
-            }
-            if (addprice == "") {
-                var valid = false;
-                alert("Price Invalid");
-            }
-            if (addquantity < 1) {
-                var valid = false;
-                alert("Quantity Invalid");
-            }
-            if (addquantityleft == "") {
-                var valid = false;
-                alert("Left Quantity Invalid");
-            }
+                // Iterate over each service request
+                $('.walkinAddContainer').each(function() {
+                    var addOrders = $(this).find('select[name="addOrders[]"]');
+                    if(addOrders.val() === '') {
+                        valid = false;
+                        addOrders.closest('.walkinAddContainer').find('.err_product').html(" *Please Select Product First");
+                        return;
+                    }else{
+                        addOrders.closest('.walkinAddContainer').find('.err_product').html(" ");
+                    }
+                    
+                    var addid = $(this).find('input[name="showid[]"]').val();
+                    var addproduct = $(this).find('input[name="showproduct[]"]').val();
+                    var addimg = $(this).find('input[name="showimg[]"]').val();
+                    var addprice = parseFloat($(this).find('span[name="showprice[]"]').text().replace(/[^\d.]/g, ''));
+                    var addquantity = parseInt($(this).find('input[name="addquantity[]"]').val());
+                    var adddetails = $(this).find('textarea[name="showDetails[]"]').val();
+                    var addquantityleft = parseInt($(this).find('label[name="showquantity[]"]').text().match(/\d+/)[0]);
 
-            if (valid && confirm("Continue the process?")) {
-                var form_data = new FormData();
-                form_data.append("addname", addname);
-                form_data.append("addemail", addemail);
-                form_data.append("addid", addid);
-                form_data.append("addimg", addimg);
-                form_data.append("addproduct", addproduct);
-                form_data.append("addprice", addprice);
-                form_data.append("addquantity", addquantity);
-                form_data.append("addquantityleft", addquantityleft);
-                form_data.append("adddetails", adddetails);
-                form_data.append("addscreenshot", addscreenshot);
-                form_data.append("addpaymentTerm", addpaymentTerm);
-                form_data.append("addpaymentMode", addpaymentMode);
-                form_data.append("addreferenceInput", addreferenceInput);
-                form_data.append("adddate", addformattedDate);
+                    var addquantityField = $(this).find('input[name="addquantity[]"]');
+                    var addquantityValue = addquantityField.val().trim();
+
+                    // Check if addquantity is empty
+                    if (addquantityValue === '') {
+                        // Show error message in the closest .err_quantity element
+                        addquantityField.closest('.walkinAddContainer').find('.err_quantity').html(" *Quantity Invalid");
+                        valid = false;
+                    }else{
+                        addquantityField.closest('.walkinAddContainer').find('.err_quantity').html(" ");
+                    }
+
+                    productData.push({
+                        addid: addid,
+                        addproduct: addproduct,
+                        addimg: addimg,
+                        addprice: addprice,
+                        addquantity: addquantity,
+                        adddetails: adddetails,
+                        addquantityleft: addquantityleft
+                    });
+                });
+
+
+            if (valid && confirm("Add an walk-in order?")) {
+
+                // Construct form data
+                var form_data = {
+                    addname: addname,
+                    addemail: addemail,
+                    addphone: addphone,
+                    productData: productData
+                };
+
+                console.log(form_data);
 
 
                 // Send the image data and other form data to PHP using AJAX
@@ -1546,17 +1626,15 @@ session_start();
                     url: "db/transactionAddNew.php",
                     type: "POST",
                     data: form_data,
-                    contentType: false,
-                    processData: false,
+                    dataType: "json",
                     beforeSend: function () {
                         $('#loadingModal').modal('show');
                         $('.dismissBtn').click();
                     },
                     success: function (response) {
                         $('#loadingModal').modal('hide'); // Hide the modal on success
-                        var responseData = JSON.parse(response);
-                        if (responseData.valid == false) {
-                            alert(responseData.msg);
+                        if (response['valid'] == false) {
+                            alert(response['msg']);
                         $('#loadingModal').modal('hide');
                         } else {
                             $('#successModal').modal('show');
@@ -1586,6 +1664,7 @@ session_start();
 
             var addname = $('#addname').val();
             var addemail = $('#addemail').val();
+            var addphone = $('#addphone').val();
             var addid = $('#showcarid').val();
             var addproduct = $('#showcar').val();
             var addimg = $('#showcarimg').val();
@@ -1598,31 +1677,40 @@ session_start();
             // alert(addprice);
             var addquantity = 1;
             var addquantityLeft = $('#showcarquantity').val();
-            var adddetails = $('#showcarDetailshide').val();
-            var currentDate = new Date();
-            var year = currentDate.getFullYear();
-            var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-            var day = currentDate.getDate().toString().padStart(2, '0');
-            var addformattedDate = year + '-' + month + '-' + day;
+            var adddetails = $('#showcarDetailsHide').val();
 
             if (addname == "") {
                 var valid = false;
-                alert("Customer Name Invalid");
+                $('.err_name').html(" *Input Invalid!")
+            }else{
+                $('.err_name').html(" ")
             }
             if (addemail == "") {
                 var valid = false;
-                alert("Customer Email Invalid");
+                $('.err_email').html(" *Input Invalid!")
+            }else{
+                $('.err_email').html(" ")
+            }
+            if (addphone == "") {
+                var valid = false;
+                $('.err_phone').html(" *Input Invalid!")
+            }else{
+                $('.err_phone').html(" ")
             }
             if (addproduct == "") {
                 var valid = false;
-                alert("Car Name Invalid");
+                $('.err_request').html(" Please Select a Car First!")
+            }else{
+                $('.err_request').html(" ")
             }
 
+            console.log("this is the log: " + adddetails);
 
             if (valid && confirm("Continue the process?")) {
                 var form_data = new FormData();
                 form_data.append("addname", addname);
                 form_data.append("addemail", addemail);
+                form_data.append("addphone", addphone);
                 form_data.append("addid", addid);
                 form_data.append("addimg", addimg);
                 form_data.append("addproduct", addproduct);
@@ -1634,7 +1722,6 @@ session_start();
                 form_data.append("addquantity", addquantity);
                 form_data.append("addquantityLeft", addquantityLeft);
                 form_data.append("adddetails", adddetails);
-                form_data.append("adddate", addformattedDate);
 
 
                 // Send the image data and other form data to PHP using AJAX
@@ -1749,14 +1836,6 @@ session_start();
     const payment_err1 = document.getElementById('payment_err1');
 
     
-    const addpaymentMode = document.getElementById('addpaymentMode');
-    // const paymentReceived = document.getElementById('paymentReceived');
-    const addpaymentModee = document.getElementsByClassName('addpaymentModee')[0];
-    // const fullpayment = document.getElementsByClassName('fullpayment')[0];
-    const addreferenceNo = document.getElementsByClassName('addreferenceNo')[0];
-    const addreferenceInput = document.getElementById('addreferenceInput');
-    const addgcashScreenshot = document.getElementById('addgcashScreenshot');
-    
 
 
     paymentTerm.addEventListener('change', function() {
@@ -1806,16 +1885,6 @@ session_start();
             referenceNo1.style.display = "none";
             referenceInput1.value = "";
             gcashScreenshot1.value = "";
-        }
-    });
-
-    addpaymentMode.addEventListener('change', function() {
-        if (addpaymentMode.value === "E-wallet") {
-            addreferenceNo.style.display = "block";
-        } else {
-            addreferenceNo.style.display = "none";
-            addreferenceInput.value = "";
-            gcashScreenshot.value = "";
         }
     });
     
@@ -1987,7 +2056,9 @@ session_start();
         if (paymentMode == "E-wallet") {
             if (referenceInput == "" || referenceInput == "e") {
                 var valid = false;
-                alert("Reference Number Invalid");
+                $(".err_reference").html(" *Reference Number Invalid");
+            }else{
+                $(".err_reference").html(" ");
             }
 
             var referenceInput = "RN: " + referenceInput;
@@ -2028,8 +2099,9 @@ session_start();
                         $('.dismissBtn').click();
                     },
                     success: function (response) {
-                        if (response['valid'] == false) {
-                            alert(response['msg']);
+                        var responseData = JSON.parse(response);
+                        if(responseData.valid == false){
+                            alert(responseData.msg);
                             $('#loadingModal').modal('hide');
                         } else {
                             $('#successModal').modal('show');
@@ -2074,7 +2146,10 @@ session_start();
         if (paymentMode == "E-wallet") {
             if (referenceInput == "" || referenceInput == "e") {
                 var valid = false;
-                alert("Reference Number Invalid");
+                $(".err_reference").html(" *Reference Number Invalid");
+            }else{
+                
+                $(".err_reference").html(" ");
             }
 
             var referenceInput = "RN: " + referenceInput;
@@ -2115,8 +2190,10 @@ session_start();
                         $('.dismissBtn').click();
                     },
                     success: function (response) {
-                        if (response['valid'] == false) {
-                            alert(response['msg']);
+                        var responseData = JSON.parse(response);
+                        if(responseData.valid == false){
+                            alert(responseData.msg);
+                            location.reload();
                             $('#loadingModal').modal('hide');
                         } else {
                             $('#successModal').modal('show');

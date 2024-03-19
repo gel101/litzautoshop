@@ -24,9 +24,6 @@ $mail->Password = "afwaansxpvhbrtcw";
 try{
 $msg = $order_id = "";
 	$valid = true;
-	
-	$cust_id = $_POST['cust_id'];
-
 
 	if(isset($_POST['order_id']) && !empty($_POST['order_id'])){
 		$order_id = $_POST['order_id'];
@@ -52,6 +49,16 @@ $msg = $order_id = "";
 		$tran_id = "";
 	}
 
+    if (isset($_POST['cust_id']) && !empty($_POST['cust_id'])) {
+        $cust_id = $_POST['cust_id'];
+    } else {
+        $noAccStmt = mysqli_query($conn, "SELECT noAccEmail, noAccPhone, customerName FROM orders WHERE tran_id = '$tran_id'");
+        $noAccRow = mysqli_fetch_assoc($noAccStmt);
+        $noAccEmail = $noAccRow['noAccEmail'];
+        $noAccPhone = $noAccRow['noAccPhone'];
+        $noAccName = $noAccRow['customerName'];
+    }
+
 	$currentDateTime = date("Y-m-d H:i:s");
 	$status = "Ready to Pick Up";
 	$messageClient = "The Order is Ready To Pick Up. Go to the store and get your item. " . "Transaction ID : " . $tran_id;
@@ -67,7 +74,7 @@ $msg = $order_id = "";
 		$sql = mysqli_query($conn, "UPDATE orders SET status = '$status', date = '$currentDateTime' WHERE order_id = '$order_id' ");
 		$sql = mysqli_query($conn, "UPDATE carts SET status = '$status', date = '$currentDateTime' WHERE tran_id = '$tran_id' ");
 		$sqlll = mysqli_query($conn, "UPDATE client_documents SET status = '$status' WHERE tran_id = '$tran_id' ");
-		if ($cust_id != "") {
+		if (!empty($cust_id)) {
 			$sql22 = mysqli_query($conn, "INSERT INTO notifications(cust_id, message, date, transaction, status) VALUES('$cust_id','$messageClient','$currentDateTime','$tran','$status')");
 		}
 		$sql22 = mysqli_query($conn, "INSERT INTO notifications(messageTo, message, date, transaction, status) VALUES('admin','$messageAdmin','$currentDateTime','$tran','$status')");
@@ -86,7 +93,7 @@ $msg = $order_id = "";
             $finalpaymentTerm = $rowtransaction['payment_term'] . "(" . $rowtransaction['payment_mode'] . " " . $rowtransaction['reference_number'] . ")";
         }
 
-        if ($cust_id != "") {
+        if (!empty($cust_id)) {
             // Customer email sending logic
             $custEmailQuery = mysqli_query($conn, "SELECT email, fname, lname FROM clientacc WHERE cust_id='$cust_id'");
             $row5 = mysqli_fetch_assoc($custEmailQuery);
@@ -94,11 +101,9 @@ $msg = $order_id = "";
             $customerName = $row5['fname'] . " " . $row5['lname'];
 			$custLname = $row5['lname'];
         }else {
-            $custEmailQuery2 = mysqli_query($conn, "SELECT noAccEmail, customerName FROM orders WHERE tran_id = '$tran_id' ");
-            $rowemail = mysqli_fetch_assoc($custEmailQuery2);
-            $customerEmail = $rowemail['noAccEmail'];
-            $customerName = $rowemail['customerName'];
-			$custLname = $rowemail['customerName'];
+            $customerEmail = $noAccEmail;
+            $customerName = $noAccName;
+            $custLname = $customerName;
         }
 			
 
@@ -187,12 +192,15 @@ while ($productRow = mysqli_fetch_assoc($productQuery)) {
         $textMessage .= $productRow['product'] . "(" . $productRow['quantity'] . "x) ₱" . number_format($productRow['price'], 2) . ", ";
     }
 }
-
+	if (!empty($cust_id)) {
         $stmtclientNum = mysqli_query($conn, "SELECT phoneNum FROM clientacc WHERE cust_id = '$cust_id' ");
         $dataPhone = mysqli_fetch_assoc($stmtclientNum);
 
         $oldnumber = $dataPhone['phoneNum'];
         // $prefixedNumber = "+63" . substr($number, 1);
+	}else{
+        $oldnumber = $noAccPhone;
+	}
 
 		$msg = array("valid"=>true, "msg"=>"Data updated.", "number" => $oldnumber, "message" => $textMessage);
 		echo json_encode($msg);

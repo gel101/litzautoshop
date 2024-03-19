@@ -23,7 +23,7 @@ $mail->Password = "afwaansxpvhbrtcw";
 
 try {
     $msg = $addname = $addemail = $addid = $addimg = $addproduct = $addcartype = $addmodel = $addengine = $addprice = $addcolor
-    = $addquantity = $addquantityLeft = $adddetails = $addscreenshot = $addpaymentTerm = $addpaymentMode = $addreferenceInput = $adddate = $error = "";
+    = $addquantity = $addquantityLeft = $adddetails = $addscreenshot = $addpaymentTerm = $addpaymentMode = $addreferenceInput = $addphone = $error = "";
     $valid = true;
 
 
@@ -43,6 +43,14 @@ try {
         $addemail = "";
     }
 
+    if (isset($_POST['addphone']) && !empty($_POST['addphone'])) {
+        $addphone = $_POST['addphone'];
+    } else {
+        $valid = false;
+        $error .= "Customer Phone is invalid";
+        $addphone = "";
+    }
+
     $addid = $_POST['addid'];
     $addimg = $_POST['addimg'];
     $addproduct = $_POST['addproduct'];
@@ -54,40 +62,49 @@ try {
     $addquantity = $_POST['addquantity'];
     $addquantityLeft = $_POST['addquantityLeft'];
     $adddetails = $_POST['adddetails'];
-    $adddate = $_POST['adddate'];
     $totalprice = $addprice * $addquantity;
 
     $status = "Accepted";
-    $tran_id = uniqid(); // GENERATE Transaction ID
+    $currentDateTime = date("Y-m-d H:i:s");
 
-    $sql = mysqli_query($conn, "INSERT INTO carts(img, tran_id, car_id, product, name, model, engine, price, color, quantity, leftQuantity, details, status) VALUES('$addimg','$tran_id','$addid','$addproduct','$addcartype','$addmodel','$addengine','$addprice','$addcolor','$addquantity','$addquantityLeft','$adddetails','$status')");
-    $sqll123 = mysqli_query($conn, "INSERT INTO orders(customerName, tran_id, totalprice, date, status, noAccEmail) VALUES('$addname','$tran_id','$totalprice','$adddate', '$status', '$addemail')");
+    function generateUniqueID() {
+        global $conn;
+        // Fetch the current TransactionIndexID
+        $stmt = mysqli_query($conn, "SELECT TransactionIndexID FROM datastoring WHERE id = 1 ");
+        $dataTransaction = mysqli_fetch_assoc($stmt);
+        $TransactionIndexID = $dataTransaction['TransactionIndexID'];
+    
+        // Increment TransactionIndexID by 1
+        $TransactionIndexID++;
+    
+        // Pad the numerical part with zeros to ensure it's always six digits
+        $paddedTransactionIndexID = str_pad($TransactionIndexID, 6, '0', STR_PAD_LEFT);
+    
+        // Construct the final ID with the current year and padded TransactionIndexID
+        $currentYear = date('Y');
+        $tran_id = $currentYear . '-' . $paddedTransactionIndexID;
+    
+        // Update the datastoring table with the incremented TransactionIndexID
+        $stmt = mysqli_query($conn, "UPDATE datastoring SET TransactionIndexID = '$TransactionIndexID' WHERE id = 1 ");
+    
+        // Return the generated tran_id
+        return $tran_id;
+    }
+
+    $tran_id = generateUniqueID();  // Use a different variable for orders
+    $tran_id = $tran_id;
 
     
     if ($valid) {
 
-        $stmt = mysqli_query($conn, "SELECT car_id, sparepart_id, product, color, quantity FROM carts WHERE tran_id='$tran_id'");
-        
-        
-        if ($stmt) {
-
-            $flag = true;
-
-
-            while ($row = mysqli_fetch_assoc($stmt)){
-
-                if (isset($row['car_id'])) {
-                    $prodID = $row['car_id'];
-                }else {
-                    $prodID = $row['sparepart_id'];
-                }
-
-                $prodName = $row['product'];
-                $usingcolor = $row['color'];
-                $totalquantity = $row['quantity'];
+                $flag = true;
+                $prodID = $addid;
+                $prodName = $addproduct;
+                $usingcolor = $addcolor;
+                $totalquantity = $addquantity;
 
                 // Query to get the current quantity from the database
-                $getCurrentQuantityQuery = "SELECT quantity FROM cars WHERE car_id = $prodID AND car_type = '$prodName'";
+                $getCurrentQuantityQuery = "SELECT quantity FROM cars WHERE car_id = $prodID AND name = '$prodName'";
                 $result = mysqli_query($conn, $getCurrentQuantityQuery);
                 
                 if ($result && mysqli_num_rows($result) > 0) {
@@ -124,27 +141,17 @@ try {
                     // Handle the case where no matching row is found
                     $error .= "No data found for Product Name: $prodName";
                 }
-            }
+            
 
             if ($flag) {
 
-                $stmt = mysqli_query($conn, "SELECT car_id, sparepart_id, product, color, quantity FROM carts WHERE tran_id='$tran_id'");
-                
-                while ($row = mysqli_fetch_assoc($stmt)){
-
-                    if (isset($row['car_id'])) {
-                        $prodID = $row['car_id'];
-                    }else {
-                        $prodID = $row['sparepart_id'];
-                    }
-
-                    $prodName = $row['product'];
-                    $usingcolor = $row['color'];
-                    $totalquantity = $row['quantity'];
-                    // Process or display the retrieved data
+                    $prodID = $addid;
+                    $prodName = $addproduct;
+                    $usingcolor = $addcolor;
+                    $totalquantity = $addquantity;
 
                     // Query to get the current quantity from the database
-                    $getCurrentQuantityQuery = "SELECT quantity FROM cars WHERE car_id = $prodID AND car_type = '$prodName'";
+                    $getCurrentQuantityQuery = "SELECT quantity FROM cars WHERE car_id = $prodID AND name = '$prodName'";
                     $result = mysqli_query($conn, $getCurrentQuantityQuery);
                     
                     if ($result && mysqli_num_rows($result) > 0) {
@@ -154,7 +161,7 @@ try {
                         // Check if subtracting the totalquantity will result in a non-negative quantity
                         if ($currentQuantity - $totalquantity >= 0) {
                             // Update the quantity in the cars table
-                            $updateCarsQuery = "UPDATE cars SET quantity = quantity - $totalquantity, sold = sold + $totalquantity WHERE car_id = $prodID AND car_type = '$prodName'";
+                            $updateCarsQuery = "UPDATE cars SET quantity = quantity - $totalquantity, sold = sold + $totalquantity WHERE car_id = $prodID AND name = '$prodName'";
                             if (!mysqli_query($conn, $updateCarsQuery)) {
                                 // Handle the case where the update query for the cars table failed
                                 $error .= "Error updating quantity in cars table: " . mysqli_error($conn);
@@ -226,7 +233,7 @@ try {
                         // Handle the case where the color is empty in the carts table
                         $error .= "Color is empty in the carts table";
                     }
-                }
+                
             }else {
                 // Close the script
                 exit;
@@ -234,16 +241,10 @@ try {
 
 
 
-        // Handle the case where no matching row is found
-        $error .= "No data found for the specified Transaction ID";
-            
-        } else {
-            // Handle the case where the query execution failed
-            $error .= "Error: " . mysqli_error($conn);
-        }
+        $sql = mysqli_query($conn, "INSERT INTO carts(img, tran_id, car_id, product, name, model, engine, price, color, quantity, leftQuantity, details, date, status) VALUES('$addimg','$tran_id','$addid','$addproduct','$addcartype','$addmodel','$addengine','$addprice','$addcolor','$addquantity','$addquantityLeft','$adddetails','$currentDateTime','$status')");
+        $sqll123 = mysqli_query($conn, "INSERT INTO orders(customerName, tran_id, totalprice, date, status, noAccEmail, noAccPhone, transaction_type) VALUES('$addname','$tran_id','$totalprice','$currentDateTime', '$status', '$addemail', '$addphone', 'car')");
+        $sql2 = mysqli_query($conn, "INSERT INTO client_documents(tran_id, status) VALUES('$tran_id','$status')");
 
-
-        
         //Transaction Detail query
         $transactionDetailQuery = mysqli_query($conn, "SELECT * FROM orders WHERE tran_id='$tran_id'");
 
@@ -349,7 +350,7 @@ try {
         $mail->smtpClose();
 
 
-        $msg = array("valid" => true, "msg" => "Transaction Status: Requirements Complete!");
+        $msg = array("valid" => true, "msg" => "Order Accepted!");
         echo json_encode($msg);
         exit;
 

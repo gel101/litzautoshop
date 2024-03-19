@@ -53,14 +53,22 @@ try {
 
     }
 
-    $cust_id = $_POST['cust_id'];
-
     if (isset($_POST['tran_id']) && !empty($_POST['tran_id'])) {
         $tran_id = $_POST['tran_id'];
     } else {
         $valid = false;
         $error = "Transaction ID is invalid";
         $tran_id = "";
+    }
+
+    if (isset($_POST['cust_id']) && !empty($_POST['cust_id'])) {
+        $cust_id = $_POST['cust_id'];
+    } else {
+        $noAccStmt = mysqli_query($conn, "SELECT noAccEmail, noAccPhone, customerName FROM orders WHERE tran_id = '$tran_id'");
+        $noAccRow = mysqli_fetch_assoc($noAccStmt);
+        $noAccEmail = $noAccRow['noAccEmail'];
+        $noAccPhone = $noAccRow['noAccPhone'];
+        $noAccName = $noAccRow['customerName'];
     }
 
     if (isset($_POST['paymentTerm']) && !empty($_POST['paymentTerm'])) {
@@ -182,7 +190,7 @@ try {
 
         $sqlll = mysqli_query($conn, "UPDATE carts SET status = '$status', date = '$currentDateTime' WHERE tran_id = '$tran_id' ");
         $sqlll = mysqli_query($conn, "UPDATE client_documents SET status = '$status' WHERE tran_id = '$tran_id' ");
-        if ($cust_id != "") {
+        if (!empty($cust_id)) {
             $sql22 = mysqli_query($conn, "INSERT INTO notifications(cust_id, message, date, transaction, status) VALUES('$cust_id','$messageClient','$currentDateTime','$tran','$status')");
         }
         // $sql223 = mysqli_query($conn, "INSERT INTO notifications(messageTo, message, date, transaction, status) VALUES('staff','$messageStaff','$date','$tran','$status')");
@@ -269,7 +277,7 @@ try {
             return $message;
         }
 
-        if ($cust_id != "") {
+        if (!empty($cust_id)) {
             // Customer email sending logic
             $custEmailQuery = mysqli_query($conn, "SELECT email, fname, lname FROM clientacc WHERE cust_id='$cust_id'");
             $row5 = mysqli_fetch_assoc($custEmailQuery);
@@ -277,11 +285,9 @@ try {
             $customerName = $row5['fname'] . " " . $row5['lname'];
             $custLname = $row5['lname'];
         }else {
-            $custEmailQuery2 = mysqli_query($conn, "SELECT noAccEmail, customerName FROM orders WHERE tran_id = '$tran_id' ");
-            $rowemail = mysqli_fetch_assoc($custEmailQuery2);
-            $customerEmail = $rowemail['noAccEmail'];
-            $customerName = $rowemail['customerName'];
-            $custLname = $rowemail['customerName'];
+            $customerEmail = $noAccEmail;
+            $customerName = $noAccName;
+            $custLname = $customerName;
         }
 
         $messageContent = "<p>Dear Mr/Mrs. $custLname,</p>";
