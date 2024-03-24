@@ -376,7 +376,7 @@
             <?php
             include 'db/connection.php';
 
-            $stmt = mysqli_query($conn, "SELECT * FROM cars WHERE quantity > 0 AND status != 'archived' ORDER BY car_id DESC");
+            $stmt = mysqli_query($conn, "SELECT * FROM cars WHERE quantity > 0 AND (status != 'archived' OR status IS NULL) ORDER BY car_id DESC");
 
             while($data = mysqli_fetch_assoc($stmt)){
             ?>
@@ -408,7 +408,7 @@
             
             <?php
 
-            $stmtProdcuct = mysqli_query($conn, "SELECT * FROM spareparts_accessories WHERE quantity > 0 AND status != 'archived' ORDER BY sparepart_id DESC");
+            $stmtProdcuct = mysqli_query($conn, "SELECT * FROM spareparts_accessories WHERE quantity > 0 AND (status != 'archived' OR status IS NULL) ORDER BY sparepart_id DESC");
 
             while($dataPart = mysqli_fetch_assoc($stmtProdcuct)){
             ?>
