@@ -97,13 +97,13 @@ if (isset($_POST['dataURL']) && isset($_POST['filename']) && isset($_POST['submi
                 'engine' => 'Engine',
                 'price' => 'Price');
             $columns1 = implode(', ', $display_columns1);
-            $query1 = "SELECT $columns1 FROM cars WHERE status = '' ";
+            $query1 = "SELECT $columns1 FROM cars WHERE status IS NULL ";
             $result1 = mysqli_query($conn, $query1) or die("Database error: " . mysqli_error($conn));
 
             // Calculate the total quantity
-            $query1 = "SELECT $columns1 FROM cars WHERE status = '' ";
+            $query1 = "SELECT $columns1 FROM cars WHERE status IS NULL ";
             $result1 = mysqli_query($conn, $query1) or die("Database error: " . mysqli_error($conn));
-            $query11 = "SELECT SUM(Quantity) AS TotalQuantity FROM cars WHERE status = '' ";
+            $query11 = "SELECT SUM(Quantity) AS TotalQuantity FROM cars WHERE status IS NULL ";
             $result11 = mysqli_query($conn, $query11) or die("Database error: " . mysqli_error($conn));
             $row11 = mysqli_fetch_assoc($result11);
             $totalQuantity1 = $row11['TotalQuantity'];
@@ -172,9 +172,9 @@ if (isset($_POST['dataURL']) && isset($_POST['filename']) && isset($_POST['submi
                 'Sold' => 'Sold',
                 'Quantity' => 'Available',);
             $columns3 = implode(', ', $display_columns3);
-            $query3 = "SELECT $columns3 FROM spareparts_accessories WHERE status = '' ";
+            $query3 = "SELECT $columns3 FROM spareparts_accessories WHERE status IS NULL ";
             $result3 = mysqli_query($conn, $query3) or die("Database error: " . mysqli_error($conn));
-            $query33 = "SELECT SUM(Quantity) AS TotalQuantity FROM spareparts_accessories WHERE status = '' ";
+            $query33 = "SELECT SUM(Quantity) AS TotalQuantity FROM spareparts_accessories WHERE status IS NULL ";
             $result33 = mysqli_query($conn, $query33) or die("Database error: " . mysqli_error($conn));
             $row33 = mysqli_fetch_assoc($result33);
             $totalQuantity3 = $row33['TotalQuantity'];
@@ -232,9 +232,9 @@ if (isset($_POST['dataURL']) && isset($_POST['filename']) && isset($_POST['submi
                 'Sold' => 'Used',
                 'Quantity' => 'Available');
             $columns2 = implode(', ', $display_columns2);
-            $query2 = "SELECT $columns2 FROM paints WHERE status = '' ";
+            $query2 = "SELECT $columns2 FROM paints WHERE status IS NULL ";
             $result2 = mysqli_query($conn, $query2) or die("Database error: " . mysqli_error($conn));
-            $query22 = "SELECT SUM(Quantity) AS TotalQuantity FROM paints WHERE status = '' ";
+            $query22 = "SELECT SUM(Quantity) AS TotalQuantity FROM paints WHERE status IS NULL ";
             $result22 = mysqli_query($conn, $query22) or die("Database error: " . mysqli_error($conn));
             $row22 = mysqli_fetch_assoc($result22);
             $totalQuantity2 = $row22['TotalQuantity'];

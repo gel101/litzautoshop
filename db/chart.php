@@ -69,11 +69,11 @@ if(isset($_POST["action"]) && $_POST["action"] == 'servicesLineChart') {
 
 // if (isset($_POST["action"]) && $_POST["action"] == 'stockPieChart') {
 //     $query = "
-//         SELECT 'Cars' AS label, SUM(quantity) AS value, 'rgba(148, 125, 176, 0.5)' AS color FROM cars WHERE status=''
+//         SELECT 'Cars' AS label, SUM(quantity) AS value, 'rgba(148, 125, 176, 0.5)' AS color FROM cars WHERE status IS NULL
 //         UNION ALL
-//         SELECT 'Paints' AS label, SUM(quantity) AS value, 'rgba(255, 206, 86, 0.5)' AS color FROM paints WHERE status=''
+//         SELECT 'Paints' AS label, SUM(quantity) AS value, 'rgba(255, 206, 86, 0.5)' AS color FROM paints WHERE status IS NULL
 //         UNION ALL
-//         SELECT 'Spare Parts' AS label, SUM(quantity) AS value, 'rgba(153, 102, 255, 0.5)' AS color FROM spareparts_accessories WHERE status=''
+//         SELECT 'Spare Parts' AS label, SUM(quantity) AS value, 'rgba(153, 102, 255, 0.5)' AS color FROM spareparts_accessories WHERE status IS NULL
 //     ";
 
 //     $result = $conn->query($query);
@@ -98,7 +98,7 @@ if (isset($_POST["action"]) && $_POST["action"] == 'stockPieChart') {
     $query = "
         SELECT model AS label, SUM(quantity) AS value
         FROM cars 
-        WHERE status=''
+        WHERE status IS NULL
         GROUP BY model
     ";
 
@@ -140,7 +140,7 @@ if (isset($_POST["action"]) && $_POST["action"] == 'stockPieChart2') {
     $query = "
         SELECT product AS label, SUM(quantity) AS value
         FROM spareparts_accessories 
-        WHERE status=''
+        WHERE status IS NULL
         GROUP BY product
     ";
 
@@ -184,7 +184,7 @@ if (isset($_POST["action"]) && $_POST["action"] == 'stockPieChart2') {
 //     $query = "
 //         SELECT paint_color AS label, SUM(quantity) AS value
 //         FROM paints 
-//         WHERE status=''
+//         WHERE status IS NULL
 //         GROUP BY paint_color
 //     ";
 
@@ -226,9 +226,9 @@ if (isset($_POST["action"]) && $_POST["action"] == 'stockPieChart2') {
 if(isset($_POST["action"]) && $_POST["action"] == 'stakeholderBarChart') {
 
     $query = "
-    SELECT 'Mechanic' AS label, COUNT(*) AS value FROM mechanic WHERE status=''
+    SELECT 'Mechanic' AS label, COUNT(*) AS value FROM mechanic WHERE status IS NULL
     UNION ALL
-    SELECT 'Staff' AS label, COUNT(*) AS value FROM staff WHERE status=''
+    SELECT 'Staff' AS label, COUNT(*) AS value FROM staff WHERE status IS NULL
     UNION ALL
     SELECT 'Client' AS label, COUNT(*) AS value FROM clientacc
     ";
