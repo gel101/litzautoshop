@@ -226,6 +226,7 @@ session_start();
                                         </form>
                                         <form action="db/utilitiesvehicle.php" method="post" class="utilityvehicleForm">
                                             <input type="hidden" id="eserviceID" name="eserviceID" class="form-control" placeholder="Service ID">
+                                            <input type="hidden" id="eserviceName" name="eserviceName" class="form-control">
                                             <div class="row" id="editServiceContainer">
                                                 <label class="form-label" for="">Edit Data</label>
                                                 <div class="col">
@@ -403,7 +404,11 @@ session_start();
 
             $('#editServiceContainer').css("visibility", "visible");
 
-            $('#eservice').val(selectedOptionText);
+            var serviceName = selectedOptionText.replace(/\s*\(.*?\)\s*/g, '');
+
+            // Setting the value of #eservice
+            $('#eservice').val(serviceName);
+            // $('#eservice').val(selectedOptionText);
             $('#eprice').val(selectedOptionPrice);
             $('#eserviceID').val(selectedOptionValue);
 
