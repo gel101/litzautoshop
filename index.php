@@ -12,6 +12,7 @@
   <title>Litz Autoshop</title>
   <meta name="title" content="LitzAuto - Auto Maintenance & Repair Service">
   
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" rel="stylesheet">
     
@@ -138,7 +139,7 @@
 
             <h3 class="h2 section-title" style="color: white; text-shadow: 2px 2px 2px #888;">Minivan Selling and Maintenance/Repair Services</h3>
 
-            <a href="customer-login.php">
+            <a href="previewCar.php">
               <button class="btn" style="margin-top: 30px">
                 <span class="span">Our Services</span>
 
@@ -364,7 +365,7 @@
 
                   <h3 class="h3 card-title">DIFFERENT MODELS / TYPE</h3>
 
-                  <a href="customer-signup.php" class="card-btn">
+                  <a href="previewCar.php" class="card-btn">
                     <span class="material-symbols-rounded">arrow_forward</span>
                   </a>
                 </div>
@@ -394,39 +395,7 @@
 
                   <h3 class="h3 card-title"><?php echo $data['model'] . "(" . $data['engine'] . ")"; ?></h3>
 
-                  <a href="customer-signup.php" class="card-btn">
-                    <span class="material-symbols-rounded">arrow_forward</span>
-                  </a>
-                </div>
-
-              </div>
-            </li>
-            
-            <?php
-            }
-            ?>
-            
-            <?php
-
-            $stmtProdcuct = mysqli_query($conn, "SELECT * FROM spareparts_accessories WHERE quantity > 0 AND (status != 'archived' OR status IS NULL) ORDER BY sparepart_id DESC");
-
-            while($dataPart = mysqli_fetch_assoc($stmtProdcuct)){
-            ?>
-
-            <li class="scrollbar-item">
-              <div class="work-card">
-
-                <figure class="card-banner img-holder" style="--width: 350; --height: 406;">
-                  <img src="db/<?php echo $dataPart['img']; ?>" width="350" height="406" loading="lazy" alt="Engine Repair"
-                    class="img-cover">
-                </figure>
-
-                <div class="card-content">
-                  <p class="card-subtitle">Spare part & Accessory</p>
-
-                  <h3 class="h3 card-title"><?php echo $dataPart['product']; ?></h3>
-
-                  <a href="customer-signup.php" class="card-btn">
+                  <a href="previewCar.php" class="card-btn">
                     <span class="material-symbols-rounded">arrow_forward</span>
                   </a>
                 </div>
@@ -451,13 +420,45 @@
 
                   <h3 class="h3 card-title">DIFFERENT MINIVAN SPARE PARTS AND ACCESSORIES</h3>
 
-                  <a href="customer-signup.php" class="card-btn">
+                  <a href="previewSparepart.php" class="card-btn">
                     <span class="material-symbols-rounded">arrow_forward</span>
                   </a>
                 </div>
 
               </div>
             </li>
+            
+            <?php
+
+            $stmtProdcuct = mysqli_query($conn, "SELECT * FROM spareparts_accessories WHERE quantity > 0 AND (status != 'archived' OR status IS NULL) ORDER BY sparepart_id DESC");
+
+            while($dataPart = mysqli_fetch_assoc($stmtProdcuct)){
+            ?>
+
+            <li class="scrollbar-item">
+              <div class="work-card">
+
+                <figure class="card-banner img-holder" style="--width: 350; --height: 406;">
+                  <img src="db/<?php echo $dataPart['img']; ?>" width="350" height="406" loading="lazy" alt="Engine Repair"
+                    class="img-cover">
+                </figure>
+
+                <div class="card-content">
+                  <p class="card-subtitle">Spare part & Accessory</p>
+
+                  <h3 class="h3 card-title"><?php echo $dataPart['product']; ?></h3>
+
+                  <a href="previewSparepart.php" class="card-btn">
+                    <span class="material-symbols-rounded">arrow_forward</span>
+                  </a>
+                </div>
+
+              </div>
+            </li>
+            
+            <?php
+            }
+            ?>
 
             <li class="scrollbar-item">
               <div class="work-card">
@@ -472,7 +473,7 @@
 
                   <h3 class="h3 card-title">REPAIR AND MAINTENANCE</h3>
 
-                  <a href="customer-signup.php" class="card-btn">
+                  <a href="previewRequest.php" class="card-btn">
                     <span class="material-symbols-rounded">arrow_forward</span>
                   </a>
                 </div>
