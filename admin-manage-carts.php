@@ -148,7 +148,7 @@ session_start();
 									<table class="table text-center">
 										<thead class="text-danger">
 												<tr>
-													<th scope="col">ID</th>
+													<!-- <th scope="col">ID</th> -->
 													<th scope="col">CustomerID</th>
 													<th scope="col">Image</th>
 													<th scope="col">Transaction ID</th>
@@ -170,7 +170,7 @@ session_start();
 												while($data = mysqli_fetch_assoc($stmt)){
 												?>
 												<tr>
-													<td><?php echo $data['cart_id']; ?></td>
+													<!-- <td><?php// echo $data['cart_id']; ?></td> -->
 													<td><?php if($data['cust_id'] == ""){ echo "None";}else{echo $data['cust_id'];} ?></td>
 													<td><img src="db/<?php echo $data['img']; ?>" style="height:50px;width:50px;" alt="product img"></td>
 													<td><?php if($data['tran_id'] != ""){echo $data['tran_id'];}else{echo "No ID";} ?></td>

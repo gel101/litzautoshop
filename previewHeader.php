@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <br>
-                    <p class="text-muted">You Don't Have an Account</p>
+                    <p class="text-muted">You Don't Have an Account Logged In.</p>
                 </div>
             </div>
         </div><!-- /.modal-content -->
