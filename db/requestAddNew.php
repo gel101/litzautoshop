@@ -70,7 +70,7 @@
 
 		$adddetails = $_POST['adddetails'];
 
-		$currentDateTime = date("m-d-Y H:i:s");
+		$currentDateTime = date("Y-m-d H:i:s");
         $status = "Pending";
 		$tran = "service";
 		$messageAdmin = "A New Service Request has been Made";
