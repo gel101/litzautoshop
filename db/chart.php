@@ -226,12 +226,13 @@ if (isset($_POST["action"]) && $_POST["action"] == 'stockPieChart2') {
 if(isset($_POST["action"]) && $_POST["action"] == 'stakeholderBarChart') {
 
     $query = "
-    SELECT 'Mechanic' AS label, COUNT(*) AS value FROM mechanic WHERE status IS NULL
+    SELECT 'Mechanic' AS label, COUNT(*) AS value FROM staff WHERE position = 'Mechanic' AND status IS NULL
     UNION ALL
-    SELECT 'Staff' AS label, COUNT(*) AS value FROM staff WHERE status IS NULL
+    SELECT 'Staff' AS label, COUNT(*) AS value FROM staff WHERE position = 'Staff' AND status IS NULL
     UNION ALL
     SELECT 'Client' AS label, COUNT(*) AS value FROM clientacc
     ";
+
 
     $result = $conn->query($query);
 
