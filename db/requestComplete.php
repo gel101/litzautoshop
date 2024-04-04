@@ -54,6 +54,8 @@ $msg = $error = $cust_id =  $reqID = $reqEmail =  $totalprice =  $priceReason = 
     
     $reqEmail = $_POST['reqEmail'];
 
+    // Set the timezone to the Philippines
+    date_default_timezone_set('Asia/Manila');
     $currentDateTime = date("Y-m-d H:i:s");
 	$status = "Request Completed";
 	$messageClient = "The Service Request was claimed as Completed." . "Service ID : " . $reqID ;

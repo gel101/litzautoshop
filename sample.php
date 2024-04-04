@@ -1,28 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <?php
+        // Set the timezone to the Philippines
+        date_default_timezone_set('Asia/Manila');
 
-<body style="overflow:hidden">
-    <button class="d-none" id="sideAlertBtn">Show Alert</button>
-    <div class="alert hide">
-        <span class="fas fa-exclamation-circle"></span>
-        <span class="msg">Warning: This is a warning alert!</span>
-        <div class="close-btn-alert">
-            <span class="fas fa-times"></span>
-        </div>
-    </div>
-    <script>
-        $('#sideAlertBtn').click(function(){
-            $('.alert').addClass("show");
-            $('.alert').removeClass("hide");
-            $('.alert').addClass("showAlert");
-            setTimeout(function(){
-                $('.alert').removeClass("show");
-                $('.alert').addClass("hide");
-            },5000);
-        });
+        // Get the current date and time in the Philippines timezone
+        $currentDateTime = date("Y-m-d H:i:s");
+        echo $currentDateTime;
+    ?>
 
-        $('.close-btn-alert').click(function(){
-            $('.alert').removeClass("show");
-            $('.alert').addClass("hide");
-            setTimeout(0);
-        });
-    </script>
 </body>
+</html>

@@ -147,7 +147,7 @@ include 'db/connection.php';
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="mb-3">
-                                                        <label for="" class="form-label">Choose Date</label><span class="text-danger" id="err_date"></span>
+                                                        <label for="" class="form-label">Date of Booking</label><span class="text-danger" id="err_date"></span>
                                                         <input type="date" class="form-control" name="dateSelected[]" required>
                                                     </div>
                                                     <div class="mb-3 d-none paintColor">

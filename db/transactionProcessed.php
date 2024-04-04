@@ -59,6 +59,8 @@ $msg = $order_id = "";
         $noAccName = $noAccRow['customerName'];
     }
 
+	// Set the timezone to the Philippines
+	date_default_timezone_set('Asia/Manila');
 	$currentDateTime = date("Y-m-d H:i:s");
 	$status = "Ready to Pick Up";
 	$messageClient = "The Order is Ready To Pick Up. Go to the store and get your item. " . "Transaction ID : " . $tran_id;

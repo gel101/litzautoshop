@@ -38,6 +38,8 @@ try {
     $order_id = $_POST['order_id'];
     $order_status = $_POST['order_status'];
 
+    // Set the timezone to the Philippines
+    date_default_timezone_set('Asia/Manila');
     $currentDateTime = date("Y-m-d H:i:s");
 	$status = "Declined";
 	$messageSystem = "The Order was Unfortunately Declined. Feel free to make a new Order. " . "Transaction ID : " . $tran_id;

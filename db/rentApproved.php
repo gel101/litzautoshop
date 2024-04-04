@@ -148,7 +148,9 @@ try {
 	// }
 
         
-    $currentDateTime = date("Y-m-d H:i:s");
+		// Set the timezone to the Philippines
+        date_default_timezone_set('Asia/Manila');
+		$currentDateTime = date("Y-m-d H:i:s");
 
     $status = "In Use";
     $messageStaff = "The Car being rented claims that Requirements are Complete, and the car was already in use. " . "Rent ID : " . $rent_id;

@@ -56,7 +56,9 @@
 		// $tran_id = uniqid(); // GENERATE Transaction ID
         $status = "Pending";
 		$tran = "order";
-		$currentDateTime = date("Y-m-d H:i:s");
+        // Set the timezone to the Philippines
+        date_default_timezone_set('Asia/Manila');
+        $currentDateTime = date("Y-m-d H:i:s");
         $systemMessage = "You Made an Order, Please Wait for the Confirmation.";
         $messageAdmin = "A New Order has been Made.";
 

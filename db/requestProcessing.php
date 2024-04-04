@@ -39,6 +39,8 @@ try {
     }
 
     // $currentDateTime = date("Y-m-d H:i:s");
+    // Set the timezone to the Philippines
+    date_default_timezone_set('Asia/Manila');
     $date = date("Y-m-d H:i:s");
 
     $status = "Processing";

@@ -276,7 +276,7 @@ session_start();
                 <br>
                 <div class="row">
                     <div class="col-md-6">
-                        <label for="" class="form-label">Select Date</label><span class="err_date text-danger"></span>
+                        <label for="" class="form-label">Date of Booking</label><span class="err_date text-danger"></span>
                         <input type="date" class="form-control" name="adddate" id="adddate">
                     </div>
                     <div class="col-md-6">
@@ -587,11 +587,24 @@ session_start();
                 valid = false;
                 return; // Skip adding this request to the array
             }
+            console.log(new Date(adddate));
+            console.log(currentDate);
 
-			if(adddate == "" || new Date(adddate) < currentDate){
+            // Extracting only the date part from adddate
+            var adddateDateOnly = new Date(adddate);
+            adddateDateOnly.setHours(0, 0, 0, 0); // Setting time to midnight (00:00:00)
+
+            // Extracting only the date part from currentDate
+            var currentDateDateOnly = new Date(currentDate);
+            currentDateDateOnly.setHours(0, 0, 0, 0); // Setting time to midnight (00:00:00)
+
+            // Comparing the date parts
+            if(adddate == "" || adddateDateOnly < currentDateDateOnly){
 				valid = false;
 				$(".err_date").html(" *Date Invalid");
-			}
+			}else{
+				$(".err_date").html(" ");
+            }
 
 
             if (valid) {

@@ -65,6 +65,8 @@ try {
     $totalprice = $addprice * $addquantity;
 
     $status = "Accepted";
+    // Set the timezone to the Philippines
+    date_default_timezone_set('Asia/Manila');
     $currentDateTime = date("Y-m-d H:i:s");
 
     function generateUniqueID() {

@@ -36,6 +36,8 @@
 
 		$cust_id = $_POST['cust_id'];
 
+		// Set the timezone to the Philippines
+		date_default_timezone_set('Asia/Manila');
 		$currentDateTime = date("Y-m-d H:i:s");
 		$status = "Declined";
 		$messageSystem = "The Service was Unfortunately Declined. Feel free to make a new Request. " . "Request ID: " . $serviceID;

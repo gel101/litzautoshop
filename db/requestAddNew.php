@@ -70,6 +70,8 @@
 
 		$adddetails = $_POST['adddetails'];
 
+		// Set the timezone to the Philippines
+		date_default_timezone_set('Asia/Manila');
 		$currentDateTime = date("Y-m-d H:i:s");
         $status = "Pending";
 		$tran = "service";

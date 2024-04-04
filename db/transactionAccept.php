@@ -52,6 +52,8 @@ try {
         $transaction_type = "";
     }
 
+    // Set the timezone to the Philippines
+    date_default_timezone_set('Asia/Manila');
     $currentDateTime = date("Y-m-d H:i:s");
 	$status = "Accepted";
 	$CustomerMessage = "The Order was Accepted. You can Visit the Shop to see your Desired Order. " . "Transaction ID : " . $tran_id ;

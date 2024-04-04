@@ -56,6 +56,8 @@ try {
     $reqNumber = $_POST['reqNumber'];
     
     $status = "Approved";
+    // Set the timezone to the Philippines
+    date_default_timezone_set('Asia/Manila');
     $currentDateTime = date("Y-m-d H:i:s");
     $messageMechanic = "A New Approved Service Request has been Made. " . "Request ID : " . $reqID;
     $messageClient = "The Service Request Was Approved, You can Go on our Shop At The Date of " . $reqDate . " You are Choosen. " . "Request ID : " . $reqID;

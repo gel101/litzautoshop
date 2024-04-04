@@ -88,6 +88,8 @@ try {
     }
 
     
+    // Set the timezone to the Philippines
+    date_default_timezone_set('Asia/Manila');
     $currentDateTime = date("Y-m-d H:i:s");
     // $paymentReceived = $_POST['paymentReceived'];
     $paymentMode = $_POST['paymentMode'];

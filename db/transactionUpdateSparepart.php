@@ -98,6 +98,8 @@ try {
     }
 
     $status = "Completed";
+    // Set the timezone to the Philippines
+    date_default_timezone_set('Asia/Manila');
     $currentDateTime = date("Y-m-d H:i:s");
     $messageStaff = "A New Transaction that Requirements are Complete has been made. " . "Transaction ID : " . $tran_id;
     $messageClient = "The Order claims that Requirements are Complete, Order Soon to Prepare. " . "Transaction ID : " . $tran_id;

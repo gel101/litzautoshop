@@ -59,6 +59,8 @@ $msg = $order_id = $cust_id = $tran_id = $plateNum = "";
 		$plateNum = "";
 	}
 
+	// Set the timezone to the Philippines
+	date_default_timezone_set('Asia/Manila');
 	$currentDateTime = date("Y-m-d H:i:s");
 	$status = "Completed";
 	$messageSystem = "This Order was declared as Completed. " . "Transaction ID : " . $tran_id;
