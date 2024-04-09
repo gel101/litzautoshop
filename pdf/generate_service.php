@@ -43,10 +43,10 @@ if (isset($_POST['dataURL']) && isset($_POST['filename']) && isset($_POST['gener
         
         function cellRow($request_id, $cust_name, $vehicleType, $request, $date, $price){
         
-            $this->Cell(10, 8, $request_id, 0);
+            $this->Cell(8, 8, $request_id, 0);
             $this->Cell(40, 8, $cust_name, 0);
-            $this->Cell(30, 8, $vehicleType, 0);
-            $this->Cell(22, 8, $date, 0);
+            $this->Cell(35, 8, $vehicleType, 0);
+            $this->Cell(25, 8, $date, 0);
             
             // Your database query for products in each transaction
             global $conn;
@@ -144,9 +144,9 @@ if (isset($_POST['dataURL']) && isset($_POST['filename']) && isset($_POST['gener
         } elseif ($column_heading === 'Name') {
             $pdf->Cell(40, 8, $column_heading, 1, 0, 'L', true);
         } elseif ($column_heading === 'Vehicle Type') {
-            $pdf->Cell(30, 8, $column_heading, 1, 0, 'L', true);
+            $pdf->Cell(35, 8, $column_heading, 1, 0, 'L', true);
         } elseif ($column_heading === 'Service') {
-            $pdf->Cell(60, 8, $column_heading, 1, 0, 'L', true);
+            $pdf->Cell(55, 8, $column_heading, 1, 0, 'L', true);
         } elseif ($column_heading === 'Date') {
             $pdf->Cell(25, 8, $column_heading, 1, 0, 'L', true);
         } elseif ($column_heading === 'Revenue') {
@@ -175,9 +175,9 @@ if (isset($_POST['dataURL']) && isset($_POST['filename']) && isset($_POST['gener
     // Add the row for the total quantity
     $pdf->Ln();
     $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(150, 8, 'Total Revenue : ', 1, 0, 'L', true);
+    $pdf->Cell(163, 8, 'Total Revenue : ', 1, 0, 'L', true);
     $formattedTotalPrice = number_format($totalprice11, 2); // You can adjust the decimal places as needed
-    $pdf->Cell(40, 8, "P " . $formattedTotalPrice, 1, 0, 'R', true);
+    $pdf->Cell(0, 8, "P " . $formattedTotalPrice, 1, 0, 'R', true);
 
 
     // Add signature space

@@ -146,7 +146,7 @@ session_start();
                                                     <th scope="col">Type of Service</th>
                                                     <th scope="col">Date</th>
                                                     <th scope="col">Services Price</th>
-                                                    <th scope="col">Assigned</th>
+                                                    <th scope="col">Assigned Mechanic</th>
                                                     <th scope="col">Service Status</th>
                                                     <th scope="col">Action</th>
                                                 </tr>

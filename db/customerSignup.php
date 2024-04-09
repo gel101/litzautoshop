@@ -56,8 +56,6 @@ try{
 		$uniqueName = uniqid('', true);
 		$directory = 'img/validID/';
 		$destination = $directory . $uniqueName;
-		move_uploaded_file($fileTmpName, $destination);
-		$picture = $destination;
     }else {
 		$error = "NO VALID ID INSERTED";
 		$valid = false;
@@ -92,7 +90,7 @@ try{
 
     function validatePassword($password) {
         // Define a regular expression pattern for the password requirements
-        $passwordPattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/';
+        $passwordPattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/';
 
         // Test the password against the pattern
         $isValid = preg_match($passwordPattern, $password);
@@ -107,13 +105,18 @@ try{
     } else {
         if (!validatePassword($pass)) {
             $valid = false;
-            $error = "Password should have Uppercase, Lowercase, Number, and a Special Character!";
+            $error = "Password should have Uppercase, Lowercase, and a Number!";
             $pass = "";
         }
     }
 
 	
 	if ($valid) {
+        
+        // Move the Valid ID picture in the directory
+		move_uploaded_file($fileTmpName, $destination);
+		$picture = $destination;
+
 		//Database
 		$sqlll = "SELECT * FROM clientacc WHERE username='$uname' and pass='$pass'";
 		$result = mysqli_query($conn, $sqlll);
