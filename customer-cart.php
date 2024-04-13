@@ -179,7 +179,7 @@ include 'db/connection.php';
                         echo $datacarcolor['car_img'];
                 }else {
                     if ($color != '') {
-                        $stmt64 = mysqli_query($conn, "SELECT * FROM paints WHERE paint_color='$color' AND status=''");
+                        $stmt64 = mysqli_query($conn, "SELECT * FROM paints WHERE paint_color='$color' AND (status IS NULL OR status = '') ");
                         while($data321 = mysqli_fetch_assoc($stmt64)){
                             echo $data321['img'];
                         }
@@ -216,7 +216,7 @@ include 'db/connection.php';
 
                     <!-- <button class="btn btn-info" data-value-1="<?php echo $data['details']; ?>" data-value-2="db/<?php 
                         $carColor = $data['color']; 
-                        $stmt11 = mysqli_query($conn, "SELECT img FROM paints WHERE paint_color='$carColor' AND status='' "); 
+                        $stmt11 = mysqli_query($conn, "SELECT img FROM paints WHERE paint_color='$carColor' AND (status IS NULL OR status = '') "); 
                         while($data11 = mysqli_fetch_assoc($stmt11)){
                             echo $data11['img'];
                         }
@@ -316,7 +316,7 @@ include 'db/connection.php';
                                                     <td><img src="db/<?php $color = $data['color'];
 
                                                     if ($color != '') {
-                                                        $stmt64 = mysqli_query($conn, "SELECT * FROM paints WHERE paint_color='$color' AND status=''");
+                                                        $stmt64 = mysqli_query($conn, "SELECT * FROM paints WHERE paint_color='$color' AND (status IS NULL OR status = '')");
                                                         while($data321 = mysqli_fetch_assoc($stmt64)){
                                                             echo $data321['img'];
                                                         }
@@ -528,7 +528,7 @@ include 'db/connection.php';
                                             <option value="Default">Default</option>
                                             <?php
                                                 include 'db/connection.php';
-                                                $stmtttt = mysqli_query($conn, "SELECT * FROM paints WHERE status='' ");
+                                                $stmtttt = mysqli_query($conn, "SELECT * FROM paints WHERE (status IS NULL OR status = '') ");
                                                 while($data = mysqli_fetch_assoc($stmtttt)){
                                             ?>
                                                 <option value="<?php echo $data['paint_color']; ?>"><?php echo $data['paint_color']; ?></option>

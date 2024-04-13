@@ -787,7 +787,7 @@ session_start();
                                 <label for="" class="form-label">Valid ID</label><span class="text-danger"> *Required</span>
                                 <input class="form-control" type="file" name="validID1" id="validID1" required>
                                 <br>
-                                <label for="" class="form-label">Wife / Spouse Valid ID</label><span class="text-danger"> *Optional</span>
+                                <label for="" class="form-label">Wife / Partner Valid ID</label><span class="text-danger"> *Optional</span>
                                 <input class="form-control" type="file" name="validID2" id="validID2">
                                 <br>
                                 <label for="" class="form-label">Marriage Contract / Birth Certificate</label><span class="text-danger"> *Required</span>
@@ -821,7 +821,7 @@ session_start();
                                 <label for="" class="form-label">Valid ID</label><span class="text-danger"> *Required</span>
                                 <input class="form-control" type="file" name="s_validID1" id="s_validID1" required>
                                 <br>
-                                <label for="" class="form-label">Wife / Spouse Valid ID</label><span class="text-danger"> *Optional</span>
+                                <label for="" class="form-label">Wife / Partner Valid ID</label><span class="text-danger"> *Optional</span>
                                 <input class="form-control" type="file" name="s_validID2" id="s_validID2">
                                 <br>
                                 <label for="" class="form-label">Marriage Contract / Birth Certificate</label><span class="text-danger"> *Required</span>
