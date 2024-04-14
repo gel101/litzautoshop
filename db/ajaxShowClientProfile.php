@@ -58,7 +58,7 @@ if ($_POST['clientInfo'] != "") {
 <?php
     }
 }
-if (isset($_POST['type']) || $requestType == "order") {
+if (isset($_POST['type']) && $requestType == "order" && $_POST['clientInfo'] == "") {
 
 ?>
 
