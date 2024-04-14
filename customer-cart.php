@@ -268,7 +268,7 @@ include 'db/connection.php';
 
                                     </div><!-- end card-body -->
                                     <div class="modal-footer m-2 p-2">
-                                        <button class="btn btn-secondary" onclick="placeOrder('car', '<?php if(isset($_SESSION['cust_id'])){echo $_SESSION['cust_id'];} ?>', document.getElementById('totalPrice').innerText.replace(/,/g, ''))" <?php if(isset($_SESSION['userStatus'])){ if ($_SESSION['userStatus'] === 'Pending') { echo 'disabled'; }} ?>>Place order</button>
+                                        <button class="btn btn-secondary" onclick="placeOrder('car', '<?php if(isset($_SESSION['cust_id'])){echo $_SESSION['cust_id'];} ?>', document.getElementById('totalPrice').innerText.replace(/,/g, ''))" <?php if(isset($_SESSION['userStatus'])){ if ($_SESSION['userStatus'] === 'Pending') { echo 'disabled'; }} ?>>Place order <i class="fas fa-shopping-cart"></i></button>
                                     </div>
                             </div> <!-- end card-->
                         </div><!-- end col -->
@@ -382,7 +382,7 @@ include 'db/connection.php';
                                         
                                 </div><!-- end card-body -->
                                 <div class="modal-footer m-2 p-2">
-                                    <button class="btn btn-secondary" onclick="placeOrder('sparepart', '<?php if(isset($_SESSION['cust_id'])){echo $_SESSION['cust_id'];} ?>', document.getElementById('totalPrice1').innerText.replace(/,/g, ''))" <?php if(isset($_SESSION['userStatus'])){ if ($_SESSION['userStatus'] === 'Pending') { echo 'disabled'; }} ?>>Place order</button>
+                                    <button class="btn btn-secondary" onclick="placeOrder('sparepart', '<?php if(isset($_SESSION['cust_id'])){echo $_SESSION['cust_id'];} ?>', document.getElementById('totalPrice1').innerText.replace(/,/g, ''))" <?php if(isset($_SESSION['userStatus'])){ if ($_SESSION['userStatus'] === 'Pending') { echo 'disabled'; }} ?>>Place order <i class="fas fa-shopping-cart"></i></button>
                                 </div>
                             </div> <!-- end card-->
                         </div><!-- end col -->

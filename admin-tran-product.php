@@ -275,7 +275,7 @@ session_start();
                                                             '<?php echo $data['tran_id']; ?>', 
                                                             '<?php echo $data['status']; ?>', 
                                                             '<?php echo number_format($data['totalprice'], 2); ?>', 
-                                                            '<?php echo $data['transaction_type']; ?>')" data-bs-toggle="modal" data-bs-target="#vanDetail"><i class="fas fa-eye"></i></button>
+                                                            '<?php echo $data['transaction_type']; ?>')" data-bs-toggle="modal" data-bs-target="#vanDetail"><i class="fas fa-shopping-cart"></i></button>
                                                         <button type="button" class="btn btn-primary" onclick="showClientInfo('<?php echo $data['cust_id']; ?>','<?php echo $data['noAccAddress']; ?>', '<?php echo $data['noAccEmail']; ?>', '<?php echo $data['noAccPhone']; ?>')" data-bs-toggle="modal" data-bs-target="#clientDetail"><i class="fas fa-user"></i></button>
                                                     </div>
                                                 </td>
