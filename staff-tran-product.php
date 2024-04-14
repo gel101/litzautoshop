@@ -275,7 +275,7 @@ session_start();
                                                             '<?php echo $data['status']; ?>', 
                                                             '<?php echo number_format($data['totalprice'], 2); ?>', 
                                                             '<?php echo $data['transaction_type']; ?>')" data-bs-toggle="modal" data-bs-target="#vanDetail"><i class="fas fa-eye"></i></button>
-                                                        <button type="button" class="btn btn-primary" onclick="showClientInfo('<?php echo $data['cust_id']; ?>')" data-bs-toggle="modal" data-bs-target="#clientDetail"><i class="fas fa-user"></i></button>
+                                                        <button type="button" class="btn btn-primary" onclick="showClientInfo('<?php echo $data['cust_id']; ?>','<?php echo $data['noAccAddress']; ?>', '<?php echo $data['noAccEmail']; ?>', '<?php echo $data['noAccPhone']; ?>')" data-bs-toggle="modal" data-bs-target="#clientDetail"><i class="fas fa-user"></i></button>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -314,12 +314,17 @@ session_start();
                     <div class="col-md-6">
                         <label for="" class="form-label">Customer Name</label><span class="err_name text-danger"></span>
                         <input type="text" class="form-control" id="addname" placeholder="Enter name">
-
                     </div>
                     <div class="col-md-6">
-                        <label for="" class="form-label">Email</label><span class="err_email text-danger"></span>
-                        <input type="email" class="form-control" id="addemail" placeholder="Enter email">
+                        <label for="" class="form-label">Address</label><span class="err_address text-danger"></span>
+                        <input type="text" class="form-control" id="addaddress" placeholder="Enter Address">
                         <br>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="form-label">Email <span class="text-danger"> *Optional</span></label><span class="err_email text-danger"></span>
+                        <input type="email" class="form-control" id="addemail" placeholder="Enter email">
+                    </div>
+                    <div class="col-md-6">
                         <label for="" class="form-label">Phone Number</label><span class="err_phone text-danger"></span>
                         <input type="number" class="form-control" id="addphone" placeholder="Enter phone number" oninput="validateNumber(this)">
                     </div>
@@ -498,7 +503,7 @@ session_start();
                     <button class="btn btn-secondary" onclick="acceptBtn(document.getElementById('clientID').value, document.getElementById('clientInfo').value, document.getElementById('tranType').value)" id="acceptBtn">ACCEPT <i class="fas fa-check"></i></button>
                     <button class="btn btn-primary" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal" data-bs-dismiss="modal" id="paymentBtn">ADD PAYMENT <i class="fas fa-check-circle"></i></button>
                     <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal" id="confirmBtn">REQUIREMENTS COMPLETE <i class="fas fa-check-circle"></i></button>
-                    <!-- <button type="button" class="btn btn-danger" onclick="declineBtn(document.getElementById('clientInfo').value, document.getElementById('clientID').value, document.getElementById('tranID').value, document.getElementById('clientStatus').value)" id="declineBtn">DECLINE <i class="fas fa-ban"></i></button> -->
+                    <!-- <button type="button" class="btn btn-danger" onclick="declineBtn(document.getE lementById('clientInfo').value, document.getElementById('clientID').value, document.getElementById('tranID').value, document.getElementById('clientStatus').value)" id="declineBtn">DECLINE <i class="fas fa-ban"></i></button> -->
                 </div>
             </div>
 		</div>
@@ -1263,9 +1268,13 @@ session_start();
         }
 
 
-        function showClientInfo(cust_id){
+        function showClientInfo(cust_id, noAccAddress, noAccEmail, noAccPhone){
             $("#showClientInfo").load("db/ajaxShowClientProfile.php", {
-                clientInfo: cust_id
+                clientInfo: cust_id,
+                noAccAddress: noAccAddress,
+                noAccEmail: noAccEmail,
+                noAccPhone: noAccPhone,
+                type: "order"
             }, function (responseText) {
                 // Callback function after AJAX is completed
                 if ($.trim(responseText) === "") {
@@ -1279,7 +1288,7 @@ session_start();
                 }
             }).fail(function () {
                 // Callback function in case of failure
-                $("#showClientInfo").html("<h2>No System Account!</h2>");
+                $("#showClientInfo").html("<h2>Failed to Load Request, Please Try Again!</h2>");
             });
         }
 
@@ -1540,6 +1549,7 @@ session_start();
                 var valid = true;
                 var addname = $('#addname').val();
                 var addemail = $('#addemail').val();
+                var addaddress = $('#addaddress').val();
                 var addphone = $('#addphone').val();
 
                 if (addname == "") {
@@ -1548,11 +1558,11 @@ session_start();
                 }else{
                     $(".err_name").html("");
                 }
-                if (addemail == "") {
+                if (addaddress == "") {
                     valid = false;
-                    $(".err_email").html(" *Email Invalid");
+                    $(".err_address").html(" *Address Invalid");
                 }else{
-                    $(".err_email").html("");
+                    $(".err_address").html("");
                 }
                 if (addphone == "") {
                     valid = false;
@@ -1614,6 +1624,7 @@ session_start();
                 var form_data = {
                     addname: addname,
                     addemail: addemail,
+                    addaddress: addaddress,
                     addphone: addphone,
                     productData: productData
                 };
@@ -1664,6 +1675,7 @@ session_start();
 
             var addname = $('#addname').val();
             var addemail = $('#addemail').val();
+            var addaddress = $('#addaddress').val();
             var addphone = $('#addphone').val();
             var addid = $('#showcarid').val();
             var addproduct = $('#showcar').val();
@@ -1685,11 +1697,11 @@ session_start();
             }else{
                 $('.err_name').html(" ")
             }
-            if (addemail == "") {
+            if (addaddress == "") {
                 var valid = false;
-                $('.err_email').html(" *Input Invalid!")
+                $('.err_address').html(" *Input Invalid!")
             }else{
-                $('.err_email').html(" ")
+                $('.err_address').html(" ")
             }
             if (addphone == "") {
                 var valid = false;
@@ -1709,6 +1721,7 @@ session_start();
             if (valid && confirm("Continue the process?")) {
                 var form_data = new FormData();
                 form_data.append("addname", addname);
+                form_data.append("addaddress", addaddress);
                 form_data.append("addemail", addemail);
                 form_data.append("addphone", addphone);
                 form_data.append("addid", addid);

@@ -278,6 +278,20 @@ session_start();
         function showClientInfo(cust_id){
             $("#showClientInfo").load("db/ajaxShowClientProfile.php", {
                 clientInfo : cust_id
+            }, function (responseText) {
+                // Callback function after AJAX is completed
+                if ($.trim(responseText) === "") {
+                    // If the loaded data is empty, display "No System Account"
+                    $("#showClientInfo").html("<h3 class='text-warning text-center'>Walk in Customer</h3>");
+                    // If data is present, continue with checkRequestStatus()
+                    // checkRequestStatus();
+                } else {
+                    // If data is present, continue with checkRequestStatus()
+                    // checkRequestStatus();
+                }
+            }).fail(function () {
+                // Callback function in case of failure
+                $("#showClientInfo").html("<h2>Failed to Load Request, Please Try Again!</h2>");
             });
         }
 

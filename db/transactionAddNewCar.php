@@ -22,7 +22,7 @@ $mail->Password = "afwaansxpvhbrtcw";
 
 
 try {
-    $msg = $addname = $addemail = $addid = $addimg = $addproduct = $addcartype = $addmodel = $addengine = $addprice = $addcolor
+    $msg = $addname = $addaddress = $addemail = $addid = $addimg = $addproduct = $addcartype = $addmodel = $addengine = $addprice = $addcolor
     = $addquantity = $addquantityLeft = $adddetails = $addscreenshot = $addpaymentTerm = $addpaymentMode = $addreferenceInput = $addphone = $error = "";
     $valid = true;
 
@@ -38,9 +38,15 @@ try {
     if (isset($_POST['addemail']) && !empty($_POST['addemail'])) {
         $addemail = $_POST['addemail'];
     } else {
+        $addemail = null;
+    }
+
+    if (isset($_POST['addaddress']) && !empty($_POST['addaddress'])) {
+        $addaddress = $_POST['addaddress'];
+    } else {
         $valid = false;
-        $error .= "Customer Email is invalid";
-        $addemail = "";
+        $error .= "Walk-in Address is invalid";
+        $addaddress = "";
     }
 
     if (isset($_POST['addphone']) && !empty($_POST['addphone'])) {
@@ -244,7 +250,7 @@ try {
 
 
         $sql = mysqli_query($conn, "INSERT INTO carts(img, tran_id, car_id, product, name, model, engine, price, color, quantity, leftQuantity, details, date, status) VALUES('$addimg','$tran_id','$addid','$addproduct','$addcartype','$addmodel','$addengine','$addprice','$addcolor','$addquantity','$addquantityLeft','$adddetails','$currentDateTime','$status')");
-        $sqll123 = mysqli_query($conn, "INSERT INTO orders(customerName, tran_id, totalprice, date, status, noAccEmail, noAccPhone, transaction_type) VALUES('$addname','$tran_id','$totalprice','$currentDateTime', '$status', '$addemail', '$addphone', 'car')");
+        $sqll123 = mysqli_query($conn, "INSERT INTO orders(customerName, tran_id, totalprice, date, status, noAccAddress, noAccEmail, noAccPhone, transaction_type) VALUES('$addname','$tran_id','$totalprice','$currentDateTime', '$status', '$addaddress', '$addemail', '$addphone', 'car')");
         $sql2 = mysqli_query($conn, "INSERT INTO client_documents(tran_id, status) VALUES('$tran_id','$status')");
 
         //Transaction Detail query
@@ -258,98 +264,101 @@ try {
         //     $finalpaymentTerm = $rowtransaction['payment_term'] . "(" . $rowtransaction['payment_mode'] . " " . $rowtransaction['reference_number'] . ")";
         // }
 
-        $customerEmail = $addemail;
-        $customerName = $addname;
-						
+        if ($addemail != null) {
+            
+            $customerEmail = $addemail;
+            $customerName = $addname;
+                            
 
-		$signature = "<br>";
-        $signature .= "Regards,<br>";
-		$signature .= "Litz Autoshop<br>";
-		$signature .= "Email Notification<br>";
-		$signature .= "Litz Auto Surplus Prk. 2 Brgy. Little Panay Panabo Davao Del Norte , Panabo, Philippines<br>";
-		$signature .= "Phone: 09169834159<br>";
-		$signature .= "Email: marjlit1@gmail.com</p>";
+            $signature = "<br>";
+            $signature .= "Regards,<br>";
+            $signature .= "Litz Autoshop<br>";
+            $signature .= "Email Notification<br>";
+            $signature .= "Litz Auto Surplus Prk. 2 Brgy. Little Panay Panabo Davao Del Norte , Panabo, Philippines<br>";
+            $signature .= "Phone: 09169834159<br>";
+            $signature .= "Email: marjlit1@gmail.com</p>";
 
-		$message = "<html><body>";
-		$message .= "<p>Dear Mr/Mrs. $customerName,</p>";
-        $message .= "<p>I hope this message finds you well. We want to inform you that your transaction has been successfully accepted. We will welcome you in our building for the payment process, requirements and to take a look at your order.</p>";
-		$message .= "<br>";
-        $message .= "<h4>Transaction Details</h4>";
-        $message .= "<p>Total Price: &#8369;" . number_format($totalpricetran, 2) . "<br>Transaction ID: $tran_id</p>";
-		$message .= "<h4>Order Details: </h4>";
-		$message .= "<table style='width: 100%; border-collapse: collapse;' class='table text-center'>";
-		$message .= "<thead style='background-color: #f2f2f2;' class='text-secondary'>";
-		$message .= "<tr>";
-		$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>ID</th>";
-		$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Product</th>";
-		$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Color</th>";
-		$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Engine</th>";
-		$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Model</th>";
-		$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Quantity</th>";
-		$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Price</th>";
-		$message .= "</tr>";
-		$message .= "</thead>";
+            $message = "<html><body>";
+            $message .= "<p>Dear Mr/Mrs. $customerName,</p>";
+            $message .= "<p>I hope this message finds you well. We want to inform you that your transaction has been successfully accepted. We will welcome you in our building for the payment process, requirements and to take a look at your order.</p>";
+            $message .= "<br>";
+            $message .= "<h4>Transaction Details</h4>";
+            $message .= "<p>Total Price: &#8369;" . number_format($totalpricetran, 2) . "<br>Transaction ID: $tran_id</p>";
+            $message .= "<h4>Order Details: </h4>";
+            $message .= "<table style='width: 100%; border-collapse: collapse;' class='table text-center'>";
+            $message .= "<thead style='background-color: #f2f2f2;' class='text-secondary'>";
+            $message .= "<tr>";
+            $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>ID</th>";
+            $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Product</th>";
+            $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Color</th>";
+            $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Engine</th>";
+            $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Model</th>";
+            $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Quantity</th>";
+            $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Price</th>";
+            $message .= "</tr>";
+            $message .= "</thead>";
 
-		$stmtcarts = mysqli_query($conn, "SELECT * FROM carts WHERE tran_id = '$tran_id' ");
+            $stmtcarts = mysqli_query($conn, "SELECT * FROM carts WHERE tran_id = '$tran_id' ");
 
-		while ($rowcarts = mysqli_fetch_assoc($stmtcarts)) {
-			$cart_id = $rowcarts['cart_id'];
-			$product = $rowcarts['product'];
-			$color = $rowcarts['color'];
-			$engine = $rowcarts['engine'];
-			$model = $rowcarts['model'];
-			$quantity = $rowcarts['quantity'];
-			$price = number_format($rowcarts['price'], 2);
+            while ($rowcarts = mysqli_fetch_assoc($stmtcarts)) {
+                $cart_id = $rowcarts['cart_id'];
+                $product = $rowcarts['product'];
+                $color = $rowcarts['color'];
+                $engine = $rowcarts['engine'];
+                $model = $rowcarts['model'];
+                $quantity = $rowcarts['quantity'];
+                $price = number_format($rowcarts['price'], 2);
 
-			$message .= "<tr>";
-			$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$cart_id</td>";
-			$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$product</td>";
-			$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$color</td>";
-			$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$engine</td>";
-			$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$model</td>";
-			$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$quantity</td>";
-			$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>&#8369;$price</td>";
-			$message .= "</tr>";
-		}
+                $message .= "<tr>";
+                $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$cart_id</td>";
+                $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$product</td>";
+                $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$color</td>";
+                $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$engine</td>";
+                $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$model</td>";
+                $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$quantity</td>";
+                $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>&#8369;$price</td>";
+                $message .= "</tr>";
+            }
 
-		$message .= "</table>";
-		$message .= "<br>";
-		$message .= "<h4>List of Requirements:</h4>";
-		$message .= "<h5>For Employeed One:</h5><p>
-        - COE<br>
-        - LATEST PAYSLIP(3MONTHS)<br>
-        - LATEST ELECTRIC BILLING <br>
-        - BRGY.CLEARANCE <br>
-        - 2 VALID ID & WIFE(IF MARRIED)<br>
-        - MARRIAGE CONTRACT(IF MARRED)<br>
-        - BIRTH CERTIFICATE(APPLICABLE FOR NOT MARRIED)<br>
-        </p><h5>For Self-Employeed One</h5><p>
-        - BUSINESS PERMIT <br>
-        - LATEST BANK STATEMENT (3 MONTHS/RECEIPT 3MONNTHS)<br>
-        - LATEST ELECTRIC BILLING <br>
-        - BRGY.CLEARANCE <br>
-        - 2 VALID ID & WIFE(IF MARRIED)<br>
-        - MARRIAGE CONTRACT(IF MARRED)<br>
-        - BIRTH CERTIFICATE(APPLICABLE FOR NOT MARRIED)<br>
-        </p>";
-		$message .= $signature;
-		$message .= "</body></html>";
+            $message .= "</table>";
+            $message .= "<br>";
+            $message .= "<h4>List of Requirements:</h4>";
+            $message .= "<h5>For Employeed One:</h5><p>
+            - COE<br>
+            - LATEST PAYSLIP(3MONTHS)<br>
+            - LATEST ELECTRIC BILLING <br>
+            - BRGY.CLEARANCE <br>
+            - 2 VALID ID & WIFE(IF MARRIED)<br>
+            - MARRIAGE CONTRACT(IF MARRED)<br>
+            - BIRTH CERTIFICATE(APPLICABLE FOR NOT MARRIED)<br>
+            </p><h5>For Self-Employeed One</h5><p>
+            - BUSINESS PERMIT <br>
+            - LATEST BANK STATEMENT (3 MONTHS/RECEIPT 3MONNTHS)<br>
+            - LATEST ELECTRIC BILLING <br>
+            - BRGY.CLEARANCE <br>
+            - 2 VALID ID & WIFE(IF MARRIED)<br>
+            - MARRIAGE CONTRACT(IF MARRED)<br>
+            - BIRTH CERTIFICATE(APPLICABLE FOR NOT MARRIED)<br>
+            </p>";
+            $message .= $signature;
+            $message .= "</body></html>";
 
-	
-		$emailName = "Litz Autoshop";
-		$emailAdd = "litzautoshop@gmail.com";
-		$emailSubject = "Order Accepted";
+        
+            $emailName = "Litz Autoshop";
+            $emailAdd = "litzautoshop@gmail.com";
+            $emailSubject = "Order Accepted";
 
-        $mail->setFrom($emailAdd, $emailName);
-        $mail->addAddress($customerEmail, $customerName);
+            $mail->setFrom($emailAdd, $emailName);
+            $mail->addAddress($customerEmail, $customerName);
 
-		$mail->isHTML(true);
-        $mail->Subject = $emailSubject;
-        $mail->Body = $message;
-        $mail->send();
+            $mail->isHTML(true);
+            $mail->Subject = $emailSubject;
+            $mail->Body = $message;
+            $mail->send();
 
-        // Close the mail connection after sending all emails
-        $mail->smtpClose();
+            // Close the mail connection after sending all emails
+            $mail->smtpClose();
+        }
 
 
         $msg = array("valid" => true, "msg" => "Order Accepted!");

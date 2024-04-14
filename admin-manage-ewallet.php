@@ -178,7 +178,7 @@ session_start();
                                 </div>
                                 <div class="col-md-6">
                                         <div class="container text-center">
-                                            <button type="button" class="btn btn-primary w-100" onclick="showClientInfo('<?php echo $data['cust_id']; ?>')" data-bs-toggle="modal" data-bs-target="#clientDetail"><i class="fas fa-user"></i></button>
+                                            <button type="button" class="btn btn-primary w-100" onclick="showClientInfo('<?php echo $data['cust_id']; ?>','<?php echo $data['noAccAddress']; ?>', '<?php echo $data['noAccEmail']; ?>', '<?php echo $data['noAccPhone']; ?>')" data-bs-toggle="modal" data-bs-target="#clientDetail"><i class="fas fa-user"></i></button>
                                         </div>
                                         <br>
                                     <p class="textSearch"><?php echo $data['tran_id']; ?></p>   
@@ -302,9 +302,27 @@ session_start();
             });
         }
 
-        function showClientInfo(cust_id){
+        function showClientInfo(cust_id, noAccAddress, noAccEmail, noAccPhone){
             $("#showClientInfo").load("db/ajaxShowClientProfile.php", {
-                clientInfo : cust_id
+                clientInfo: cust_id,
+                noAccAddress: noAccAddress,
+                noAccEmail: noAccEmail,
+                noAccPhone: noAccPhone,
+                type: "order"
+            }, function (responseText) {
+                // Callback function after AJAX is completed
+                if ($.trim(responseText) === "") {
+                    // If the loaded data is empty, display "No System Account"
+                    $("#showClientInfo").html("<h3 class='text-warning text-center'>Walk in Customer</h3>");
+                    // If data is present, continue with checkRequestStatus()
+                    // checkRequestStatus();
+                } else {
+                    // If data is present, continue with checkRequestStatus()
+                    // checkRequestStatus();
+                }
+            }).fail(function () {
+                // Callback function in case of failure
+                $("#showClientInfo").html("<h2>Failed to Load Request, Please Try Again!</h2>");
             });
         }
 

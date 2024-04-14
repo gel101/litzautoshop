@@ -292,30 +292,32 @@ try {
             $customerName = $noAccName;
             $custLname = $customerName;
         }
-        
-        $messageContent = "<p>Dear Mr/Mrs. $custLname,</p>";
-        $messageContent .= "<p>I hope this message finds you well. We want to inform you that your order transaction has been successfully completed.</p>";
 
-        $message = generateEmailBody($messageContent, $totalpricetran, $customernametran, $tran_id, $finalpaymentTerm);
+        if ($customerEmail != "") {
+            $messageContent = "<p>Dear Mr/Mrs. $custLname,</p>";
+            $messageContent .= "<p>I hope this message finds you well. We want to inform you that your order transaction has been successfully completed.</p>";
 
-        $emailName = "Litz Autoshop";
-        $emailAdd = "litzautoshop@gmail.com";
-        $emailSubject = "Order Completed!";
+            $message = generateEmailBody($messageContent, $totalpricetran, $customernametran, $tran_id, $finalpaymentTerm);
 
-        $mail->setFrom($emailAdd, $emailName);
-        $mail->addAddress($customerEmail, $customerName);
+            $emailName = "Litz Autoshop";
+            $emailAdd = "litzautoshop@gmail.com";
+            $emailSubject = "Order Completed!";
 
-        $mail->isHTML(true);
-        $mail->Subject = $emailSubject;
-        $mail->Body = $message;
-        $mail->send();
+            $mail->setFrom($emailAdd, $emailName);
+            $mail->addAddress($customerEmail, $customerName);
 
-        // Clear recipients and reset the email object for the next iteration
-        $mail->ClearAllRecipients();
-        $mail->ClearAttachments();
+            $mail->isHTML(true);
+            $mail->Subject = $emailSubject;
+            $mail->Body = $message;
+            $mail->send();
 
-        // Close the mail connection after sending all emails
-        $mail->smtpClose();
+            // Clear recipients and reset the email object for the next iteration
+            $mail->ClearAllRecipients();
+            $mail->ClearAttachments();
+
+            // Close the mail connection after sending all emails
+            $mail->smtpClose();
+        }
 
 
         $msg = array("valid" => true, "msg" => "Transaction Status: Completed!");

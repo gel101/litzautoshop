@@ -22,7 +22,7 @@ $mail->Password = "afwaansxpvhbrtcw";
 
 
 try {
-    $msg = $addname =  $addemail = $addphone = $productData = "";
+    $msg = $addname =  $addemail = $addaddress = $addphone = $productData = "";
     $error = "";
     $valid = true;
 
@@ -38,9 +38,15 @@ try {
     if (isset($_POST['addemail']) && !empty($_POST['addemail'])) {
         $addemail = $_POST['addemail'];
     } else {
+        $addemail = null;
+    }
+    
+    if (isset($_POST['addaddress']) && !empty($_POST['addaddress'])) {
+        $addaddress = $_POST['addaddress'];
+    } else {
         $valid = false;
-        $error = "Customer Email is invalid";
-        $addemail = "";
+        $error = "Walk In address is invalid";
+        $addaddress = "";
     }
     
     if (isset($_POST['addphone']) && !empty($_POST['addphone'])) {
@@ -120,7 +126,8 @@ try {
             $subtotal = $pricedata['price'] * $pricedata['quantity']; // Calculate subtotal for each item
             $totalprice += $subtotal; // Add subtotal to totalprice
         }
-        $sqll123 = mysqli_query($conn, "INSERT INTO orders(customerName, tran_id, totalprice, noAccEmail, noAccPhone, date, transaction_type, status) VALUES('$addname','$tran_id','$totalprice','$addemail','$addphone','$currentDateTime', 'sparepart', '$status')");
+
+        $sqll123 = mysqli_query($conn, "INSERT INTO orders(customerName, tran_id, totalprice, noAccAddress, noAccEmail, noAccPhone, date, transaction_type, status) VALUES('$addname','$tran_id','$totalprice','$addaddress','$addemail','$addphone','$currentDateTime', 'sparepart', '$status')");
 
         $msg = array("valid" => true, "msg" => "Adding Order Success!");
         echo json_encode($msg);
