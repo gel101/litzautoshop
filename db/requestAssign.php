@@ -235,6 +235,30 @@ Requested Services: $request.";
     }
 
 
+    
+    
+    if ($reqNumber != "") {
+
+        $noaccRequest = mysqli_query($conn, "SELECT * FROM request_services WHERE request_id ='$reqID' ");
+        $requestData = mysqli_fetch_assoc($noaccRequest);
+        $customerName = $requestData['cust_name'];
+        $vehicleType = $requestData['vehicleType'];
+        $request = $requestData['request'];
+        $date = new DateTime($requestData['dateSelected']); 
+        $formattedDate = $date->format('M-d-Y');
+            
+$textMessage = "Hi $customerName!, this is Litz Autoshop. We are pleased to inform you that your service request has been accepted. Please visit our shop on the date you requested: $formattedDate.
+Your Mechanic: $mechanicName
+Request ID: $reqID
+
+Vehicle Type: $vehicleType
+Requested Services: $request.";
+            
+        $number = $reqNumber;
+        $prefixedNumber = "+63" . substr($number, 1);
+    }
+
+
 
         $msg = array("valid" => true, "msg" => "Request Approved!", "number" => $prefixedNumber, "message" => $textMessage);
         echo json_encode($msg);

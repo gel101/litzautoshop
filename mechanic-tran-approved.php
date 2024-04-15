@@ -526,7 +526,7 @@ include 'db/connection.php';
                 // Callback function after AJAX is completed
                 if ($.trim(responseText) === "") {
                     // If the loaded data is empty, display "No System Account"
-                    $("#showClientInfo").html("<h3 class='text-warning text-center'>No System Account</h3>");
+                    $("#showClientInfo").html("<h3 class='text-warning text-center'>Walk In Customer</h3>");
                 } else {
                     // If data is present, continue with checkRequestStatus()
                     checkRequestStatus();

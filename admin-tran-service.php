@@ -203,7 +203,7 @@ session_start();
                                                     ?>"><?php echo $data['status']; ?></span></h5></td>
                                                     <td>
                                                     <div class="d-flex align-items-center justify-content-center"> <!-- Wrap buttons in a flex container -->
-                                                        <button type="button" class="btn btn-warning me-1" data-value-1="<?php echo $data['details']; ?>" data-value-2="<?php echo $data['price_reason']; ?>" onclick="showClientInfo('<?php echo $data['cust_id']; ?>', '<?php echo $data['request_id']; ?>', '<?php echo $data['dateSelected']; ?>', '<?php echo $data['vehicleType']; ?>', this.getAttribute('data-value-1'), '<?php echo $data['status']; ?>', this.getAttribute('data-value-2'), '<?php echo $data['cust_email']; ?>', '<?php echo $data['cust_num']; ?>', '<?php echo $data['paintColor']; ?>', '<?php echo $data['tintColor']; ?>')" data-bs-toggle="modal" data-bs-target="#clientDetail"><i class="fas fa-eye"></i></button>
+                                                        <button type="button" class="btn btn-warning me-1" data-value-1="<?php echo $data['details']; ?>" data-value-2="<?php echo $data['price_reason']; ?>" onclick="showClientInfo('<?php echo $data['cust_id']; ?>', '<?php echo $data['request_id']; ?>', '<?php echo $data['dateSelected']; ?>', '<?php echo $data['vehicleType']; ?>', this.getAttribute('data-value-1'), '<?php echo $data['status']; ?>', this.getAttribute('data-value-2'), '<?php echo $data['cust_email']; ?>', '<?php echo $data['cust_num']; ?>', '<?php echo $data['paintColor']; ?>', '<?php echo $data['tintColor']; ?>', '<?php echo $data['cust_address']; ?>', '<?php echo $data['cust_email']; ?>', '<?php echo $data['cust_num']; ?>')" data-bs-toggle="modal" data-bs-target="#clientDetail"><i class="fas fa-eye"></i></button>
                                                         <!-- <button type="button" class="btn btn-success <?php if($data['status'] != "Processed"){echo "d-none";} ?>" onclick="completedBtn('<?php echo $data['request_id']; ?>','<?php echo $data['cust_id']; ?>')">Complete <i class="fas fa-car"></i></button> -->
                                                         <button type="button" class="btn btn-danger <?php if($data['status'] != "Pending" AND $data['status'] != "Approved"){echo "d-none";} ?>" onclick="declineBtn('<?php echo $data['request_id']; ?>', '<?php echo $data['cust_id']; ?>')" ><i class="fas fa-archive"></i></button>
                                                         </td>
@@ -285,7 +285,7 @@ session_start();
                 </div>
                 <br>
                 <div class="row">
-                    <label for="" class="form-label">Contact Details</label><span class="err_email text-danger" id="infoText"></span>
+                    <label for="" class="form-label">Contact Details</label><span class="err_phone text-danger" id="infoText"></span><span class="err_email text-danger" id="infoText"></span>
                     <div class="col-md-6">
                         <input type="number" class="form-control" id="addnumber" placeholder="Enter Phone Number"  oninput="validateNumber(this)">
 
@@ -294,6 +294,9 @@ session_start();
                         <input type="email" class="form-control" id="addemail" placeholder="Enter email">
                     </div>
                 </div>
+                <br>
+                <label for="" class="form-label">Customer Address</label><span class="err_address text-danger"></span>
+                <input type="text" class="form-control" id="addaddress" placeholder="Enter Customer Address">
                 <br>
                     <label for="" class="form-label">Suggestions/Comments/Reasons (Optional)</label>
                     <textarea name="" class="form-control" id="adddetails" cols="30" rows="6"></textarea>
@@ -541,6 +544,7 @@ session_start();
             var valid = true;
             var addname = $('#addname').val();
             // var addaddress = $('#addaddress').val();
+            var addaddress = $('#addaddress').val();
             var addemail = $('#addemail').val();
             var addnumber = $('#addnumber').val();
             var addvehicle = $('#addvehicle').val();
@@ -554,8 +558,8 @@ session_start();
             });
 
             
-    // Now checkboxValues array contains the values of the checked checkboxes
-    console.log(checkboxValues);
+            // Now checkboxValues array contains the values of the checked checkboxes
+            console.log(checkboxValues);
                 
 
             var currentDate = new Date();
@@ -567,18 +571,24 @@ session_start();
 			// 	valid = false;
 			// 	$(".err_address").html(" *Please enter an Address");
 			// }
-			if(addemail == ""){
+			if(addaddress == ""){
 				valid = false;
-				$(".err_email").html(" *Please enter an Email");
-			}
+				$(".err_address").html(" *Please enter an Address");
+			}else{
+				$(".err_address").html("");
+            }
 			if(addnumber == ""){
 				valid = false;
-				$(".err_email").html(" *Please enter Phone Number");
-			}
+				$(".err_phone").html(" *Please enter Phone Number");
+			}else{
+				$(".err_phone").html("");
+            }
 			if(addvehicle == ""){
 				valid = false;
 				$(".err_vehicle").html(" *Please Select Vehicle Type");
-			}
+			}else{
+				$(".err_vehicle").html("");
+            }
     
             // Check if any of the values is an empty string
             if (checkboxValues.length === 0) {
@@ -611,6 +621,7 @@ session_start();
                 if(confirm('Add the Request?')){
                     var form_data = {
                         addname : addname,
+                        addaddress : addaddress,
                         addemail : addemail,
                         addnumber : addnumber,
                         addvehicle : addvehicle,
@@ -659,7 +670,7 @@ session_start();
 
         }
 
-        function showClientInfo(cust_id, reqID, dateSelected, vehicleType, details, status, priceReason, email, number, paintColor, tintColor){
+        function showClientInfo(cust_id, reqID, dateSelected, vehicleType, details, status, priceReason, email, number, paintColor, tintColor, custAdd, custEmail, custNum){
             $('#custID').val(cust_id);
             $('#requestID').val(reqID);
             $('#requestStatus').val(status);
@@ -696,7 +707,11 @@ session_start();
 
 
             $("#showClientInfo").load("db/ajaxShowClientProfile.php", {
-                clientInfo: cust_id
+                clientInfo: cust_id,
+                custAdd: custAdd,
+                custEmail: custEmail,
+                custNum: custNum,
+                type: "service"
             }, function (responseText) {
                 // Callback function after AJAX is completed
                 if ($.trim(responseText) === "") {

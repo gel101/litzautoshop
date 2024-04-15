@@ -22,7 +22,7 @@
 	
 	
 	try{
-		$msg = $addname = $addemail = $addnumber = $addvehicle = $addrequest = $adddate = $adddetails   = "";
+		$msg = $addname = $addaddress = $addemail = $addnumber = $addvehicle = $addrequest = $adddate = $adddetails   = "";
 		$error = "";
 		$valid = true;
 
@@ -37,9 +37,15 @@
 		if(isset($_POST['addemail']) && !empty($_POST['addemail'])){
 			$addemail = $_POST['addemail'];
 		}else{
+			$addemail = null;
+		}
+
+		if(isset($_POST['addaddress']) && !empty($_POST['addaddress'])){
+			$addaddress = $_POST['addaddress'];
+		}else{
 			$valid = false;
-			$error = "addemail is invalid";
-			$addemail = "";
+			$error = "Address is invalid";
+			$addaddress = "";
 		}
 
 		if(isset($_POST['addnumber']) && !empty($_POST['addnumber'])){
@@ -78,97 +84,98 @@
 		$messageAdmin = "A New Service Request has been Made";
 
 		if($valid){
-				$sql = mysqli_query($conn, "INSERT INTO request_services(cust_name, cust_email, cust_num, request, vehicleType, details, dateSelected, date, status) VALUES('$addname','$addemail','$addnumber','$addrequest','$addvehicle','$adddetails','$adddate', '$currentDateTime', '$status')");
+				$sql = mysqli_query($conn, "INSERT INTO request_services(cust_name, cust_address, cust_email, cust_num, request, vehicleType, details, dateSelected, date, status) VALUES('$addname','$addaddress','$addemail','$addnumber','$addrequest','$addvehicle','$adddetails','$adddate', '$currentDateTime', '$status')");
 				$sql4 = mysqli_query($conn, "INSERT INTO notifications(messageTo,message, date, transaction, status) VALUES('admin','$messageAdmin','$currentDateTime','$tran','$status')");
-
 				
-                        $customerEmail = $addemail;
-						$customerName = $addname;
+			$customerEmail = $addemail;
+			$customerName = $addname;
 
-
-                        $signature = "<br>";
-						$signature .= "Regards,<br>";
-                        $signature .= "Litz Autoshop<br>";
-                        $signature .= "Email Notification<br>";
-                        $signature .= "Litz Auto Surplus Prk. 2 Brgy. Little Panay Panabo Davao Del Norte , Panabo, Philippines<br>";
-                        $signature .= "Phone: 09169834159<br>";
-                        $signature .= "Email: marjlit1@gmail.com</p>";
+			if ($customerEmail != null) {
 	
-						$message = "<html><body>";
-						$message .= "<p>Dear $customerName,</p>";
-						$message .= "<p>I hope this message finds you well. We want to inform you that your service request has been successfully created and is now in our system for further processing.</p>";
-						$message .= "<br>";
-						$message .= "<h4>Service Request Details: </h4>";
-						$message .= "<table style='width: 100%; border-collapse: collapse;' class='table text-center'>";
-						$message .= "<thead style='background-color: #f2f2f2;' class='text-secondary'>";
-						$message .= "<tr>";
-						$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Request ID</th>";
-						$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Customer Name</th>";
-						$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Vehicle Type</th>";
-						$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Request</th>";
-						$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Vehicle Type</th>";
-						$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Requested Date</th>";
-						$message .= "</tr>";
-						$message .= "</thead>";
-				
-						$stmtservice = mysqli_query($conn, "SELECT * FROM request_services WHERE cust_name = '$addname' AND vehicleType ='$addvehicle' AND request ='$addrequest' AND dateSelected='$adddate' AND status ='$status' ");
-				
-						while ($rowservice = mysqli_fetch_assoc($stmtservice)) {
+				$signature = "<br>";
+				$signature .= "Regards,<br>";
+				$signature .= "Litz Autoshop<br>";
+				$signature .= "Email Notification<br>";
+				$signature .= "Litz Auto Surplus Prk. 2 Brgy. Little Panay Panabo Davao Del Norte , Panabo, Philippines<br>";
+				$signature .= "Phone: 09169834159<br>";
+				$signature .= "Email: marjlit1@gmail.com</p>";
 
-							$request_id = $rowservice['request_id'];
-							$cust_name = $rowservice['cust_name'];
-							$vehicleType = $rowservice['vehicleType'];
-							$request = $rowservice['request'];
-							$vehicleType = $rowservice['vehicleType'];
-							$inputDate = $rowservice['dateSelected'];
-							$date = DateTime::createFromFormat('Y-m-d', $inputDate);
-							$formattedDate = $date->format('m-d-Y');
-				
-							$message .= "<tr>";
-							$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$request_id</td>";
-							$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$cust_name</td>";
-							$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$vehicleType</td>";
-							$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$request</td>";
-							$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$vehicleType</td>";
-							$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$formattedDate</td>";
-							$message .= "</tr>";
-						}
-				
-						$message .= "</table>";
-						$message .= "<br>";
-                        $message .= $signature;
-						$message .= "</body></html>";
-						
-						$emailName = "Litz Autoshop";
-						$emailAdd = "litzautoshop@gmail.com";
-						$emailSubject = "Request Successfully Created";
-	
-						$mail->setFrom($emailAdd, $emailName);
-						$mail->addAddress($customerEmail, $customerName);
-	
-						$mail->isHTML(true);
-						$mail->Subject = $emailSubject;
-						$mail->Body = $message;
+				$message = "<html><body>";
+				$message .= "<p>Dear $customerName,</p>";
+				$message .= "<p>I hope this message finds you well. We want to inform you that your service request has been successfully created and is now in our system for further processing.</p>";
+				$message .= "<br>";
+				$message .= "<h4>Service Request Details: </h4>";
+				$message .= "<table style='width: 100%; border-collapse: collapse;' class='table text-center'>";
+				$message .= "<thead style='background-color: #f2f2f2;' class='text-secondary'>";
+				$message .= "<tr>";
+				$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Request ID</th>";
+				$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Customer Name</th>";
+				$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Vehicle Type</th>";
+				$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Request</th>";
+				$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Vehicle Type</th>";
+				$message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Requested Date</th>";
+				$message .= "</tr>";
+				$message .= "</thead>";
+		
+				$stmtservice = mysqli_query($conn, "SELECT * FROM request_services WHERE cust_name = '$addname' AND vehicleType ='$addvehicle' AND request ='$addrequest' AND dateSelected='$adddate' AND status ='$status' ");
+		
+				while ($rowservice = mysqli_fetch_assoc($stmtservice)) {
 
-						// Check if the email was sent successfully
-						if (!$mail->send()) {
-						   $erroremail = "Mailer Error: " . $mail->ErrorInfo;
-							$msg = array("valid" => false, "msg" => $erroremail);
-							echo json_encode($msg);
-							exit;
-						}
-	
-					}
+					$request_id = $rowservice['request_id'];
+					$cust_name = $rowservice['cust_name'];
+					$vehicleType = $rowservice['vehicleType'];
+					$request = $rowservice['request'];
+					$vehicleType = $rowservice['vehicleType'];
+					$inputDate = $rowservice['dateSelected'];
+					$date = DateTime::createFromFormat('Y-m-d', $inputDate);
+					$formattedDate = $date->format('m-d-Y');
+		
+					$message .= "<tr>";
+					$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$request_id</td>";
+					$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$cust_name</td>";
+					$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$vehicleType</td>";
+					$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$request</td>";
+					$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$vehicleType</td>";
+					$message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$formattedDate</td>";
+					$message .= "</tr>";
+				}
+		
+				$message .= "</table>";
+				$message .= "<br>";
+				$message .= $signature;
+				$message .= "</body></html>";
+				
+				$emailName = "Litz Autoshop";
+				$emailAdd = "litzautoshop@gmail.com";
+				$emailSubject = "Request Successfully Created";
 
-				global $sql;
-				global $sql4;
-				if (!$sql || !$sql4) {
-					$msg = array("valid" => false, "msg" => "QUERY ERROR.");
+				$mail->setFrom($emailAdd, $emailName);
+				$mail->addAddress($customerEmail, $customerName);
+
+				$mail->isHTML(true);
+				$mail->Subject = $emailSubject;
+				$mail->Body = $message;
+
+				// Check if the email was sent successfully
+				if (!$mail->send()) {
+					$erroremail = "Mailer Error: " . $mail->ErrorInfo;
+					$msg = array("valid" => false, "msg" => $erroremail);
+					echo json_encode($msg);
 					exit;
 				}
-				
-				$msg = array("valid" => true, "msg" => "Request Service Sucessful!");
-				echo json_encode($msg);
+			}
+
+		}
+
+		global $sql;
+		global $sql4;
+		if (!$sql || !$sql4) {
+			$msg = array("valid" => false, "msg" => "QUERY ERROR.");
+			exit;
+		}
+	
+		$msg = array("valid" => true, "msg" => "Request Service Sucessful!");
+		echo json_encode($msg);
 		
 	} catch (Exception $e) {
 		$msg = array("valid" => false, "msg" => 'Error-> ' . $e->getMessage() . '\n');

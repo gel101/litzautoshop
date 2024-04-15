@@ -186,74 +186,79 @@ try {
             $customerName = $row5['fname'] . " " . $row5['lname'] ;
             $custLname = $row5['lname'];
         }
-				
+			
 
-        $signature = "<br>";
-        $signature .= "<p>Regards,<br>";
-        $signature .= "Litz Autoshop<br>";
-        $signature .= "Email Notification<br>";
-        $signature .= "Litz Auto Surplus Prk. 2 Brgy. Little Panay Panabo Davao Del Norte , Panabo, Philippines<br>";
-        $signature .= "Phone: 09169834159<br>";
-        $signature .= "Email: marjlit1@gmail.com</p>";
-        
-        $message = "<html><body>";
-        $message .= "<p>Dear Mr/Mrs. $custLname,</p>";
-        $message .= "<p>I hope this message finds you well. Regrettably, we must inform you that your recent order request has been declined. We understand that this news may be disappointing, and we sincerely apologize for any inconvenience this may cause.</p>";
-        $message .= "<p>While we are unable to fulfill the order at this time, we encourage you to submit another order in the future. Our team is here to assist you, and we appreciate your understanding.</p>";			
-        $message .= "<br>";        
-        $message .= "<h4>Order Details: </h4>";
-        $message .= "<table style='width: 100%; border-collapse: collapse;' class='table text-center'>";
-        $message .= "<thead style='background-color: #f2f2f2;' class='text-secondary'>";
-        $message .= "<tr>";
-        $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>ID</th>";
-        $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Product</th>";
-        $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Color</th>";
-        $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Engine</th>";
-        $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Model</th>";
-        $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Quantity</th>";
-        $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Price</th>";
-        $message .= "</tr>";
-        $message .= "</thead>";
-
-        
-        $stmtcarts = mysqli_query($conn, "SELECT * FROM carts WHERE tran_id = '$tran_id' ");
-        while ($rowcarts = mysqli_fetch_assoc($stmtcarts)) {
-            $cart_id = $rowcarts['cart_id'];
-            $product = $rowcarts['product'];
-            $color = $rowcarts['color'];
-            $engine = $rowcarts['engine'];
-            $model = $rowcarts['model'];
-            $quantity = $rowcarts['quantity'];
-            $price = number_format($rowcarts['price'], 2);
-
+        if ($customerEmail != "") {
+            
+            $signature = "<br>";
+            $signature .= "<p>Regards,<br>";
+            $signature .= "Litz Autoshop<br>";
+            $signature .= "Email Notification<br>";
+            $signature .= "Litz Auto Surplus Prk. 2 Brgy. Little Panay Panabo Davao Del Norte , Panabo, Philippines<br>";
+            $signature .= "Phone: 09169834159<br>";
+            $signature .= "Email: marjlit1@gmail.com</p>";
+            
+            $message = "<html><body>";
+            $message .= "<p>Dear Mr/Mrs. $custLname,</p>";
+            $message .= "<p>I hope this message finds you well. Regrettably, we must inform you that your recent order request has been declined. We understand that this news may be disappointing, and we sincerely apologize for any inconvenience this may cause.</p>";
+            $message .= "<p>While we are unable to fulfill the order at this time, we encourage you to submit another order in the future. Our team is here to assist you, and we appreciate your understanding.</p>";			
+            $message .= "<br>";        
+            $message .= "<h4>Order Details: </h4>";
+            $message .= "<table style='width: 100%; border-collapse: collapse;' class='table text-center'>";
+            $message .= "<thead style='background-color: #f2f2f2;' class='text-secondary'>";
             $message .= "<tr>";
-            $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$cart_id</td>";
-            $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$product</td>";
-            $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$color</td>";
-            $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$engine</td>";
-            $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$model</td>";
-            $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$quantity</td>";
-            $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>&#8369;$price</td>";
+            $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>ID</th>";
+            $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Product</th>";
+            $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Color</th>";
+            $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Engine</th>";
+            $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Model</th>";
+            $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Quantity</th>";
+            $message .= "<th style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>Price</th>";
             $message .= "</tr>";
+            $message .= "</thead>";
+
+            
+            $stmtcarts = mysqli_query($conn, "SELECT * FROM carts WHERE tran_id = '$tran_id' ");
+            while ($rowcarts = mysqli_fetch_assoc($stmtcarts)) {
+                $cart_id = $rowcarts['cart_id'];
+                $product = $rowcarts['product'];
+                $color = $rowcarts['color'];
+                $engine = $rowcarts['engine'];
+                $model = $rowcarts['model'];
+                $quantity = $rowcarts['quantity'];
+                $price = number_format($rowcarts['price'], 2);
+
+                $message .= "<tr>";
+                $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$cart_id</td>";
+                $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$product</td>";
+                $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$color</td>";
+                $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$engine</td>";
+                $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$model</td>";
+                $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$quantity</td>";
+                $message .= "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>&#8369;$price</td>";
+                $message .= "</tr>";
+            }
+
+            $message .= "</table>";
+            $message .= "<br>";
+            $message .= $signature;
+            $message .= "</body></html>";
+
+
+            $emailName = "Litz Autoshop";
+            $emailAdd = "litzautoshop@gmail.com";
+            $emailSubject = "Order Declined";
+
+            $mail->setFrom($emailAdd, $emailName);
+            $mail->addAddress($customerEmail, $customerName);
+
+            $mail->isHTML(true);
+            $mail->Subject = $emailSubject;
+            $mail->Body = $message;
+            $mail->send();
         }
+        
 
-        $message .= "</table>";
-        $message .= "<br>";
-        $message .= $signature;
-        $message .= "</body></html>";
-
-
-        $emailName = "Litz Autoshop";
-        $emailAdd = "litzautoshop@gmail.com";
-        $emailSubject = "Order Declined";
-
-        $mail->setFrom($emailAdd, $emailName);
-        $mail->addAddress($customerEmail, $customerName);
-
-        $mail->isHTML(true);
-        $mail->Subject = $emailSubject;
-        $mail->Body = $message;
-        $mail->send();
 
         $msg = array("valid" => true, "msg" => "Transaction Declined!");
         echo json_encode($msg);
