@@ -131,9 +131,9 @@ $_SESSION['admin_last_activity'] = time();
             <div class="modal-body">
                 <div class="mt-2 text-center">
                     <lord-icon 
-                        src="https://cdn.lordicon.com/evyuuwna.json"
+                        src="https://cdn.lordicon.com/ygvjgdmk.json"
                         trigger="loop"
-                        colors="primary:#007bff,secondary:#08a88a"
+                        colors="primary:#e83a30,secondary:#e83a30"
                         style="width:250px;height:250px">
                     </lord-icon>
                     <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
@@ -141,7 +141,7 @@ $_SESSION['admin_last_activity'] = time();
                     </div>
                     <div class="row">
                         <div class="center">
-                            <button id="confirmAction" class="btn btn-primary">Yes</button>
+                            <!-- <button id="confirmAction" class="btn btn-primary">Yes</button> -->
                             <!-- <button class="btn btn-danger" data-bs-dismiss="modal">No</button> -->
                         </div>
                     </div>

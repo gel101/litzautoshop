@@ -133,7 +133,7 @@ include 'db/connection.php';
                                                         <select class="form-select" name="vehicleType[]" required>
                                                 
                                                             <?php
-                                                                $stmtpaintdelete = mysqli_query($conn, "SELECT * FROM vehicletype_service ORDER BY id DESC");
+                                                                $stmtpaintdelete = mysqli_query($conn, "SELECT * FROM vehicletype_service ORDER BY id ASC");
                                                                 while($data = mysqli_fetch_assoc($stmtpaintdelete)){
                                                             ?>
 
@@ -345,7 +345,7 @@ include 'db/connection.php';
                                                         <select class="form-select" name="vehicleType[]" required>
                                                 
                                                             <?php
-                                                                $stmtpaintdelete = mysqli_query($conn, "SELECT * FROM vehicletype_service ORDER BY id DESC");
+                                                                $stmtpaintdelete = mysqli_query($conn, "SELECT * FROM vehicletype_service ORDER BY id ASC");
                                                                 while($data = mysqli_fetch_assoc($stmtpaintdelete)){
                                                             ?>
 

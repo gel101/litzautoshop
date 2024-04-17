@@ -179,7 +179,7 @@ session_start();
                                             <div class="col">
                                                 <select class="form-select" name="vehicleType" id="vehicleType">
                                                     <?php
-                                                    $stmtpaintdelete = mysqli_query($conn, "SELECT * FROM vehicletype_service ORDER BY id DESC");
+                                                    $stmtpaintdelete = mysqli_query($conn, "SELECT * FROM vehicletype_service ORDER BY id ASC");
                                                     while($data = mysqli_fetch_assoc($stmtpaintdelete)){
                                                     ?>
 
@@ -574,6 +574,7 @@ session_start();
                         dataType: "json",
                         success: function (response) {
                             if(response['valid'] == false){
+                                $('#errorMessage').text(response['msg']); // Change the confirmation text
                                 $('#errorModal').modal('show');
 
                                 // Close errorModal after 2 seconds and trigger redirection
