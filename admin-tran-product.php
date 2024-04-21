@@ -2077,10 +2077,10 @@ session_start();
 
             var referenceInput = "RN: " + referenceInput;
 
-            if (typeof screenshot === "undefined" || screenshot === null) {
-                valid = false;
-				$("#err_ss").html(" *Please add proof of payment");
-            }
+            // if (typeof screenshot === "undefined" || screenshot === null) {
+            //     valid = false;
+			// 	$("#err_ss").html(" *Please add proof of payment");
+            // }
         }
 
 
@@ -2168,10 +2168,10 @@ session_start();
 
             var referenceInput = "RN: " + referenceInput;
 
-            if (typeof screenshot === "undefined" || screenshot === null) {
-                valid = false;
-				$("#err_ss1").html(" *Please add proof of payment");
-            }
+            // if (typeof screenshot === "undefined" || screenshot === null) {
+            //     valid = false;
+			// 	$("#err_ss1").html(" *Please add proof of payment");
+            // }
         }
 
 
@@ -2251,10 +2251,10 @@ session_start();
             var referenceInput = "RN: " + referenceInput;
         }
 
-        if (screenshot == "undefined") {
-            valid = false;
-            alert("E-wallet Screenshot Empty!");
-        }
+        // if (screenshot == "undefined") {
+        //     valid = false;
+        //     alert("E-wallet Screenshot Empty!");
+        // }
 
         if (tran_id == "") {
             valid = false;

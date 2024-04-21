@@ -21,6 +21,9 @@ $mail->Port = 587;
 $mail->Username = "litzautoshop@gmail.com";
 $mail->Password = "afwaansxpvhbrtcw";
 
+// Set the timezone to the Philippines
+date_default_timezone_set('Asia/Manila');
+$currentDateTime = date("Y-m-d H:i:s");
 
 try{
     $msg = $file = $error = "";
@@ -90,7 +93,7 @@ try{
 
     function validatePassword($password) {
         // Define a regular expression pattern for the password requirements
-        $passwordPattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/';
+        $passwordPattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d\W_]{8,}$/';
 
         // Test the password against the pattern
         $isValid = preg_match($passwordPattern, $password);
@@ -135,7 +138,7 @@ try{
             echo json_encode($msg);
             exit;
         }else {
-            $sql = "INSERT INTO clientacc (validID, fname, lname, birthdate, address, phoneNum, email, username, pass, status) VALUES ('$picture','$fname', '$lname', '$birthdate','$address', '$pnum', '$email', '$uname', '$pass','$status')";
+            $sql = "INSERT INTO clientacc (validID, fname, lname, birthdate, address, phoneNum, email, username, pass, status, date) VALUES ('$picture','$fname', '$lname', '$birthdate','$address', '$pnum', '$email', '$uname', '$pass','$status', '$currentDateTime')";
             $result = mysqli_query($conn, $sql);
             
             

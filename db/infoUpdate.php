@@ -80,7 +80,7 @@ try {
   
   function validatePassword($password) {
     // Define a regular expression pattern for the password requirements
-    $passwordPattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/';
+    $passwordPattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d\W_]{8,}$/';
 
     // Test the password against the pattern
     $isValid = preg_match($passwordPattern, $password);
@@ -96,7 +96,7 @@ try {
   } else {
     if (!validatePassword($pass)) {
         $valid = false;
-        $error = "Password should have Uppercase, Lowercase, Number, and a Special Character!";
+        $error = "Password should have Uppercase, Lowercase and a Number!";
         $pass = "";
     }
   }

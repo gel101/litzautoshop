@@ -114,6 +114,10 @@ try {
     
     $status = "Verified";
 
+    // Set the timezone to the Philippines
+    date_default_timezone_set('Asia/Manila');
+    $currentDateTime = date("Y-m-d H:i:s");
+
     if ($valid) {
         // Check if birthdate_type already exists in the database
         $query = "SELECT * FROM clientacc WHERE fname = '$fname' AND lname = '$lname' AND birthdate = '$birthdate'";
@@ -142,7 +146,7 @@ try {
             move_uploaded_file($fileTmpName, $destination);
             $validID = $destination;
 
-			$sql = mysqli_query($conn, "INSERT INTO clientacc(validID, fname, lname, birthdate, address, phoneNum, email, username, pass, status) VALUES ('$validID', '$fname', '$lname', '$birthdate', '$address', '$phoneNum', '$email', '$uname', '$pass', '$status')");
+			$sql = mysqli_query($conn, "INSERT INTO clientacc(validID, fname, lname, birthdate, address, phoneNum, email, username, pass, date, status) VALUES ('$validID', '$fname', '$lname', '$birthdate', '$address', '$phoneNum', '$email', '$uname', '$pass', '$currentDateTime', '$status')");
 
             $msg = array("valid" => true, "msg" => "Client Added!");
             echo json_encode($msg);
