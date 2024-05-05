@@ -149,68 +149,70 @@ session_start();
                         </div>
                     </div>
 
-                    <div class="card-container col-12">
+                    <div class="card-container row">
                         
                             <?php
                                 include 'db/connection.php';
 
-                                $stmt = mysqli_query($conn, "SELECT * FROM orders WHERE reference_number!='' and payment_mode='Gcash' ORDER BY order_id DESC");
+                                $stmt = mysqli_query($conn, "SELECT * FROM orders WHERE reference_number != '' and payment_mode = 'E-wallet' ORDER BY order_id DESC");
 
                                 while($data = mysqli_fetch_assoc($stmt)){
                             ?>
-                            
-                        <div class="box card h-12">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h2 style="color:#007DFE" class="textSearch"><strong>E-wallet</strong></h2>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                        <?php if ($data['screenshot'] != "") { ?>
-                                    <a href="db/<?php echo $data['screenshot']; ?>"  target="_blank" class="h-auto w-50">
-                                        <img src="db/<?php echo $data['screenshot']; ?>" alt="">
-                                    </a>
-                                        <?php }else{ ?>
-                                        <img class="form-control" src="" alt="No Screenshot">
-                                        <?php } ?>
-                                        <br>
-                                </div>
-                                <div class="col-md-6">
-                                        <div class="container text-center">
-                                            <button type="button" class="btn btn-primary w-100" onclick="showClientInfo('<?php echo $data['cust_id']; ?>','<?php echo $data['noAccAddress']; ?>', '<?php echo $data['noAccEmail']; ?>', '<?php echo $data['noAccPhone']; ?>')" data-bs-toggle="modal" data-bs-target="#clientDetail"><i class="fas fa-user"></i></button>
+                            <div class="col md-4 md-3 mb-3">
+                                <div class="box card h-100">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h2 style="color:#007DFE" class="textSearch"><strong>E-wallet</strong></h2>
                                         </div>
-                                        <br>
-                                    <p class="textSearch"><?php echo $data['tran_id']; ?></p>   
-                                    <p class="textSearch"><?php echo $data['customerName']; ?></p>
-                                    <p class="textSearch"><?php echo $data['reference_number']; ?></p>
-                                    <p class="textSearch"><h5><span class="badge <?php 
-                                                                            
-                                    switch ($data['status']) {
-                                        case "Pending":
-                                            echo "bg-warning";
-                                            break;
-                                        case "Accepted":
-                                            echo "bg-info";
-                                            break;
-                                        case "Requirements Complete":
-                                        case "Order Preparing":
-                                            echo "bg-secondary";
-                                            break;
-                                        case "Ready to Pick Up":
-                                        case "Completed":
-                                            echo "bg-success";
-                                            break;
-                                        default:
-                                            echo "bg-primary";
-                                    }
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                                <?php if ($data['screenshot'] != "") { ?>
+                                            <a href="db/<?php echo $data['screenshot']; ?>"  target="_blank" class="h-auto w-50">
+                                                <img src="db/<?php echo $data['screenshot']; ?>" alt="">
+                                            </a>
+                                                <?php }else{ ?>
+                                                <img class="form-control" src="" alt="No Screenshot">
+                                                <?php } ?>
+                                                <br>
+                                        </div>
+                                        <div class="col-md-6">
+                                                <div class="container text-center">
+                                                    <button type="button" class="btn btn-primary w-100" onclick="showClientInfo('<?php echo $data['cust_id']; ?>','<?php echo $data['noAccAddress']; ?>', '<?php echo $data['noAccEmail']; ?>', '<?php echo $data['noAccPhone']; ?>')" data-bs-toggle="modal" data-bs-target="#clientDetail"><i class="fas fa-user"></i></button>
+                                                </div>
+                                                <br>
+                                            <p class="textSearch"><?php echo $data['tran_id']; ?></p>   
+                                            <p class="textSearch"><?php echo $data['customerName']; ?></p>
+                                            <p class="textSearch"><?php echo $data['reference_number']; ?></p>
+                                            <p class="textSearch"><h5><span class="badge <?php 
+                                                                                    
+                                            switch ($data['status']) {
+                                                case "Pending":
+                                                    echo "bg-warning";
+                                                    break;
+                                                case "Accepted":
+                                                    echo "bg-info";
+                                                    break;
+                                                case "Requirements Complete":
+                                                case "Order Preparing":
+                                                    echo "bg-secondary";
+                                                    break;
+                                                case "Ready to Pick Up":
+                                                case "Completed":
+                                                    echo "bg-success";
+                                                    break;
+                                                default:
+                                                    echo "bg-primary";
+                                            }
 
-                                    ?>"><?php echo $data['status']; ?></span></h5></p>
+                                            ?>"><?php echo $data['status']; ?></span></h5></p>
 
 
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
-                        </div>
                             <?php
                             }
                             ?>
