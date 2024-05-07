@@ -30,7 +30,7 @@ if ($_POST['clientInfo'] != "") {
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Birthdate</label><span class="a_lname_err text-danger"></span>
-                    <input class="form-control" type="text" value="<?php echo $data['birthdate']; ?>"disabled>
+                    <input class="form-control" type="text" value="<?php echo date('m/d/Y', strtotime($data['birthdate'])); ?>"disabled>
                     <br>
                 </div>
                 <div class="col-md-4">

@@ -104,15 +104,15 @@
                 </div> -->
 
                 <div class="ms-1 header-item d-sm-flex">
-                    <button id="cartButton" type="button" data-bs-toggle="modal" data-bs-target="#decisionModal" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle">
+                    <!-- <button id="cartButton" type="button" data-bs-toggle="modal" data-bs-target="#decisionModal" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle">
                         <i class='bx bx-cart fs-22'></i>
                         <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">
                             <span class="visually-hidden">unread messages</span></span>
-                    </button>
+                    </button> -->
                 </div>
 
                 <div class="dropdown topbar-head-dropdown ms-1 header-item" id="notificationDropdown">
-                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                    <!-- <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
                         <i class='bx bx-bell fs-22'></i>
                         <span id="notifNum" class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">
                             <span class="visually-hidden">unread messages</span></span>
@@ -168,7 +168,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="ms-1 header-item d-sm-flex">
