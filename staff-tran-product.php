@@ -503,7 +503,7 @@ session_start();
                     <button class="btn btn-secondary" onclick="acceptBtn(document.getElementById('clientID').value, document.getElementById('clientInfo').value, document.getElementById('tranType').value)" id="acceptBtn">ACCEPT <i class="fas fa-check"></i></button>
                     <button class="btn btn-primary" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal" data-bs-dismiss="modal" id="paymentBtn">ADD PAYMENT <i class="fas fa-check-circle"></i></button>
                     <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal" id="confirmBtn">REQUIREMENTS COMPLETE <i class="fas fa-check-circle"></i></button>
-                    <!-- <button type="button" class="btn btn-danger" onclick="declineBtn(document.getE lementById('clientInfo').value, document.getElementById('clientID').value, document.getElementById('tranID').value, document.getElementById('clientStatus').value)" id="declineBtn">DECLINE <i class="fas fa-ban"></i></button> -->
+                    <!-- <button type="button" class="btn btn-danger" onclick="declineBtn(document.getElementById('clientInfo').value, document.getElementById('clientID').value, document.getElementById('tranID').value, document.getElementById('clientStatus').value)" id="declineBtn">DECLINE <i class="fas fa-ban"></i></button> -->
                 </div>
             </div>
 		</div>
@@ -2076,10 +2076,10 @@ session_start();
 
             var referenceInput = "RN: " + referenceInput;
 
-            if (typeof screenshot === "undefined" || screenshot === null) {
-                valid = false;
-				$("#err_ss").html(" *Please add proof of payment");
-            }
+            // if (typeof screenshot === "undefined" || screenshot === null) {
+            //     valid = false;
+			// 	$("#err_ss").html(" *Please add proof of payment");
+            // }
         }
 
 
@@ -2167,10 +2167,10 @@ session_start();
 
             var referenceInput = "RN: " + referenceInput;
 
-            if (typeof screenshot === "undefined" || screenshot === null) {
-                valid = false;
-				$("#err_ss1").html(" *Please add proof of payment");
-            }
+            // if (typeof screenshot === "undefined" || screenshot === null) {
+            //     valid = false;
+			// 	$("#err_ss1").html(" *Please add proof of payment");
+            // }
         }
 
 
@@ -2250,10 +2250,10 @@ session_start();
             var referenceInput = "RN: " + referenceInput;
         }
 
-        if (screenshot == "undefined") {
-            valid = false;
-            alert("E-wallet Screenshot Empty!");
-        }
+        // if (screenshot == "undefined") {
+        //     valid = false;
+        //     alert("E-wallet Screenshot Empty!");
+        // }
 
         if (tran_id == "") {
             valid = false;
