@@ -736,7 +736,7 @@ $_SESSION['admin_last_activity'] = time();
     //                 },
     //                 success: function (response) {
     //                     if (response['valid'] == false) {
-    //                         alert(response['msg']);git 
+    //                         alert(response['msg']);
     //                     } else {
     //                         $('#scModal').modal('show');
     //                         alert(response['msg']);
