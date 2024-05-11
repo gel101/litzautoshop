@@ -742,7 +742,7 @@ session_start();
 						}
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
-						alert("Error: " + errorThrown);
+						alert("Check Internet Connection: " + errorThrown);
 					},
 					complete: function () {
 						// This will be called regardless of success or failure
@@ -853,7 +853,7 @@ session_start();
 						},
 						error: function (jqXHR, textStatus, errorThrown) {
 							$('#loadingModal').modal('hide'); // Hide the modal on error
-							alert("Error: " + errorThrown);
+							alert("Check Internet Connection: " + errorThrown);
 						},
 						complete: function () {
 							$('#loadingModal').modal('hide');
@@ -915,7 +915,7 @@ session_start();
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
 						$('#loadingModal').modal('hide'); // Hide the modal on error
-						alert("Error: " + errorThrown);
+						alert("Check Internet Connection: " + errorThrown);
 					},
 					complete: function () {
 						$('#loadingModal').modal('hide');

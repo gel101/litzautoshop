@@ -736,7 +736,7 @@ $_SESSION['admin_last_activity'] = time();
     //                 },
     //                 success: function (response) {
     //                     if (response['valid'] == false) {
-    //                         alert(response['msg']);
+    //                         alert(response['msg']);git 
     //                     } else {
     //                         $('#scModal').modal('show');
     //                         alert(response['msg']);
@@ -745,7 +745,7 @@ $_SESSION['admin_last_activity'] = time();
     //                     $('#loadingModal').modal('hide');
     //                 },
     //                 error: function (jqXHR, textStatus, errorThrown) {
-    //                     alert("Error: " + errorThrown);
+    //                     alert("Check Internet Connection: " + errorThrown);
     //                     $('#loadingModal').modal('hide'); // Hide the modal on error
     //                 },
     //                 complete: function () {

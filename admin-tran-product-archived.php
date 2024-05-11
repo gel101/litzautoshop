@@ -374,7 +374,7 @@ if (isset($_GET['viewclientInfo'])) {
                         }        
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
-                        alert("Error: " + errorThrown);
+                        alert("Check Internet Connection: " + errorThrown);
                     }
                 });
 
