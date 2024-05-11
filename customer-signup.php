@@ -25,6 +25,7 @@
 
     <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	
 	<script>
 		$(document).ready(function () {
@@ -410,6 +411,17 @@
 				$("#validateImageUpload").css("display", "block");
 			}
 		}
+		
+		function sweetAlertLoading() {
+			Swal.fire({
+				title: "Please wait",
+				text: "This form will be submitted",
+				iconHtml: '<lord-icon src="https://cdn.lordicon.com/xjovhxra.json" style="width:150px; height: 150px" trigger="loop" colors="primary:#007bff,secondary:#08a88a" style="width:250px;height:250px; background: #ffff;"> </lord-icon>', // Custom HTML for loading animation with transparent background
+				allowOutsideClick: false, // Prevent closing on outside click
+				showConfirmButton: false // Don't show any buttons
+			});
+			return false; // Prevent default form submission
+		}
 
 		$('#myButton').prop('disabled', true);
 
@@ -514,16 +526,19 @@
 						contentType: false,
 						processData: false,
 						beforeSend: function () {
-							$('#loadingButton').click();
+							// $('#loadingButton').click();
+							sweetAlertLoading();
 						},
 						success: function(response){
 							var responseData = JSON.parse(response);
 							if(responseData.valid == false){
+            					Swal.close();
                                 $('#errorText').text(responseData.msg);
                                 $('#errorButton').click();
 								closeAllModal();
 								// Close successModal after 2 seconds and trigger redirection
 							} else {
+            					Swal.close();
 								// alert(responseData.msg);
                                 $('#successButton').click();
 
