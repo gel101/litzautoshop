@@ -594,7 +594,7 @@ session_start();
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            alert("Error: " + errorThrown);
+                            alert("Check Internet Connection: " + errorThrown);
                         },
                     });
                 }

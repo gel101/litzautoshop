@@ -518,7 +518,7 @@ include 'db/connection.php';
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            alert("Error: " + errorThrown);
+                            alert("Check Internet Connection: " + errorThrown);
                             $('#loadingModal').modal('hide');
                         },
                         complete: function () {

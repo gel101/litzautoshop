@@ -386,7 +386,7 @@ include 'db/connection.php';
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
                                 $('#loadingModal').modal('hide'); // Hide the modal on error
-                                alert("Error: " + errorThrown);
+                                alert("Check Internet Connection: " + errorThrown);
                             },
                             complete: function () {
                                 $('#loadingModal').modal('hide');
@@ -469,7 +469,7 @@ include 'db/connection.php';
                                         $('#loadingModal').modal('hide');
                                     },
                                     // error: function (jqXHR, textStatus, errorThrown) {
-                                    //     alert("Error: " + errorThrown);
+                                    //     alert("Check Internet Connection: " + errorThrown);
                                     //     $('#loadingModal').modal('hide'); // Hide the modal on error
                                     // },
                                     complete: function () {
@@ -487,7 +487,7 @@ include 'db/connection.php';
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             $('#loadingModal').modal('hide'); // Hide the modal on error
-                            alert("Error: " + errorThrown);
+                            alert("Check Internet Connection: " + errorThrown);
                         }
                     });
 
@@ -578,7 +578,7 @@ include 'db/connection.php';
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         $('#loadingModal').modal('hide'); // Hide the modal on error
-                        alert("Error: " + errorThrown);
+                        alert("Check Internet Connection: " + errorThrown);
                     },
                     complete: function () {
                         // This function will be executed after success or error

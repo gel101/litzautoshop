@@ -1141,7 +1141,7 @@ session_start();
                                         $('#loadingModal').modal('hide');
                                     },
                                     // error: function (jqXHR, textStatus, errorThrown) {
-                                    //     alert("Error: " + errorThrown);
+                                    //     alert("Check Internet Connection: " + errorThrown);
                                     //     $('#loadingModal').modal('hide'); // Hide the modal on error
                                     // },
                                     complete: function () {
@@ -1158,7 +1158,7 @@ session_start();
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             $('#loadingModal').modal('hide'); // Hide the modal on error
-                            alert("Error: " + errorThrown);
+                            alert("Check Internet Connection: " + errorThrown);
                         }
                     });
 
@@ -1659,7 +1659,7 @@ session_start();
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         $('#loadingModal').modal('hide'); // Hide the modal on error
-                        alert("Error: " + errorThrown);
+                        alert("Check Internet Connection: " + errorThrown);
                     },
                     complete: function () {
                         $('#loadingModal').modal('hide');
@@ -1766,7 +1766,7 @@ session_start();
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         $('#loadingModal').modal('hide'); // Hide the modal on error
-                        alert("Error: " + errorThrown);
+                        alert("Check Internet Connection: " + errorThrown);
                     },
                     complete: function () {
                         $('#loadingModal').modal('hide');
@@ -2021,7 +2021,7 @@ session_start();
                                     $('#loadingModal').modal('hide');
                                 },
                                 // error: function (jqXHR, textStatus, errorThrown) {
-                                //     alert("Error: " + errorThrown);
+                                //     alert("Check Internet Connection: " + errorThrown);
                                 //     $('#loadingModal').modal('hide'); // Hide the modal on error
                                 // },
                                 complete: function () {
@@ -2038,7 +2038,7 @@ session_start();
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
-                        alert("Error: " + errorThrown);
+                        alert("Check Internet Connection: " + errorThrown);
                         $('#loadingModal').modal('hide'); // Hide the modal on error
                     }
                 });
@@ -2129,7 +2129,7 @@ session_start();
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         $('#loadingModal').modal('hide'); // Hide the modal on error
-                        alert("Error: " + errorThrown);
+                        alert("Check Internet Connection: " + errorThrown);
                     },
                     complete: function () {
                         $('#loadingModal').modal('hide');
@@ -2221,7 +2221,7 @@ session_start();
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         $('#loadingModal').modal('hide'); // Hide the modal on error
-                        alert("Error: " + errorThrown);
+                        alert("Check Internet Connection: " + errorThrown);
                     },
                     complete: function () {
                         $('#loadingModal').modal('hide');
@@ -2354,7 +2354,7 @@ session_start();
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         $('#loadingModal').modal('hide'); // Hide the modal on error
-                        alert("Error: " + errorThrown);
+                        alert("Check Internet Connection: " + errorThrown);
                     },
                     complete: function () {
                         $('#loadingModal').modal('hide');
@@ -2413,7 +2413,7 @@ session_start();
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             $('#loadingModal').modal('hide'); // Hide the modal on error
-                            alert("Error: " + errorThrown);
+                            alert("Check Internet Connection: " + errorThrown);
                         },
                         complete: function () {
                             $('#loadingModal').modal('hide');

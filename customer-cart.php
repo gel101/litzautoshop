@@ -1210,7 +1210,7 @@ include 'db/connection.php';
                             $('#loadingModal').modal('hide');
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            alert("Error: " + errorThrown);
+                            alert("Check Internet Connection: " + errorThrown);
                             $('#loadingModal').modal('hide'); // Hide the modal on error
                         },
                         complete: function () {
