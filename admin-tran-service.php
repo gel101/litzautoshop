@@ -156,7 +156,7 @@ session_start();
                                                 <?php
                                                     include 'db/connection.php';
 
-                                                    $stmt = mysqli_query($conn, "SELECT * FROM request_services WHERE status!='canceled' ORDER BY request_id DESC");
+                                                    $stmt = mysqli_query($conn, "SELECT * FROM request_services ORDER BY request_id DESC");
                                                     while($data = mysqli_fetch_assoc($stmt)){
                                                 ?>
 

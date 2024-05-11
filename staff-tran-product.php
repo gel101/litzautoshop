@@ -227,7 +227,7 @@ session_start();
                                             <?php
                                             include 'db/connection.php';
 
-                                            $stmt = mysqli_query($conn, "SELECT * FROM orders WHERE status!='canceled' ORDER BY order_id DESC");
+                                            $stmt = mysqli_query($conn, "SELECT * FROM orders ORDER BY order_id DESC");
 
                                             while($data = mysqli_fetch_assoc($stmt)){
                                             ?>
