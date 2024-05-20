@@ -384,7 +384,13 @@ while ($productRow = mysqli_fetch_assoc($productQuery)) {
     }else {
         $textMessage .= $productRow['product'] . "(" . $productRow['quantity'] . "x) ₱" . number_format($productRow['price'], 2) . ", ";
     }
+    
 }
+
+$textMessage .= "
+
+You can visit the store for the payment.
+";
 
 
 // Please submit the requirements to the store:
