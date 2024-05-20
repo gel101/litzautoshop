@@ -97,7 +97,7 @@ if (isset($_POST['dataURL']) && isset($_POST['filename']) && isset($_POST['submi
                 'engine' => 'Engine',
                 'price' => 'Price');
             $columns1 = implode(', ', $display_columns1);
-            $query1 = "SELECT $columns1 FROM cars WHERE status IS NULL ";
+            $query1 = "SELECT $columns1 FROM cars WHERE (sold = 0 and status IS NULL) ";
             $result1 = mysqli_query($conn, $query1) or die("Database error: " . mysqli_error($conn));
 
             // Calculate the total quantity
